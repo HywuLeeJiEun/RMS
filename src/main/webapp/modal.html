@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 모달 영역! -->
+	   <div class="modal fade" id="UserUpdateModal" role="dialog">
+		   <div class="modal-dialog">
+		    <div class="modal-content">
+		     <div class="modal-header">
+		      <button type="button" class="close" data-dismiss="modal">×</button>
+		      <h3 class="modal-title" align="center">개인정보 수정</h3>
+		     </div>
+		     <!-- 모달에 포함될 내용 -->
+		     <form method="post" action="/BBS/ModalUpdateAction.jsp" id="modalform">
+		     <div class="modal-body">
+		     		<div class="row">
+		     			<div class="col-md-12" style="visibility:hidden">
+		     				<a type="button" class="close" >취소</a>
+		     				<a type="button" class="close" >취소</a>
+		     			</div>
+		     			<div class="col-md-3" style="visibility:hidden">
+		     			</div>
+		     			<div class="col-md-6 form-outline">
+		     				<label class="col-form-label">ID </label>
+		     				<input type="text" maxlength="20" class="form-control" readonly style="width:100%" id="updateid" name="updateid"  value="">
+		     			</div>
+		     			<div class="col-md-3">
+		     				<label class="col-form-label"> &nbsp; </label>
+						</div>
+						<div class="col-md-12" style="visibility:hidden">
+		     				<a type="button" class="close" >취소</a>
+		     				<a type="button" class="close" >취소</a>
+		     			</div>
+		     			
+		     			
+		     			<div class="col-md-3" style="visibility:hidden">
+		     			</div>
+		     			<div class="col-md-6 form-outline">
+		     				<label class="col-form-label"> Password </label>
+		     				<input type="password" maxlength="20" required class="form-control" style="width:100%" id="password" name="password" value="">
+		     			</div>
+		     			<div class="col-md-3">
+		     				<label class="col-form-label"> &nbsp; </label>
+		     				<i class="glyphicon glyphicon-eye-open" id="icon" style="right:20%; top:35px;" ></i>
+						</div>
+		     			<div class="col-md-12" style="visibility:hidden">
+		     				<a type="button" class="close" >취소</a>
+		     				<a type="button" class="close" >취소</a>
+		     			</div>
+		     			
+		     			
+		     			<div class="col-md-3" style="visibility:hidden">
+		     			</div>
+		     			<div class="col-md-6 form-outline">
+		     				<label class="col-form-label">name </label>
+		     				<input type="text" maxlength="20" required class="form-control" style="width:100%" id="name" name="name"  value="">
+		     			</div>
+		     			<div class="col-md-3">
+		     				<label class="col-form-label"> &nbsp; </label>
+		     				<!-- <button type="submit" class="btn btn-primary pull-left form-control" >확인</button> -->
+						</div>
+		     			<div class="col-md-12" style="visibility:hidden">
+		     				<a type="button" class="close" >취소</a>
+		     				<a type="button" class="close" >취소</a>
+		     			</div>
+		     			
+		     			
+		     			<div class="col-md-3" style="visibility:hidden">
+		     			</div>
+		     			<div class="col-md-6 form-outline">
+		     				<label class="col-form-label">rank </label>
+		     				<input type="text" required class="form-control" data-toggle="tooltip" data-placement="bottom" title="직급 변경은 관리자 권한이 필요합니다." readonly style="width:100%" id="rank" name="rank"  value="">
+		     			</div>
+		     			<div class="col-md-3">
+		     				<label class="col-form-label"> &nbsp; </label>
+		     				<!-- <button type="submit" class="btn btn-primary pull-left form-control" >확인</button> -->
+						</div>
+		     			<div class="col-md-12" style="visibility:hidden">
+		     				<a type="button" class="close" >취소</a>
+		     				<a type="button" class="close" >취소</a>
+		     			</div>
+		     			
+		     			
+		     			<div class="col-md-3" style="visibility:hidden">
+		     			</div>
+		     			<div class="col-md-4 form-outline">
+		     				<label class="col-form-label">email </label>
+		     				<input type="text" maxlength="30" required class="form-control" style="width:100%" id="email" name="email"  value=""> 
+		     			</div>
+		     			<div class="col-md-3" align="left" style="top:5px; right:20px">
+		     				<label class="col-form-label" > &nbsp; </label>
+		     				<div><i>@ s-oil.com</i></div>
+						</div>
+		     			<div class="col-md-12" style="visibility:hidden">
+		     				<a type="button" class="close" >취소</a>
+		     				<a type="button" class="close" >취소</a>
+		     			</div>
+		     			
+		     			
+		     			<div class="col-md-3" style="visibility:hidden">
+		     			</div>
+		     			<div class="col-md-6 form-outline">
+		     				<label class="col-form-label">duty </label>
+		     				<input type="text" required class="form-control" readonly data-toggle="tooltip" data-placement="bottom" title="업무 변경은 관리자 권한이 필요합니다." style="width:100%" id="duty" name="duty" value="">
+		     			</div>
+		     			<div class="col-md-3">
+		     				<label class="col-form-label"> &nbsp; </label>
+		     				<!-- <button type="submit" class="btn btn-primary pull-left form-control" >확인</button> -->
+						</div>
+		     			<div class="col-md-12" style="visibility:hidden">
+		     				<a type="button" class="close" >취소</a>
+		     				<a type="button" class="close" >취소</a>
+		     			</div>
+		     		</div>	
+		     </div>
+		     <div class="modal-footer">
+			     <div class="col-md-3" style="visibility:hidden">
+     			</div>
+     			<div class="col-md-6">
+			     	<button type="submit" class="btn btn-primary pull-left form-control" id="modalbtn" >수정</button>
+		     	</div>
+		     	 <div class="col-md-3" style="visibility:hidden">
+	   			</div>	
+		    </div>
+		    </form>
+		   </div>
+	  </div>
+	</div>
+</body>
+</html>
