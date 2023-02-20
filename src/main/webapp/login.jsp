@@ -31,7 +31,7 @@ if(id != null){
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
 	script.println("alert('현재 로그인 중입니다.')");
-	script.println("location.href='/BBS/user/bbs.jsp'");
+	script.println("location.href='/RMS/user/bbs.jsp'");
 	script.println("</script>");
 }
 

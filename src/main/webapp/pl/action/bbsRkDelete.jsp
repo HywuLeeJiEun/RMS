@@ -65,7 +65,7 @@
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('요약본이 삭제 되었습니다.')");
-				script.println("location.href='/BBS/pl/summaryRk.jsp'");
+				script.println("location.href='/RMS/pl/summaryRk.jsp'");
 				script.println("</script>");
 			}  
 		}

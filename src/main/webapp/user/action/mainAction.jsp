@@ -96,7 +96,7 @@
 				}
 				
 				
-				//bbstarget - 완료목표일 
+				//bbstarget - 완료목표일
 				String c = "bbsTarget";
 				String bbstarget = "";
 				if(request.getParameter(a+i) != null) {
@@ -107,17 +107,23 @@
 					}
 				}
 				
-				//bbsend - 진행율/완료일
+				//bbsend - 진행율/완료일  ( - => / )
 				String d = "bbsEnd";
 				String bbsend = "";
 				if(request.getParameter(a+i) != null) {
 					if(request.getParameter(d+i).isEmpty() || request.getParameter(d+i) == null) {
 						bbsend = "[보류]";
-						
 					} else {
-						bbsend = request.getParameter(d+i);	
+						if(request.getParameter(d+i).indexOf("-") > -1) {
+							bbsend = request.getParameter(d+i).replaceAll("-", "/");	
+						} else {
+							bbsend = request.getParameter(d+i);	
+						}
+						//5글자 이상으로 작성된 데이터를 제거하기 위함!
+						if(bbsend.length() > 5) {
+							bbsend = bbsend.substring(5);
+						}
 					}
-					
 					//줄바꿈 제거(임의 변경을 최소화 하기 위함)
 					bbsend = bbsend.replaceAll(System.lineSeparator(), "");
 				}

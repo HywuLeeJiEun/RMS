@@ -71,13 +71,21 @@
 		} else {
 			//2. 담당 업무가 있는 경우
 			for(int i=0; i < code.size(); i++) {
-				//task_num을 받아옴.
-				String task_num = code.get(i);
-				// task_num을 통해 업무명을 가져옴.
-				String manager = userDAO.getManager(task_num);
-				works.add(manager+"\n"); //즉, work 리스트에 모두 담겨 저장됨
+				if(i < code.size()-1) {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager+"/"); //즉, work 리스트에 모두 담겨 저장됨
+				} else {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager); //즉, work 리스트에 모두 담겨 저장됨
+				}
 			}
-			workSet = String.join("/",works);
+			workSet = String.join("\n",works) + "\n";
 		}
 		
 		// 사용자 정보 담기
@@ -122,7 +130,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/BBS/user/bbs.jsp">Report Management System</a>
+			<a class="navbar-brand" href="/RMS/user/bbs.jsp">Report Management System</a>
 		</div>
 		
 		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->
@@ -134,7 +142,7 @@
 							aria-expanded="false">주간보고<span class="caret"></span></a>
 						<!-- 드랍다운 아이템 영역 -->	
 						<ul class="dropdown-menu">
-							<li ><a href="/BBS/admin/bbsAdmin.jsp">조회</a></li>
+							<li ><a href="/RMS/admin/bbsAdmin.jsp">조회</a></li>
 							<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
 						</ul>
 					</li>
@@ -148,13 +156,13 @@
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
 								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %></h5></li>
-								<li><a href="/BBS/pl/bbsRk.jsp">조회 및 출력</a></li>
+								<li><a href="/RMS/pl/bbsRk.jsp">조회 및 출력</a></li>
 								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %> Summary</h5></li>
-								<li><a href="/BBS/pl/summaryRk.jsp">조회</a></li>
-								<li id="summary_nav"><a href="/BBS/pl/bbsRkwrite.jsp">작성</a></li>
-								<li><a href="/BBS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
+								<li><a href="/RMS/pl/summaryRk.jsp">조회</a></li>
+								<li id="summary_nav"><a href="/RMS/pl/bbsRkwrite.jsp">작성</a></li>
+								<li><a href="/RMS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
 								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
-								<li class="active" id="summary_nav"><a href="/BBS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
+								<li id="summary_nav"><a href="/RMS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
 							</ul>
 							</li>
 						<%
@@ -169,9 +177,9 @@
 								aria-expanded="false">summary<span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
-								<li class="active"><a href="/BBS/admin/summaryadRk.jsp">조회 및 승인</a></li>
-								<!-- <li><a href="/BBS/admin/summaryadAdmin.jsp">작성</a></li>
-								<li><a href="/BBS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
+								<li class="active"><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
+								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
+								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
 								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
 							</ul>
 							</li>
@@ -195,7 +203,7 @@
 					if(au.equals("관리자") || au.equals("PL")) {
 					%>
 						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
-						<li><a href="/BBS/admin/work/workChange.jsp">담당업무 변경</a></li>
+						<li><a href="/RMS/admin/work/workChange.jsp">담당업무 변경</a></li>
 						<li><a href="../logoutAction.jsp">로그아웃</a></li>
 					<%
 					} else {
@@ -332,7 +340,7 @@
 						<%-- <td><%= list.get(i).getBbsDeadline() %></td> --%>
 						<td style="text-align: left">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/BBS/admin/summaryadRkUpdate.jsp?rms_dl=<%= dl %>" data-toggle="tooltip" data-html="true" data-placement="bottom" title="미승인 상태인 경우, 수정 및 삭제가 가능합니다.">
+						<a href="/RMS/admin/summaryadRkUpdate.jsp?rms_dl=<%= dl %>" data-toggle="tooltip" data-html="true" data-placement="bottom" title="미승인 상태인 경우, 수정 및 삭제가 가능합니다.">
 							[<%= etitle+plus+wtitle %>] - summary (<%= dl %>)</a></td>
 						<td><%= date.substring(0, 11) + date.substring(11, 13) +"시"+ date.substring(14, 16)+"분" %></td>
 						<td><%= writer %></td>
@@ -340,7 +348,7 @@
 						<td><%= getSign %></td>
 						<td data-toggle="tooltip" data-html="true" data-placement="right" title="승인시, <br>수정이 불가합니다.">
 						<% if((dldate.after(today) || dldate.equals(today))  && getSign.equals("미승인")) { %>
-							<a class="btn btn-success" style="font-size:12px" href="/BBS/admin/action/summaryadsignOnAction.jsp?rms_dl=<%= dl %>" onclick="return confirm('승인하시겠습니까?\n승인시, 수정이 불가합니다.')"> 승인 </a>
+							<a class="btn btn-success" style="font-size:12px" href="/RMS/admin/action/summaryadsignOnAction.jsp?rms_dl=<%= dl %>" onclick="return confirm('승인하시겠습니까?\n승인시, 수정이 불가합니다.')"> 승인 </a>
 						<% }else if((dldate.after(today) || dldate.equals(today))  && getSign.equals("승인")){ //승인 상태라면 %>
 							완료
 						<% }else{ //summary - 마감 상태는 아직 존재하지 않음!
@@ -368,18 +376,18 @@
 			<%
 				if(pageNumber != 1){
 			%>
-				<a href="/BBS/admin/summaryadRk.jsp?pageNumber=<%=pageNumber - 1 %>"
+				<a href="/RMS/admin/summaryadRk.jsp?pageNumber=<%=pageNumber - 1 %>"
 					class="btn btn-success btn-arraw-left">이전</a>
 			<%
 				}if(afdllist.size() != 0){
 			%>
-				<a href="/BBS/admin/summaryadRk.jsp?pageNumber=<%=pageNumber + 1 %>"
+				<a href="/RMS/admin/summaryadRk.jsp?pageNumber=<%=pageNumber + 1 %>"
 					class="btn btn-success btn-arraw-left" id="next">다음</a>
 			<%
 				}
 			%>
 			<%-- <a href="ppt.jsp?bbsDeadline=<%=list.get(0).getBbsDeadline()%>&pluser=<%= work %>" style="width:50px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력" id="pptx" type="button"> 요약 pptx</a> --%>
-			<!-- <a href="/BBS/admin/summaryadAdmin.jsp" style="width:50px;" class="btn btn-info pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="[ERP/WEB] 요약본 작성" id="summary"> 작성 </a> -->
+			<!-- <a href="/RMS/admin/summaryadAdmin.jsp" style="width:50px;" class="btn btn-info pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="[ERP/WEB] 요약본 작성" id="summary"> 작성 </a> -->
 		</div>
 	</div>
 	<!-- 게시판 메인 페이지 영역 끝 -->

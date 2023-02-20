@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.util.List"%>
 <%@page import="java.io.FileInputStream"%>
@@ -14,7 +15,7 @@
 <body>
 <%
 	//원본파일 경로
-	String file = "C:\\Users\\gkdla\\git\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\test.pptx";
+	String file = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\test.pptx";
 	
 	//원본파일을 읽어들인다.
 	XMLSlideShow ppt = new XMLSlideShow(new FileInputStream(file));
@@ -43,14 +44,17 @@
 	}
 	
 	//파일 저장하기
-	String fileName = "ex.pptx";
-	FileInputStream in = new FileInputStream(file);
+	//String fileName = "ex.pptx";
+	String fileName = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\test.pptx";
 	
-	fileName = new String(fileName.getBytes("utf-8"), "8859_1");
+	//파일 저장하기
+	File dFile = new File(fileName);
+	FileInputStream in = new FileInputStream(fileName);
+	int fSize = (int)dFile.length();
 	
+	fileName = new String(fileName.getBytes("utf-8"),"8859_1");
 	response.setContentType("application/octet-stream");
-	response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-	
+	response.setHeader("Content-Disposition","attachment; filename=test.pptx");
 	out.clear();
 	out = pageContext.pushBody();
 	
@@ -59,16 +63,13 @@
 	int length;
 	byte[] b = new byte[(int)file.length()];
 	
-	while ((length = in.read(b)) >0) {
+	while ((length = in.read(b)) > 0) {
 		os.write(b,0,length);
 	}
 	
-	os.flush();  
-	
-	FileOutputStream ppt_out = new FileOutputStream("powerpoint.pptx");
-	ppt.write(ppt_out);
-	ppt_out.close();
-	ppt.close();
+	os.flush();
+	os.close();
+	in.close();
 %>
 </body>
 </html>

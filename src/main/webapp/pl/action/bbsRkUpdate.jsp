@@ -92,7 +92,7 @@
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('정상적으로 요약본이 수정되었습니다.')");
-		script.println("location.href='/BBS/pl/summaryUpdateDelete.jsp'");
+		script.println("location.href='/RMS/pl/summaryUpdateDelete.jsp'");
 		script.println("</script>");
 	}  
 	%>

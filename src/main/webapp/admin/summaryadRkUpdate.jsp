@@ -67,13 +67,21 @@
 		} else {
 			//2. 담당 업무가 있는 경우
 			for(int i=0; i < code.size(); i++) {
-				//task_num을 받아옴.
-				String task_num = code.get(i);
-				// task_num을 통해 업무명을 가져옴.
-				String manager = userDAO.getManager(task_num);
-				works.add(manager+"\n"); //즉, work 리스트에 모두 담겨 저장됨
+				if(i < code.size()-1) {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager+"/"); //즉, work 리스트에 모두 담겨 저장됨
+				} else {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager); //즉, work 리스트에 모두 담겨 저장됨
+				}
 			}
-			workSet = String.join("/",works);
+			workSet = String.join("\n",works) + "\n";
 		}
 		
 		// 사용자 정보 담기
@@ -93,7 +101,7 @@
 		if(!au.equals("관리자") && !au.equals("PL")) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href='/BBS/user/bbs.jsp'");
+			script.println("location.href='/RMS/user/bbs.jsp'");
 			script.println("</script>");
 		}
 		
@@ -146,7 +154,7 @@
 		int eSize = erp.size();
 		%>
 
-	  <!-- ************ 상단 네비게이션바 영역 ************* -->
+	   <!-- ************ 상단 네비게이션바 영역 ************* -->
 	<nav class="navbar navbar-default"> 
 		<div class="navbar-header"> 
 			<!-- 네비게이션 상단 박스 영역 -->
@@ -158,40 +166,44 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/BBS/user/bbs.jsp">Report Management System</a>
+			<a class="navbar-brand" href="/RMS/user/bbs.jsp">Report Management System</a>
 		</div>
 		
 		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-left">
-					<li class="dropdown">
+					<li class="dropdown ">
 						<a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">주간보고<span class="caret"></span></a>
 						<!-- 드랍다운 아이템 영역 -->	
 						<ul class="dropdown-menu">
-							<li><a href="/BBS/user/bbsAdmin.jsp">조회</a></li>
-							<!-- <li><a href="bbsUpdate.jsp">작성</a></li>
-							<li><a href="bbsUpdateDelete.jsp">수정/삭제</a></li>
-							<li><a href="signOn.jsp">승인(제출)</a></li> -->
+							<li ><a href="/RMS/admin/bbsAdmin.jsp">조회</a></li>
+							<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
 						</ul>
 					</li>
 						<%
-						 if (au.equals("PL")) {
+							if(au.equals("PL")) {
 						%>
 							<li class="dropdown">
 							<a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false">요약본<span class="caret"></span></a>
+								aria-expanded="false"><%= pl %><span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
-						
 							<ul class="dropdown-menu">
-								<li><a href="/BBS/pl/bbsRk.jsp">작성</a></li>
+								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %></h5></li>
+								<li><a href="/RMS/pl/bbsRk.jsp">조회 및 출력</a></li>
+								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %> Summary</h5></li>
+								<li><a href="/RMS/pl/summaryRk.jsp">조회</a></li>
+								<li id="summary_nav"><a href="/RMS/pl/bbsRkwrite.jsp">작성</a></li>
+								<li><a href="/RMS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
+								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
+								<li id="summary_nav"><a href="/RMS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
 							</ul>
-						<%
-						 }
-						%>
 							</li>
+						<%
+							}
+						%>
 						<%
 							if(au.equals("관리자") || au.equals("PL")) {
 						%>
@@ -201,9 +213,9 @@
 								aria-expanded="false">summary<span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
-								<li class="active"><a href="/BBS/admin/summaryadRk.jsp">조회 및 승인</a></li>
-								<!-- <li><a href="/BBS/admin/summaryadAdmin.jsp">작성</a></li>
-								<li class="active"><a href="/BBS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
+								<li class="active"><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
+								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
+								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
 								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
 							</ul>
 							</li>
@@ -227,14 +239,12 @@
 					if(au.equals("관리자") || au.equals("PL")) {
 					%>
 						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
-						<li><a href="/BBS/admin/work/workChange.jsp">담당업무 변경</a></li>
+						<li><a href="/RMS/admin/work/workChange.jsp">담당업무 변경</a></li>
 						<li><a href="../logoutAction.jsp">로그아웃</a></li>
 					<%
 					} else {
 					%>
-						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a>
-						
-						</li>
+						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
 						<li><a href="../logoutAction.jsp">로그아웃</a></li>
 					<%
 					}
@@ -302,7 +312,7 @@
 	 </div>
 	 
 	<div class="container-fluid" style="width:1200px">
-	<form method="post" action="/BBS/admin/action/bbsRkAdminUpdate.jsp" id="bbsRk">
+	<form method="post" action="/RMS/admin/action/bbsRkAdminUpdate.jsp" id="bbsRk">
 		<div class="row">
 			<div class="container-fluid">
 				<!-- 금주 업무 실적 테이블 -->
@@ -558,15 +568,15 @@
 			if(getSign.equals("미승인")) {
 				if(etlist.size() != 0 && wtlist.size() != 0) {
 			%>
-				<button type="button" class="btn btn-primary pull-right" style="width:50px; text-align:center; align:center; margin-left:10px" onClick="location.href='/BBS/admin/summaryadRk.jsp'">목록</button> 
+				<button type="button" class="btn btn-primary pull-right" style="width:50px; text-align:center; align:center; margin-left:10px" onClick="location.href='/RMS/admin/summaryadRk.jsp'">목록</button> 
 				<button type="button" class="btn btn-success pull-right" style="width:50px; margin-left:10px; text-align:center; align:center" onclick="signOn()">승인</button> 
 				<button type="button" class="btn btn-info pull-right" style="width:50px; text-align:center; align:center" onclick="update()">수정</button> 
 		<%		} else { %>
-					<button type="button" class="btn btn-primary pull-right" style="width:50px; text-align:center; align:center; margin-left:10px" onClick="location.href='/BBS/admin/summaryadRk.jsp'">목록</button> 
+					<button type="button" class="btn btn-primary pull-right" style="width:50px; text-align:center; align:center; margin-left:10px" onClick="location.href='/RMS/admin/summaryadRk.jsp'">목록</button> 
 		<% 		} %>
 		<% } %>
 		<% if(getSign.equals("승인") || getSign.equals("마감")) {  //승인이나 마감 상태시에만 pptx로 출력 가능!%>
-				<button type="button" class="btn btn-primary pull-right" style="width:50px; text-align:center; align:center; margin-left:20px" onClick="location.href='/BBS/admin/summaryadRk.jsp'">목록</button> 
+				<button type="button" class="btn btn-primary pull-right" style="width:50px; text-align:center; align:center; margin-left:20px" onClick="location.href='/RMS/admin/summaryadRk.jsp'">목록</button> 
 			<% if(etlist.size() != 0 && wtlist.size() != 0) { %>
 				<button type="button" class="btn btn-success pull-right" style="width:50px; text-align:center; align:center" onclick="print()">출력</button> 
 			<% } %>
@@ -756,7 +766,7 @@
 			alert("WEB - 금주 업무 실적의 '진행율'이 작성되지 않았습니다.");
 		}else {
 			if(confirm("해당 요약본을 승인하시겠습니까? \n승인 처리시, 수정이 불가합니다.")) {
-			$('#bbsRk').attr("action","/BBS/admin/action/summaryadsignOnAction.jsp?rms_dl="+a).submit();
+			$('#bbsRk').attr("action","/RMS/admin/action/summaryadsignOnAction.jsp?rms_dl="+a).submit();
 			} else {
 				
 			}
@@ -769,7 +779,7 @@
 /* 			var innerHtml = '<td><textarea class="textarea" id="ecolor" name="ecolor" style="display:none">'+con.style.backgroundColor+'</textarea></td>';
 				innerHtml += '<td><textarea class="textarea" id="wcolor" name="wcolor" style="display:none">'+wcon.style.backgroundColor+'</textarea></td>';
 			$('#Table > tbody > tr:last').append(innerHtml); */
-			$('#bbsRk').attr("action","/BBS/admin/pptx/pptAdmin.jsp").submit();
+			$('#bbsRk').attr("action","/RMS/admin/pptx/pptAdmin.jsp").submit();
 		}
 	</script>
 	

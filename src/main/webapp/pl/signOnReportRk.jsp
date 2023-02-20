@@ -65,13 +65,21 @@
 		} else {
 			//2. 담당 업무가 있는 경우
 			for(int i=0; i < code.size(); i++) {
-				//task_num을 받아옴.
-				String task_num = code.get(i);
-				// task_num을 통해 업무명을 가져옴.
-				String manager = userDAO.getManager(task_num);
-				works.add(manager+"\n"); //즉, work 리스트에 모두 담겨 저장됨
+				if(i < code.size()-1) {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager+"/"); //즉, work 리스트에 모두 담겨 저장됨
+				} else {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager); //즉, work 리스트에 모두 담겨 저장됨
+				}
 			}
-			workSet = String.join("/",works);
+			workSet = String.join("\n",works) + "\n";
 		}
 		
 		// 사용자 정보 담기
@@ -100,7 +108,7 @@
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('유효하지 않은 글입니다')");
-			script.println("location.href='/BBS/user/bbs.jsp'");
+			script.println("location.href='/RMS/user/bbs.jsp'");
 			script.println("</script");
 		}
 
@@ -167,7 +175,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/BBS/user/bbs.jsp">Report Management System</a>
+			<a class="navbar-brand" href="/RMS/user/bbs.jsp">Report Management System</a>
 		</div>
 		
 		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->
@@ -180,13 +188,13 @@
 						<!-- 드랍다운 아이템 영역 -->	
 					<% if(au.equals("관리자")) { %>
 						<ul class="dropdown-menu">
-							<li class="active"><a href="/BBS/user/bbs.jsp">조회</a></li>
+							<li class="active"><a href="/RMS/user/bbs.jsp">조회</a></li>
 						</ul>
 					<% }else { %>
 						<ul class="dropdown-menu">
-							<li><a href="/BBS/user/bbs.jsp">조회</a></li>
-							<li><a href="/BBS/user/bbsUpdate.jsp">작성</a></li>
-							<li><a href="/BBS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
+							<li><a href="/RMS/user/bbs.jsp">조회</a></li>
+							<li><a href="/RMS/user/bbsUpdate.jsp">작성</a></li>
+							<li><a href="/RMS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
 							<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
 						</ul>
 					<% } %>
@@ -201,13 +209,13 @@
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
 								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %></h5></li>
-								<li class="active"><a href="/BBS/pl/bbsRk.jsp">조회 및 출력</a></li>
+								<li class="active"><a href="/RMS/pl/bbsRk.jsp">조회 및 출력</a></li>
 								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %> Summary</h5></li>
-								<li><a href="/BBS/pl/summaryRk.jsp">조회</a></li>
-								<li id="summary_nav"><a href="/BBS/pl/bbsRkwrite.jsp>">작성</a></li>
-								<li><a href="/BBS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
+								<li><a href="/RMS/pl/summaryRk.jsp">조회</a></li>
+								<li id="summary_nav"><a href="/RMS/pl/bbsRkwrite.jsp>">작성</a></li>
+								<li><a href="/RMS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
 								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
-								<li id="summary_nav"><a href="/BBS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
+								<li id="summary_nav"><a href="/RMS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
 							</ul>
 							</li>
 						<%
@@ -222,9 +230,9 @@
 								aria-expanded="false">summary<span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
-								<li><a href="/BBS/admin/summaryadRk.jsp">조회 및 승인</a></li>
-								<!-- <li><a href="/BBS/admin/summaryadAdmin.jsp">작성</a></li>
-								<li><a href="/BBS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
+								<li><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
+								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
+								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
 								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
 							</ul>
 							</li>
@@ -248,7 +256,7 @@
 					if(au.equals("관리자")||au.equals("PL")) {
 					%>
 						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
-						<li><a href="/BBS/admin/work/workChange.jsp">담당업무 변경</a></li>
+						<li><a href="/RMS/admin/work/workChange.jsp">담당업무 변경</a></li>
 						<li><a href="../logoutAction.jsp">로그아웃</a></li>
 					<%
 					} else {
@@ -291,7 +299,7 @@
 		
 		<div class="container">
 			<div class="row">
-				<form method="post"  action="/BBS/user/action/updateAction.jsp" id="main" name="main" onsubmit="return false">
+				<form method="post"  action="/RMS/user/action/updateAction.jsp" id="main" name="main" onsubmit="return false">
 					<table class="table" id="bbsTable" style="text-align: center; border: 1px solid #dddddd; cellpadding:50px;" >
 						<thead>
 							<tr>
@@ -421,7 +429,7 @@
 						<!-- 계정 관리 끝 -->
 						<div id="wrapper" style="width:100%; text-align: center;">
 						<!-- 목록 -->
-						<a href="/BBS/pl/bbsRk.jsp?rms_dl=<%= rms_dl %>&pageNumber=<%= pageNumber %>" class="btn btn-primary pull-right" style="margin-bottom:100px; margin-left:20px">목록</a>
+						<a href="/RMS/pl/bbsRk.jsp?rms_dl=<%= rms_dl %>&pageNumber=<%= pageNumber %>" class="btn btn-primary pull-right" style="margin-bottom:100px; margin-left:20px">목록</a>
 					</div>					
 				</form>
 			</div>

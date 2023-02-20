@@ -69,13 +69,21 @@
 		} else {
 			//2. 담당 업무가 있는 경우
 			for(int i=0; i < code.size(); i++) {
-				//task_num을 받아옴.
-				String task_num = code.get(i);
-				// task_num을 통해 업무명을 가져옴.
-				String manager = userDAO.getManager(task_num);
-				works.add(manager+"\n"); //즉, work 리스트에 모두 담겨 저장됨
+				if(i < code.size()-1) {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager+"/"); //즉, work 리스트에 모두 담겨 저장됨
+				} else {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager); //즉, work 리스트에 모두 담겨 저장됨
+				}
 			}
-			workSet = String.join("/",works);
+			workSet = String.join("\n",works) + "\n";
 		}
 		
 		// 사용자 정보 담기
@@ -214,7 +222,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/BBS/user/bbs.jsp">Report Management System</a>
+			<a class="navbar-brand" href="/RMS/user/bbs.jsp">Report Management System</a>
 		</div>
 		
 		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->
@@ -226,9 +234,9 @@
 							aria-expanded="false">주간보고<span class="caret"></span></a>
 						<!-- 드랍다운 아이템 영역 -->	
 						<ul class="dropdown-menu">
-							<li><a href="/BBS/user/bbs.jsp">조회</a></li>
-							<li><a href="/BBS/user/bbsUpdate.jsp">작성</a></li>
-							<li><a href="/BBS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
+							<li><a href="/RMS/user/bbs.jsp">조회</a></li>
+							<li><a href="/RMS/user/bbsUpdate.jsp">작성</a></li>
+							<li><a href="/RMS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
 							<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
 						</ul>
 					</li>
@@ -242,13 +250,13 @@
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
 								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %></h5></li>
-								<li class="active"><a href="/BBS/pl/bbsRk.jsp">조회 및 출력</a></li>
+								<li class="active"><a href="/RMS/pl/bbsRk.jsp">조회 및 출력</a></li>
 								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %> Summary</h5></li>
-								<li><a href="/BBS/pl/summaryRk.jsp">조회</a></li>
-								<li id="summary_nav"><a href="/BBS/pl/bbsRkwrite.jsp">작성</a></li>
-								<li><a href="/BBS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
+								<li><a href="/RMS/pl/summaryRk.jsp">조회</a></li>
+								<li id="summary_nav"><a href="/RMS/pl/bbsRkwrite.jsp">작성</a></li>
+								<li><a href="/RMS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
 								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
-								<li id="summary_nav"><a href="/BBS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
+								<li id="summary_nav"><a href="/RMS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
 							</ul>
 							</li>
 						<%
@@ -263,9 +271,9 @@
 								aria-expanded="false">summary<span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
-								<li><a href="/BBS/admin/summaryadRk.jsp">조회 및 승인</a></li>
-								<!-- <li><a href="/BBS/admin/summaryadAdmin.jsp">작성</a></li>
-								<li><a href="/BBS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
+								<li><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
+								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
+								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
 								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
 							</ul>
 							</li>
@@ -289,7 +297,7 @@
 					if(au.equals("PL")||au.equals("관리자")) {
 					%>
 						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
-						<li><a href="/BBS/admin/work/workChange.jsp">담당업무 변경</a></li>
+						<li><a href="/RMS/admin/work/workChange.jsp">담당업무 변경</a></li>
 						<li><a href="../logoutAction.jsp">로그아웃</a></li>
 					<%
 					} else {
@@ -354,7 +362,7 @@
 						<td><select class="form-control" name="searchField" id="searchField" onchange="if(this.value) location.href=(this.value);">
 								<option value="rms_dl" selected="selected"><%= rms_dl %></option>
 						<% for(int i=0; i < dllist.size(); i++) { %>
-								<option value="/BBS/pl/bbsRk.jsp?rms_dl=<%= dllist.get(i).getRms_dl() %>"><%= dllist.get(i).getRms_dl() %></option>
+								<option value="/RMS/pl/bbsRk.jsp?rms_dl=<%= dllist.get(i).getRms_dl() %>"><%= dllist.get(i).getRms_dl() %></option>
 						<% } %>
 						</select></td>
 						<!-- <td><button type="submit" style="margin:5px" class="btn btn-success">검색</button></td> -->
@@ -418,7 +426,7 @@
 
 			</thead>
 		</table>
-		<!-- <button style="margin:5px" class="btn btn-primary pull-right" onclick="location.href='/BBS/user/bbs.jsp'">목록</button> -->
+		<!-- <button style="margin:5px" class="btn btn-primary pull-right" onclick="location.href='/RMS/user/bbs.jsp'">목록</button> -->
 	</div>
 	
 	<% 
@@ -463,7 +471,7 @@
 						<td> <%= rmslist.get(i).getRms_dl() %> </td>
 						<td style="text-align: left">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/BBS/pl/signOnReportRk.jsp?rms_dl=<%= rmslist.get(i).getRms_dl() %>&user_id=<%= rmslist.get(i).getUser_id() %>&pageNumber=<%= pageNumber %>">
+						<a href="/RMS/pl/signOnReportRk.jsp?rms_dl=<%= rmslist.get(i).getRms_dl() %>&user_id=<%= rmslist.get(i).getUser_id() %>&pageNumber=<%= pageNumber %>">
 							<%= rmslist.get(i).getRms_title() %></a></td>
 						<td><%= name_list %></td>
 						<td><%= rmslist.get(i).getRms_time().substring(0, 11) + rmslist.get(i).getRms_time().substring(11, 13) + "시"
@@ -480,10 +488,10 @@
 				</tbody>
 			</table>
 			<% if(pl.equals("ERP")) {%>
-			<a href="/BBS/pl/pptx/ppt.jsp?rms_dl=<%=rmslist.get(0).getRms_dl()%>&pluser=<%= pl %>" style="width:50px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력(ERP)" id="pptx" type="button"> 출력</a>
+			<a href="/RMS/pl/pptx/ppt.jsp?rms_dl=<%=rmslist.get(0).getRms_dl()%>&pluser=<%= pl %>" style="width:50px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력(ERP)" id="pptx" type="button"> 출력</a>
 			<% }  %>
 			<% if(pl.equals("WEB")) {%>
-			<a href="/BBS/pl/pptx/ppt.jsp?rms_dl=<%=rmslist.get(0).getRms_dl()%>&pluser=<%= pl %>" style="width:50px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력(WEB)" id="pptx" type="button"> 출력</a>
+			<a href="/RMS/pl/pptx/ppt.jsp?rms_dl=<%=rmslist.get(0).getRms_dl()%>&pluser=<%= pl %>" style="width:50px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력(WEB)" id="pptx" type="button"> 출력</a>
 			<% }  %>
 			<% 	
 			// 현재 시간, 날짜를 구해 이전 데이터는 수정하지 못하도록 함!
@@ -497,7 +505,7 @@
 			Date today = dateFormat.parse(timenow);
 			
 			%>
-			<a href="/BBS/pl/bbsRkwrite.jsp?rms_dl=<%=rms_dl%>" style="width:50px; margin-right:20px" class="btn btn-info pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="요약본(Summary) 작성" id="summary"> 작성</a>
+			<a href="/RMS/pl/bbsRkwrite.jsp?rms_dl=<%=rms_dl%>" style="width:50px; margin-right:20px" class="btn btn-info pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="요약본(Summary) 작성" id="summary"> 작성</a>
 		</div>
 	</div>
 	

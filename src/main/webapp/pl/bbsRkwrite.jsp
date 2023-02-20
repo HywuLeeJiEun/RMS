@@ -98,7 +98,7 @@
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('제출일이 선택되지 않았습니다.')");
-			script.println("location.href='/BBS/pl/bbsRkwrite.jsp'");
+			script.println("location.href='/RMS/pl/bbsRkwrite.jsp'");
 			script.println("</script>"); 
 		} 
 		
@@ -114,13 +114,21 @@
 		} else {
 			//2. 담당 업무가 있는 경우
 			for(int i=0; i < code.size(); i++) {
-				//task_num을 받아옴.
-				String task_num = code.get(i);
-				// task_num을 통해 업무명을 가져옴.
-				String manager = userDAO.getManager(task_num);
-				works.add(manager+"\n"); //즉, work 리스트에 모두 담겨 저장됨
+				if(i < code.size()-1) {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager+"/"); //즉, work 리스트에 모두 담겨 저장됨
+				} else {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager); //즉, work 리스트에 모두 담겨 저장됨
+				}
 			}
-			workSet = String.join("/",works);
+			workSet = String.join("\n",works) + "\n";
 		}
 		
 		// 사용자 정보 담기
@@ -145,7 +153,7 @@
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('해당 날짜로 제출된 요약본이 있습니다.')");
-				script.println("location.href='/BBS/pl/bbsRk.jsp'");
+				script.println("location.href='/RMS/pl/bbsRk.jsp'");
 				script.println("</script>");
 				}
 			}
@@ -243,7 +251,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/BBS/user/bbs.jsp">Report Management System</a>
+			<a class="navbar-brand" href="/RMS/user/bbs.jsp">Report Management System</a>
 		</div>
 		
 		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->
@@ -255,9 +263,9 @@
 							aria-expanded="false">주간보고<span class="caret"></span></a>
 						<!-- 드랍다운 아이템 영역 -->	
 						<ul class="dropdown-menu">
-							<li><a href="/BBS/user/bbs.jsp">조회</a></li>
-							<li><a href="/BBS/user/bbsUpdate.jsp">작성</a></li>
-							<li><a href="/BBS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
+							<li><a href="/RMS/user/bbs.jsp">조회</a></li>
+							<li><a href="/RMS/user/bbsUpdate.jsp">작성</a></li>
+							<li><a href="/RMS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
 							<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
 						</ul>
 					</li>
@@ -271,13 +279,13 @@
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
 								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %></h5></li>
-								<li><a href="/BBS/pl/bbsRk.jsp">조회 및 출력</a></li>
+								<li><a href="/RMS/pl/bbsRk.jsp">조회 및 출력</a></li>
 								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %> Summary</h5></li>
-								<li><a href="/BBS/pl/summaryRk.jsp">조회</a></li>
+								<li><a href="/RMS/pl/summaryRk.jsp">조회</a></li>
 								<li class="active" id="summary_nav"><a href="bbsRkwrite.jsp">작성</a></li>
-								<li><a href="/BBS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
+								<li><a href="/RMS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
 								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
-								<li id="summary_nav"><a href="/BBS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
+								<li id="summary_nav"><a href="/RMS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
 							</ul>
 							</li>
 						<%
@@ -292,9 +300,9 @@
 								aria-expanded="false">summary<span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
-								<li><a href="/BBS/admin/summaryadRk.jsp">조회 및 승인</a></li>
-								<!-- <li><a href="/BBS/admin/summaryadAdmin.jsp">작성</a></li>
-								<li><a href="/BBS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
+								<li><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
+								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
+								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
 								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
 							</ul>
 							</li>
@@ -318,7 +326,7 @@
 					if(au.equals("관리자") || au.equals("PL")) {
 					%>
 						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
-						<li><a href="/BBS/admin/work/workChange.jsp">담당업무 변경</a></li>
+						<li><a href="/RMS/admin/work/workChange.jsp">담당업무 변경</a></li>
 						<li><a href="../logoutAction.jsp">로그아웃</a></li>
 					<%
 					} else {
@@ -348,7 +356,7 @@
 		      <!-- <h3 class="modal-title" align="center">제출일 선택</h3> -->
 		     </div>
 		     <!-- 모달에 포함될 내용 -->
-		     <form method="post" action="/BBS/pl/bbsRkwrite.jsp" id="modalform">
+		     <form method="post" action="/RMS/pl/bbsRkwrite.jsp" id="modalform">
 		     <div class="modal-body">
 		     		<div class="row">
 		     			<div class="col-md-12" style="visibility:hidden">
@@ -363,7 +371,7 @@
 		     				<select class="form-control" name="searchField" id="searchField" onchange="if(this.value) location.href=(this.value);">
 								<option value="rms_dl" selected="selected">[선택]</option>
 							<% for(int i=0; i < dllist.size(); i++) { %>
-									<option value="/BBS/pl/bbsRkwrite.jsp?rms_dl=<%= dllist.get(i).getRms_dl() %>"><%= dllist.get(i).getRms_dl() %></option>
+									<option value="/RMS/pl/bbsRkwrite.jsp?rms_dl=<%= dllist.get(i).getRms_dl() %>"><%= dllist.get(i).getRms_dl() %></option>
 							<% } %>
 							</select>
 							<br>
@@ -383,7 +391,7 @@
 					     <div class="col-md-3" style="visibility:hidden">
 		     			</div>
 		     			<div class="col-md-6">
-					     	<button type="button" class="btn btn-primary pull-right form-control" style="width:30%" onClick="location.href='/BBS/pl/bbsRk.jsp'" >취소</button>
+					     	<button type="button" class="btn btn-primary pull-right form-control" style="width:30%" onClick="location.href='/RMS/pl/bbsRk.jsp'" >취소</button>
 				     	</div>
 				     	 <div class="col-md-3" style="visibility:hidden">
 			   			</div>	
@@ -436,7 +444,7 @@
 	
 	<!-- 목록 조회 table -->
 	<div class="container">
-	<form method="post" action="/BBS/pl/bbsRkwriteFinal.jsp" id="Rkwrite">
+	<form method="post" action="/RMS/pl/bbsRkwriteFinal.jsp" id="Rkwrite">
 		<div class="row">
 			<div class="col-6 col-md-6">
 				<table id="Table" class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
@@ -457,13 +465,14 @@
 						for(int i=0; i< tlist.size(); i++) { //content
 							//content의 "-" 제거하기
 							String bbsContent = "";
-							if(tlist.get(i).getRms_con().indexOf('-') > -1 && tlist.get(i).getRms_con().indexOf('-') < 2) { //맨 앞이 - 라면,
-								bbsContent = tlist.get(i).getRms_con().replaceFirst("-", "");
-							} else { //bbsContent의 앞에 '-'이 없거나, 또는 빈칸일때 -> 이 경우는 저장부터 문제가 발생하는 경우!
+							if(!tlist.get(i).getRms_job().contains("시스템") && !tlist.get(i).getRms_job().contains("기타")) {
+								//선택한 업무가 있다면,
+								bbsContent = "["+tlist.get(i).getRms_job()+"] "+tlist.get(i).getRms_con();
+							} else {
 								bbsContent = tlist.get(i).getRms_con();
 							}
 							//bbsContent 줄바꿈 제거
-							bbsContent = bbsContent.replaceAll(System.lineSeparator(), ""); //줄바꿈 모두 제거
+							//bbsContent = bbsContent.replaceAll(System.lineSeparator(), ""); //줄바꿈 모두 제거
 						%>
 						<tr>
 							<td style="text-align: left; font-size:13px">
@@ -504,16 +513,16 @@
 							
 							//content의 "-" 제거하기
 							String bbsNContent = "";
-							if(nlist.get(i).getRms_con().indexOf('-') > -1 && nlist.get(i).getRms_con().indexOf('-') < 2) { //맨 앞이 - 라면,
-								bbsNContent = nlist.get(i).getRms_con().replaceFirst("-", "");
-							} else { //bbsContent의 앞에 '-'이 없거나, 또는 빈칸일때 -> 이 경우는 저장부터 문제가 발생하는 경우!
+							if(!nlist.get(i).getRms_job().contains("시스템") && !nlist.get(i).getRms_job().contains("기타")) {
+								//선택한 업무가 있다면,
+								bbsNContent = "["+nlist.get(i).getRms_job()+"] "+nlist.get(i).getRms_con();
+							} else {
 								bbsNContent = nlist.get(i).getRms_con();
 							}
 							//bbsContent 줄바꿈 제거
-							bbsNContent = bbsNContent.replaceAll(System.lineSeparator(), ""); //줄바꿈 모두 제거
+							//bbsNContent = bbsNContent.replaceAll(System.lineSeparator(), ""); //줄바꿈 모두 제거
 							
-							//bbsNTarget이 가공되지 않음!
-							//해당 데이터 가공하여 출력하기!
+							//target 가공하기
 							String bbsNTarget = "";
 							if(nlist.get(i).getRms_tar().isEmpty()) { //보류 표시
 								bbsNTarget = "[보류]";
@@ -563,7 +572,7 @@
 		
 		$('#RmsdlModal').on('hidden.bs.modal', function (){
 			var rms_md = document.getElementById("rms_md").value;
-			location.href="/BBS/pl/bbsRkwrite.jsp?rms_md="+rms_md;
+			location.href="/RMS/pl/bbsRkwrite.jsp?rms_md="+rms_md;
 		})
 	});
 	</script>

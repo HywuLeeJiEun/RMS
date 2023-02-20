@@ -55,7 +55,7 @@
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('승인이 완료되었습니다.')");
-					script.println("location.href='/BBS/admin/summaryadRk.jsp'");
+					script.println("location.href='/RMS/admin/summaryadRk.jsp'");
 					script.println("</script>");
 				}
 			} else if(elist.size() == 0){

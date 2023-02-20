@@ -67,13 +67,21 @@
 		} else {
 			//2. 담당 업무가 있는 경우
 			for(int i=0; i < code.size(); i++) {
-				//task_num을 받아옴.
-				String task_num = code.get(i);
-				// task_num을 통해 업무명을 가져옴.
-				String manager = userDAO.getManager(task_num);
-				works.add(manager+"\n"); //즉, work 리스트에 모두 담겨 저장됨
+				if(i < code.size()-1) {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager+"/"); //즉, work 리스트에 모두 담겨 저장됨
+				} else {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager); //즉, work 리스트에 모두 담겨 저장됨
+				}
 			}
-			workSet = String.join("/",works);
+			workSet = String.join("\n",works) + "\n";
 		}
 		
 		// 사용자 정보 담기
@@ -93,7 +101,7 @@
 		if(!au.equals("관리자")) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href='/BBS/user/bbs.jsp'");
+			script.println("location.href='/RMS/user/bbs.jsp'");
 			script.println("</script>");
 		}
 		
@@ -116,7 +124,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/BBS/user/bbs.jsp">Report Management System</a>
+			<a class="navbar-brand" href="/RMS/user/bbs.jsp">Report Management System</a>
 		</div>
 		
 		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->
@@ -128,7 +136,7 @@
 							aria-expanded="false">주간보고<span class="caret"></span></a>
 						<!-- 드랍다운 아이템 영역 -->	
 						<ul class="dropdown-menu">
-							<li class="active"><a href="/BBS/admin/bbsAdmin.jsp">조회</a></li>
+							<li class="active"><a href="/RMS/admin/bbsAdmin.jsp">조회</a></li>
 							<!-- <li><a href="bbsUpdate.jsp">작성</a></li>
 							<li><a href="bbsUpdateDelete.jsp">수정/삭제</a></li>
 							<li><a href="signOn.jsp">승인(제출)</a></li> -->
@@ -145,7 +153,7 @@
 							<!-- 드랍다운 아이템 영역 -->	
 						
 							<ul class="dropdown-menu">
-								<li><a href="/BBS/pl/bbsRk.jsp">작성</a></li>
+								<li><a href="/RMS/pl/bbsRk.jsp">작성</a></li>
 							</ul>
 						<%
 						 }
@@ -160,9 +168,9 @@
 								aria-expanded="false">summary<span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
-								<li><a href="/BBS/admin/summaryadRk.jsp">조회 및 승인</a></li>
-								<!-- <li><a href="/BBS/admin/summaryadAdmin.jsp">작성</a></li>
-								<li><a href="/BBS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
+								<li><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
+								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
+								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
 							</ul>
 							</li>
 						<%
@@ -185,7 +193,7 @@
 					if(rk.equals("부장") || rk.equals("실장")||rk.equals("관리자")) {
 					%>
 						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
-						<li><a href="/BBS/admin/work/workChange.jsp">담당업무 변경</a></li>
+						<li><a href="/RMS/admin/work/workChange.jsp">담당업무 변경</a></li>
 						<li><a href="../logoutAction.jsp">로그아웃</a></li>
 					<%
 					} else {
@@ -230,7 +238,7 @@
 				</tr>
 			</thead>
 			</table>
-			<form method="post" name="search" action="/BBS/admin/searchbbsRk.jsp">
+			<form method="post" name="search" action="/RMS/admin/searchbbsRk.jsp">
 				<table class="pull-right">
 					<tr>
 						<td><select class="form-control" name="searchField" id="searchField" onchange="ChangeValue()">
@@ -277,7 +285,7 @@
 						<td> <%= list.get(i).getRms_dl() %> </td>
 						<td style="text-align: left">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="/BBS/user/update.jsp?user_id=<%= list.get(i).getUser_id() %>&rms_dl=<%= list.get(i).getRms_dl() %>">
+						<a href="/RMS/user/update.jsp?user_id=<%= list.get(i).getUser_id() %>&rms_dl=<%= list.get(i).getRms_dl() %>">
 							<%= list.get(i).getRms_title() %></a></td>
 						<td><%= userName %></td>
 						<td><%= list.get(i).getRms_time().substring(0, 11) + list.get(i).getRms_time().substring(11, 13) + "시"
@@ -294,12 +302,12 @@
 			<%
 				if(pageNumber != 1){
 			%>
-				<a href="/BBS/admin/bbsAdmin.jsp?pageNumber=<%=pageNumber - 1 %>"
+				<a href="/RMS/admin/bbsAdmin.jsp?pageNumber=<%=pageNumber - 1 %>"
 					class="btn btn-success btn-arraw-left">이전</a>
 			<%
 				}if(aflist.size() != 0){
 			%>
-				<a href="/BBS/admin/bbsAdmin.jsp?pageNumber=<%=pageNumber + 1 %>"
+				<a href="/RMS/admin/bbsAdmin.jsp?pageNumber=<%=pageNumber + 1 %>"
 					class="btn btn-success btn-arraw-left" id="next">다음</a>
 			<%
 				}

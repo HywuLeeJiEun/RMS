@@ -50,7 +50,7 @@
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('정삭적으로 제거 되었습니다.')");
-				script.println("location.href='/BBS/admin/work/workChange.jsp'");
+				script.println("location.href='/RMS/admin/work/workChange.jsp'");
 				script.println("</script>");
 			}  
 		} 

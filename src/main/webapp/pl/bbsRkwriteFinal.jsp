@@ -56,13 +56,21 @@
 	} else {
 		//2. 담당 업무가 있는 경우
 		for(int i=0; i < code.size(); i++) {
-			//task_num을 받아옴.
-			String task_num = code.get(i);
-			// task_num을 통해 업무명을 가져옴.
-			String manager = userDAO.getManager(task_num);
-			works.add(manager+"\n"); //즉, work 리스트에 모두 담겨 저장됨
+			if(i < code.size()-1) {
+				//task_num을 받아옴.
+				String task_num = code.get(i);
+				// task_num을 통해 업무명을 가져옴.
+				String manager = userDAO.getManager(task_num);
+				works.add(manager+"/"); //즉, work 리스트에 모두 담겨 저장됨
+			} else {
+				//task_num을 받아옴.
+				String task_num = code.get(i);
+				// task_num을 통해 업무명을 가져옴.
+				String manager = userDAO.getManager(task_num);
+				works.add(manager); //즉, work 리스트에 모두 담겨 저장됨
+			}
 		}
-		workSet = String.join("/",works);
+		workSet = String.join("\n",works) + "\n";
 	}
 	
 	// 사용자 정보 담기
@@ -112,7 +120,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/BBS/user/bbs.jsp">Report Management System</a>
+			<a class="navbar-brand" href="/RMS/user/bbs.jsp">Report Management System</a>
 		</div>
 		
 		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->
@@ -124,9 +132,9 @@
 							aria-expanded="false">주간보고<span class="caret"></span></a>
 						<!-- 드랍다운 아이템 영역 -->	
 						<ul class="dropdown-menu">
-							<li><a href="/BBS/user/bbs.jsp">조회</a></li>
-							<li><a href="/BBS/user/bbsUpdate.jsp">작성</a></li>
-							<li><a href="/BBS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
+							<li><a href="/RMS/user/bbs.jsp">조회</a></li>
+							<li><a href="/RMS/user/bbsUpdate.jsp">작성</a></li>
+							<li><a href="/RMS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
 							<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
 						</ul>
 					</li>
@@ -140,13 +148,13 @@
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
 								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %></h5></li>
-								<li><a href="/BBS/pl/bbsRk.jsp">조회 및 출력</a></li>
+								<li><a href="/RMS/pl/bbsRk.jsp">조회 및 출력</a></li>
 								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %> Summary</h5></li>
-								<li><a href="/BBS/pl/summaryRk.jsp">조회</a></li>
+								<li><a href="/RMS/pl/summaryRk.jsp">조회</a></li>
 								<li class="active" id="summary_nav"><a href="bbsRkwrite.jsp">작성</a></li>
-								<li><a href="/BBS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
+								<li><a href="/RMS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
 								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
-								<li id="summary_nav"><a href="/BBS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
+								<li id="summary_nav"><a href="/RMS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
 							</ul>
 							</li>
 						<%
@@ -161,9 +169,9 @@
 								aria-expanded="false">summary<span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
-								<li><a href="/BBS/admin/summaryadRk.jsp">조회 및 승인</a></li>
-								<!-- <li><a href="/BBS/admin/summaryadAdmin.jsp">작성</a></li>
-								<li><a href="/BBS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
+								<li><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
+								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
+								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
 								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
 							</ul>
 							</li>
@@ -187,7 +195,7 @@
 					if(au.equals("관리자") || au.equals("PL")) {
 					%>
 						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
-						<li><a href="/BBS/admin/work/workChange.jsp">담당업무 변경</a></li>
+						<li><a href="/RMS/admin/work/workChange.jsp">담당업무 변경</a></li>
 						<li><a href="../logoutAction.jsp">로그아웃</a></li>
 					<%
 					} else {
@@ -253,7 +261,7 @@
 	 </div>
 	 
 	<div class="container-fluid" style="width:1200px">
-	<form method="post" action="/BBS/pl/action/bbsRkAction.jsp" id="bbsRk">
+	<form method="post" action="/RMS/pl/action/bbsRkAction.jsp" id="bbsRk">
 		<div class="row">
 			<div class="container-fluid">
 				<!-- 금주 업무 실적 테이블 -->
@@ -283,7 +291,7 @@
 							<!-- 업무 내용 -->
 							<td style=" border: 1px solid">
 							<% for(int i=0; i < chk.length; i++) { %>
-								<textarea required name="content<%= i %>" maxlength="500" id="content<%= i %>" style="resize: none; width:100%;"><%= request.getParameter("content"+chk[i]) %></textarea>
+								<textarea required name="content<%= i %>" wrap="hard" maxlength="500" id="content<%= i %>" style="resize: none; width:100%;"><%= request.getParameter("content"+chk[i]) %></textarea>
 							<% } %>
 							</td>
 							<!-- 완료일 -->
@@ -305,7 +313,7 @@
 							<!-- 상태 -->
 							<td style="text-align: center; border: 1px solid;" id="state"></td>
 							<!-- 비고 -->
-							<td style=" border: 1px solid"><textarea  maxlength="500" name="note" id="note" style="resize: none; width:100%; height:100px"></textarea></td>
+							<td style=" border: 1px solid"><textarea  maxlength="500" name="note" wrap="hard" id="note" style="resize: none; width:100%; height:100px"></textarea></td>
 						</tr>
 					</tbody>
 				</table>
@@ -333,7 +341,7 @@
 							<!-- 업무 내용 -->
 							<td style=" border: 1px solid">
 							<% for(int i=0; i < nchk.length; i++) { %>
-								<textarea required name="ncontent<%= i %>"  maxlength="500" id="ncontent<%= i %>" style="resize: none; width:100%;"><%= request.getParameter("ncontent"+nchk[i]) %></textarea>
+								<textarea required name="ncontent<%= i %>" wrap="hard" maxlength="500" id="ncontent<%= i %>" style="resize: none; width:100%;"><%= request.getParameter("ncontent"+nchk[i]) %></textarea>
 							<% } %>
 							</td>
 							<!-- 완료예정 -->
@@ -343,7 +351,7 @@
 							<% } %>
 							</td>
 							<!-- 비고 -->
-							<td style=" border: 1px solid"><textarea maxlength="500" name="nnote" id="nnote" style="resize: none; width:100%; height:100px"></textarea></td>
+							<td style=" border: 1px solid"><textarea maxlength="500" wrap="hard" name="nnote" id="nnote" style="resize: none; width:100%; height:100px"></textarea></td>
 						</tr>
 					</tbody>
 				</table>

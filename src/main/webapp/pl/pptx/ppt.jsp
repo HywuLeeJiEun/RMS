@@ -40,24 +40,17 @@
 	String templatePath = null;
 	String newfile = null;
 	// 1) 개인 pc 환경
-	//templatePath = "C:\\Users\\gkdla\\git\\BBS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_EW.jrxml";
+	//templatePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_EW.jrxml";
 	// 2) local pc 환경
-	templatePath = "C:\\Users\\S-OIL\\git\\BBS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_EW.jrxml";
+	templatePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_EW.jrxml";
 	
 	if(pluser.equals("WEB")) {
-		//newfile = "C:\\Users\\gkdla\\git\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
-		newfile = "C:\\Users\\S-OIL\\git\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
+		//newfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
+		newfile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
 	} else if(pluser.equals("ERP")) {
-		//newfile = "C:\\Users\\gkdla\\git\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
-		newfile = "C:\\Users\\S-OIL\\git\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
+		//newfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
+		newfile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
 	}
-	
-	//String templatePath = "D:\\git\\BBS\\BBS\\src\\main\\webapp\\WEB-INF\\reports\\sample_bbs.jrxml";
-	//String templatePath = "D:\\workspace\\sample\\sample_bbs.jrxml";
-	//String templatePath2 = "D:\\workspace\\sample\\sample_bbs.jasper";
-	//String templatePath = "D:\\workspace\\BBS_test_backup\\src\\main\\webapp\\WEB-INF\\reports\\sample_bbs.jrxml";
-	// 출력할 PDF 파일 경로
-	//String destPath = "C:\\1.pptx";
 	
 	Connection conn = null;
 	
@@ -67,8 +60,8 @@
 	 
 	
 	 // (2)파라메타 생성	  
-	 //String logo = "C:\\Users\\gkdla\\git\\BBS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
-	 String logo = "C:\\Users\\S-OIL\\git\\BBS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
+	 //String logo = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
+	 String logo = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
 	 Map<String,Object> paramMap = new HashMap<String,Object>();
 	
 	 paramMap.put("deadLine",rms_dl);	  
@@ -88,14 +81,8 @@
 	 
 	 JRPptxExporter pptxExporter = new JRPptxExporter();
 	 pptxExporter.setExporterInput(new SimpleExporterInput(print));
-	 //pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("D:\\git\\BBS\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\주간보고_sample.pptx")));
+	 //pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("D:\\git\\RMS\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\주간보고_sample.pptx")));
 	 pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File(newfile)));
-	 
-	 // frame으로 출력
-	 /* JFrame frame = new JFrame("Report");
-	 frame.getContentPane().add(new JRViewer(print));
-	 frame.pack();
-	 frame.setVisible(true); */
 	 
 	 
 	 pptxExporter.exportReport();
@@ -107,12 +94,12 @@
 	
 	String fileName = null;
 	if(pluser.equals("WEB")) {
-		fileName = "web_sample.pptx";
+		fileName = "web_"+rms_dl+".pptx";
 	} else if(pluser.equals("ERP")) {
-		fileName = "erp_sample.pptx";
+		fileName = "erp_"+rms_dl+".pptx";
 	}
-	//String downLoadFile = "C:\\Users\\gkdla\\git\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
-	String downLoadFile = "C:\\Users\\S-OIL\\git\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
+	//String downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
+	String downLoadFile = newfile;
 	
 	File file = new File(downLoadFile);
 	FileInputStream in = new FileInputStream(downLoadFile);

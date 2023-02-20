@@ -23,7 +23,7 @@
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('현재 로그인 중입니다.')");
-			script.println("location.href='/BBS/user/bbs.jsp'");
+			script.println("location.href='/RMS/user/bbs.jsp'");
 			script.println("</script>");
 		}
 	
@@ -48,7 +48,7 @@
 			//session 순위 - https://dejavuhyo.github.io/posts/session-timeout-setting-and-application-priority/
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href='/BBS/user/bbs.jsp'");
+			script.println("location.href='/RMS/user/bbs.jsp'");
 			script.println("</script>");
 		}else if(result == 0){
 			PrintWriter script = response.getWriter();

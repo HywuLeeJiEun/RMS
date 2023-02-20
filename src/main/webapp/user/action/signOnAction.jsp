@@ -45,13 +45,21 @@
 			} else {
 				//2. 담당 업무가 있는 경우
 				for(int i=0; i < code.size(); i++) {
-					//task_num을 받아옴.
-					String task_num = code.get(i);
-					// task_num을 통해 업무명을 가져옴.
-					String manager = userDAO.getManager(task_num);
-					works.add(manager+"\n"); //즉, work 리스트에 모두 담겨 저장됨
+					if(i < code.size()-1) {
+						//task_num을 받아옴.
+						String task_num = code.get(i);
+						// task_num을 통해 업무명을 가져옴.
+						String manager = userDAO.getManager(task_num);
+						works.add(manager+"/"); //즉, work 리스트에 모두 담겨 저장됨
+					} else {
+						//task_num을 받아옴.
+						String task_num = code.get(i);
+						// task_num을 통해 업무명을 가져옴.
+						String manager = userDAO.getManager(task_num);
+						works.add(manager); //즉, work 리스트에 모두 담겨 저장됨
+					}
 				}
-				workSet = String.join("/",works);
+				workSet = String.join("\n",works) + "\n";
 			}
 			
 			//데이터를 승인으로 변경함! 
@@ -96,7 +104,7 @@
 										if(rms_this.get(j).getRms_job().contains("시스템") || rms_this.get(j).getRms_job().contains("기타")) {
 											bbsContent += rms_this.get(j).getRms_con() + System.lineSeparator();
 										} else {
-											bbsContent += "["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con() + System.lineSeparator();
+											bbsContent += "- ["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
 										}
 									} else {
 										if(rms_this.get(j).getRms_job().contains("시스템") || rms_this.get(j).getRms_job().contains("기타")) {
@@ -128,7 +136,7 @@
 										if(rms_this.get(j).getRms_job().contains("시스템") || rms_this.get(j).getRms_job().contains("기타")) {
 											bbsContent += rms_this.get(j).getRms_con();
 										} else {
-											bbsContent += "["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con();
+											bbsContent += "- ["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con().replaceFirst("-", "");
 										}
 									} else {
 										if(rms_this.get(j).getRms_job().contains("시스템") || rms_this.get(j).getRms_job().contains("기타")) {
@@ -165,7 +173,7 @@
 										if(rms_next.get(j).getRms_job().contains("시스템") || rms_next.get(j).getRms_job().contains("기타")) {
 											bbsNContent += rms_next.get(j).getRms_con() + System.lineSeparator();
 										} else {
-											bbsNContent += "["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con() + System.lineSeparator();
+											bbsNContent += "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
 										}
 									} else {
 										if(rms_next.get(j).getRms_job().contains("시스템") || rms_next.get(j).getRms_job().contains("기타")) {
@@ -194,7 +202,7 @@
 										if(rms_next.get(j).getRms_job().contains("시스템") && rms_next.get(j).getRms_job().contains("기타")) {
 											bbsNContent += rms_next.get(j).getRms_con();
 										} else {
-											bbsNContent += "["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con();
+											bbsNContent += "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con().replaceFirst("-", "");
 										}
 									} else {
 										if(rms_next.get(j).getRms_job().contains("시스템") || rms_next.get(j).getRms_job().contains("기타")) {
