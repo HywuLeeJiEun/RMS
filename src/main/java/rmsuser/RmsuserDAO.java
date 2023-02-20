@@ -306,7 +306,7 @@ public class RmsuserDAO {
 	//RMSUSER USER_FD(Field) 사용자 담당 분야별로 검색하여 user_id 도출
 	public ArrayList<String> getpluser(String user_fd){
 		//String sql =  "select * from pluser where work=?";
-		String sql =  "select user_id from rmsuser where user_fd=?";
+		String sql =  "select user_id from rmsuser where user_fd=? order by user_name";
 				ArrayList<String> list = new ArrayList<String>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);

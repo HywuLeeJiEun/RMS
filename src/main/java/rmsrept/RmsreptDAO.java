@@ -401,7 +401,7 @@ public class RmsreptDAO {
 	      				SQL += "user_id='"+plist[i].trim()+"'";
 	      			}
 	      		}
-	      		SQL += ")) r where rms_sign='승인' or rms_sign='마감' order by rms_time";
+	      		SQL += ")) r where rms_sign='승인' or rms_sign='마감'";
 	      try {
 	            PreparedStatement pstmt=conn.prepareStatement(SQL);
 	            pstmt.setString(1, rms_dl);
@@ -464,7 +464,7 @@ public class RmsreptDAO {
 	//RMSREPT 데이터 조회하기 (USER_FD를 통해 찾아낸 USER_ID) bbsRk.jsp => rms_sign = 승인 or 마감
 	public ArrayList<rmsrept> getRmsRk(String rms_dl, String[] plist, int pageNumber, int maxNumber){//특정한 리스트를 받아서 반환
 	      ArrayList<rmsrept> list = new ArrayList<rmsrept>();
-	      String SQL ="select distinct user_id, rms_dl, rms_title, rms_sign, rms_time from (select * from rmsrept where rms_dl=? and (";
+	      String SQL ="select distinct r.user_id, rms_dl, rms_title, rms_sign, rms_time from (select * from rmsrept where rms_dl=? and (";
 	      		for(int i=0; i<plist.length; i++) {
 	      			if(i < plist.length-1) {
 	      				SQL += "user_id='"+plist[i].trim()+"' or ";
@@ -472,7 +472,7 @@ public class RmsreptDAO {
 	      				SQL += "user_id='"+plist[i].trim()+"'";
 	      			}
 	      		}
-	      		SQL += ")) r where rms_sign='승인' or rms_sign='마감' limit ?,?";
+	      		SQL += ")) r left join rmsuser u on r.user_id = u.user_id where rms_sign='승인' or rms_sign='마감' order by u.user_name limit ?,? ";
 	      try {
 	            PreparedStatement pstmt=conn.prepareStatement(SQL);
 	            pstmt.setString(1, rms_dl);

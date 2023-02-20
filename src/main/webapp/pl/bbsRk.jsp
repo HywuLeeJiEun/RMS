@@ -209,7 +209,7 @@
 			 }
 		 }
 	%>
-
+	<textarea><%= Arrays.toString(pllist) %></textarea>
     <!-- ************ 상단 네비게이션바 영역 ************* -->
 	<nav class="navbar navbar-default"> 
 		<div class="navbar-header"> 

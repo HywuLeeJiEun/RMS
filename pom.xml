@@ -5,7 +5,40 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
+	<repositories>
+	    <repository>
+	        <id>AsposeJavaAPI</id>
+	        <name>Aspose Java API</name>
+	        <url>https://releases.aspose.com/java/repo/</url>
+	    </repository>
+	    <repository>
+		    <id>groupdocs-artifacts-repository</id>
+		    <name>GroupDocs Artifacts Repository</name>
+		    <url>https://releases.groupdocs.com/java/repo/</url>
+		</repository>
+	</repositories>
+
+
   <dependencies>
+	 <dependency>
+	    <groupId>com.groupdocs</groupId>
+	    <artifactId>groupdocs-merger</artifactId>
+	    <version>22.7</version>
+	</dependency>
+	
+  	<dependency>
+        <groupId>com.aspose</groupId>
+        <artifactId>aspose-slides</artifactId>
+        <version>20.11</version>
+        <classifier>jdk16</classifier>
+    </dependency>
+    <dependency>
+        <groupId>com.aspose</groupId>
+        <artifactId>aspose-slides</artifactId>
+        <version>20.11</version>
+        <classifier>javadoc</classifier>
+    </dependency>
+  
 	<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>jstl</artifactId>
