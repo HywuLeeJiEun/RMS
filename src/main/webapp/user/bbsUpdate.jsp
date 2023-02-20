@@ -1,3 +1,4 @@
+<%@page import="org.apache.poi.hssf.record.chart.EndRecord"%>
 <%@page import="rmsrept.rmsrept"%>
 <%@page import="rmsuser.rmsuser"%>
 <%@page import="rmsrept.RmsreptDAO"%>
@@ -266,12 +267,12 @@
 									<tr>
 										<th colspan="6" style="background-color: #D4D2FF;" align="center">금주 업무 실적</th>
 									</tr>
-									<tr style="background-color: #FFC57B;">
-										<!-- <th width="6%">|  담당자</th> -->
-										<th width="50%">| &nbsp; 업무내용</th>
-										<th width="10%">| &nbsp; 접수일</th>
-										<th width="10%">| &nbsp; 완료목표일</th>
-										<th width="10%">| &nbsp;&nbsp; 진행율<br>&nbsp;&nbsp;&nbsp;&nbsp;/완료일</th>
+									<tr style="background-color: #FFC57B;" >
+										<!-- <th width="6%">|  담당자</th>  style="text-align:center" -->
+										<th style="text-align:center" width="50%"> &nbsp; 업무내용</th>
+										<th style="text-align:center" width="10%"> &nbsp; 접수일</th>
+										<th style="text-align:center" width="10%"> &nbsp; 완료목표일</th>
+										<th style="text-align:center" width="10%">&nbsp;&nbsp; 진행율/<br>&nbsp;&nbsp;&nbsp;완료일</th>
 										<th></th>
 										<th></th>
 									</tr>
@@ -280,8 +281,19 @@
 										<td style="display:none"><textarea class="textarea" id="bbsManager" name="bbsManager" style="height:auto; width:100%; border:none; overflow:auto" placeholder="구분/담당자"   readonly><%= workSet %><%= name %></textarea></td> 
 									</tr>
 									<%
+									int endresult = 0;
+									int tlcon = tlist.size();
 									if(tlist.size() != 0){
-										for(int i=0; i<tlist.size(); i++) {
+										//15개 이상이라면, 15개까지만 추출
+										if(tlist.size() > 15) {
+											tlcon = 15;
+										}
+										for(int i=0; i< tlcon; i++) {
+											String end = tlist.get(i).getRms_end();
+											if(tlist.get(i).getRms_end().length() > 5) {
+												end = end.substring(0, 5);
+												endresult = -1;
+											}
 									%>
 									<tr>
 										 <td>
@@ -290,8 +302,9 @@
 													 <option <%= tlist.get(i).getRms_job().equals("[시스템]")?"selected":"" %>> [시스템] </option>
 													 <%
 													 for(int count=0; count < works.size(); count++) {
+														 String wo = works.get(count).replaceAll("/", "");
 													 %>
-													 	<option <%= tlist.get(i).getRms_job().equals(works.get(count).trim())?"selected":"" %>> <%= works.get(count) %> </option>
+													 	<option <%= tlist.get(i).getRms_job().equals(wo.trim())?"selected":"" %>> <%= wo %> </option>
 													 <%
 													 }
 													 %>
@@ -304,7 +317,7 @@
 										 </td>
 										 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart<%= i %>" class="form-control" placeholder="접수일" name="bbsStart<%= i %>" value="<%= tlist.get(i).getRms_str() %>"></td>
 										 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget<%= i %>" value="<%= tlist.get(i).getRms_tar() %>"></td>		
-										 <td><textarea class="textarea end" id="bbsEnd<%= i %>" style="height:45px; width:100%; border:none; resize:none"  placeholder="진행율&#13;&#10;/완료일" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>"><%= tlist.get(i).getRms_end() %></textarea></td>
+										 <td><textarea class="textarea end" id="bbsEnd<%= i %>" style="height:45px; width:100%; border:none; resize:none"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>"><%= end %></textarea></td>
 										 <td><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button></td>
 										 <td><button type="button" id="paste<%= i %>" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button></td>
 									</tr>
@@ -328,15 +341,19 @@
 								<th colspan="5" style="background-color: #D4D2FF;" align="center">차주 업무 계획</th>
 							</tr>
 							<tr style="background-color: #FFC57B;">
-								<th width="60%">| &nbsp; 업무내용</th>
-								<th width="10%">| &nbsp; 접수일</th>
-								<th width="10%">| &nbsp; 완료목표일</th>
-								<th width="20%"></th>
-								<th width="10%"></th>
+								<th style="text-align:center" width="60%">&nbsp; 업무내용</th>
+								<th style="text-align:center" width="10%">&nbsp; 접수일</th>
+								<th style="text-align:center" width="10%">&nbsp; 완료목표일</th>
+								<th style="text-align:center" width="20%"></th>
+								<th style="text-align:center" width="10%"></th>
 							</tr>
 							<%
+							int nlcon = nlist.size();
 							if(nlist.size() != 0){
-								for(int i=0; i<nlist.size(); i++) {
+								if(nlcon > 15) {
+									nlcon = 15;
+								}
+								for(int i=0; i<nlcon; i++) {
 							%>
 							<tr>
 								 <td>
@@ -345,8 +362,9 @@
 											 <option <%= nlist.get(i).getRms_job().equals("[시스템]")?"selected":"" %>> [시스템] </option>
 											 <%
 											 for(int count=0; count < works.size(); count++) {
+												 String nwo = works.get(count).replaceAll("/", "");
 											 %>
-											 	<option <%= nlist.get(i).getRms_job().equals(works.get(count).trim())?"selected":"" %>> <%= works.get(count) %> </option>
+											 	<option <%= nlist.get(i).getRms_job().equals(nwo.trim())?"selected":"" %>> <%= nwo %> </option>
 											 <%
 											 }
 											 %>
@@ -420,9 +438,11 @@
 		
 		var val = document.getElementById("bbsEnd"+num).value;
 		
-		if(val.indexOf("-") > -1) {
+		var reg = /[!@#$%^&*()_+|<>?:{}]/g;
+		//if(val.indexOf("-") > -1) {
+		if(reg.test(val)) {
 			alert("날짜 양식은 '/'만 사용 가능합니다.");
-			document.getElementById("bbsEnd"+num).value = val.replaceAll("-","/");
+			document.getElementById("bbsEnd"+num).value = val.replaceAll(reg,"/");
 		}
 	});
 	</script>
@@ -439,23 +459,19 @@
 	</script>	
 	
 	<script>
+	var work = "";
+	work = document.getElementById("work").value;
+	work = work.replaceAll("[","");
+	work = work.replaceAll("]","");
+	work = work.replaceAll(/\n/g,"");
+	work = work.replaceAll("/","");
+	work = work.split(',');
+	
 	var con = document.getElementsByClassName('con').length;
-	var trCnt = <%= tlist.size() %>;
+	var trCnt = <%= tlcon %>;
 		function addRow() {
-			var work = "";
 			var strworks ="";
-			
-			work = document.getElementById("work").value;
-			work = work.replace("[","");
-			work = work.replace("]","");
-			work = work.replace(/\n/g,"");
-			work = work.split(',');
-			
-			/* console.log(work); 
-			console.log(work.length);  */
-			
-			
-			
+	
 			for(var count=0; count < work.length; count++) {
 				if(work[count]!="") {
 					strworks += "<option>"+work[count]+ "</option>"
@@ -498,7 +514,7 @@
 	            innerHtml += '  </div> </td>';
 	            innerHtml += '  <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart'+c+'" class="form-control" placeholder="접수일" name="bbsStart'+c+'"  value="'+now+'"></td>';
 	            innerHtml += ' <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget'+c+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일" name="bbsTarget'+c+'" ></td>';
-	            innerHtml += '  <td><textarea class="textarea end" id="bbsEnd'+c+'" style="height:45px; resize:none; width:100%; border:none;"  data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." maxlength="5" placeholder="진행율\n/완료일" name="bbsEnd'+c+'" ></textarea></td>'; 
+	            innerHtml += '  <td><textarea class="textarea end" id="bbsEnd'+c+'" style="height:45px; resize:none; width:100%; border:none;"  data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." maxlength="5" placeholder="MM/dd" name="bbsEnd'+c+'" ></textarea></td>'; 
 	            innerHtml += '    <td>';
 	            innerHtml += '<button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button>';
 	            innerHtml += '    </td>';
@@ -525,16 +541,9 @@
 	
 	<script>
 	var ncon = document.getElementsByClassName('ncon').length;
-	var trNCnt = <%= nlist.size() %>;
+	var trNCnt = <%= nlcon %>;
 		function addNRow() {
-			var work = "";
 			var strworks ="";
-			
-			work = document.getElementById("work").value;
-			work = work.replace("[","");
-			work = work.replace("]","");
-			work = work.replace(/\n/g,"");
-			work = work.split(',');
 				
 			for(var count=0; count < work.length; count++) {
 				if(work[count]!="") {
@@ -580,7 +589,7 @@
 	            trNCnt += 1;
 	            $('#bbsNTable > tbody:last').append(innerHtml);
 				} else {
-					alert("주간 업무 개수는 최대 30개를 넘을 수 없습니다.");
+					alert("주간 업무 개수는 최대 15개를 넘을 수 없습니다.");
 				}
 
 		};
@@ -680,6 +689,8 @@
 		} else if (trNCnt == 0) {
 			alert("차주 업무 계획에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
 		} else {
+			//진행율/완료일이 6글자 이상이라면, (5글자 초과)
+			
 			var innerHtml = "";
 			innerHtml += '<tr style="display:none">';
 			innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
@@ -748,8 +759,13 @@
 				$("#bbsTarget"+(Number(unum))).val(target);
 				
 		} else {
-			 document.getElementById("add").click();
-			 paste(id);
+			if(trCnt < 15) {
+			 	document.getElementById("add").click();
+			 	paste(id);
+			} else { // 15거나 이상인 경우, 
+				//document.getElementById(id).style.visibility="hidden";
+				alert("주간 업무 개수는 최대 15개를 넘을 수 없습니다.");
+			}
 		}
 	}
 	
@@ -780,8 +796,12 @@
 				$("#bbsNTarget"+(Number(unum))).val(target);
 				
 		} else {
+			if(trNCnt < 15) {
 			 document.getElementById("nadd").click();
 			 npaste(id);
+			} else {
+				alert("주간 업무 개수는 최대 15개를 넘을 수 없습니다.");
+			}
 		}
 	}
 	</script>

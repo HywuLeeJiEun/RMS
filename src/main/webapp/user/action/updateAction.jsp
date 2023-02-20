@@ -135,9 +135,9 @@
 					bbsend = "[보류]";
 				} else {
 					if(request.getParameter(d+i).indexOf("-") > -1) {
-						bbsend = request.getParameter(d+i).replaceAll("-", "/");	
+						bbsend = request.getParameter(d+i).trim().replaceAll("-", "/");	
 					} else {
-						bbsend = request.getParameter(d+i);	
+						bbsend = request.getParameter(d+i).trim();	
 					}
 				}
 				//줄바꿈 제거(임의 변경을 최소화 하기 위함)

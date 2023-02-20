@@ -22,7 +22,7 @@
 	
 		// 현재 세션 상태를 체크한다
 		String id = null;
-		
+		String match = "[^\uAC00-\uD7A30-9a-zA-Z/]";
 		//생성된 마지막 content의 수
 		int con = Integer.parseInt(request.getParameter("con"));
 		int ncon = Integer.parseInt(request.getParameter("ncon"));
@@ -115,14 +115,11 @@
 						bbsend = "[보류]";
 					} else {
 						if(request.getParameter(d+i).indexOf("-") > -1) {
-							bbsend = request.getParameter(d+i).replaceAll("-", "/");	
+							bbsend = request.getParameter(d+i).trim().replaceAll(match, "/");	
 						} else {
-							bbsend = request.getParameter(d+i);	
+							bbsend = request.getParameter(d+i).trim();	
 						}
-						//5글자 이상으로 작성된 데이터를 제거하기 위함!
-						if(bbsend.length() > 5) {
-							bbsend = bbsend.substring(5);
-						}
+
 					}
 					//줄바꿈 제거(임의 변경을 최소화 하기 위함)
 					bbsend = bbsend.replaceAll(System.lineSeparator(), "");
@@ -222,33 +219,7 @@
 			String c="erp_stext";
 			String d="erp_authority";
 			String e="erp_division";
-			//ERP 데이터가 있다면,
-			
-			if(trACnt != 0) {
-				for(int i=0; i< trACnt; i++){
-					//edate 처리
-					if(request.getParameter(a+i).length() != 0) {	//데이터가 존재한다면, 모두 포함되어 있음!
-						String edate=request.getParameter(a+i);
-						String euser=request.getParameter(b+i);
-						String etext=request.getParameter(c+i);
-						String eau=request.getParameter(d+i);
-						String ediv=request.getParameter(e+i);
-						//erp 테이블에 저장
-						int numelist = rms.write_erp(id, rms_dl, edate, euser, etext, eau, ediv);
-						if(numelist == -1) { //데이터 저장 오류가 발생하면, 데이터 삭제
-							//데이터 삭제
-							int ldel = rms.edelete(id, rms_dl);
-							PrintWriter script = response.getWriter();
-							script.println("<script>");
-							script.println("alert('(erp)데이터 저장에 오류가 발생하였습니다. \\n관리자에게 문의 바랍니다.')");
-							script.println("history.back();");
-							script.println("</script>");
-							an = -1;
-						} 
-					}
-				}
-			}
-			
+
 			
 			if(n != -1 && nn != -1 && an != -1) {
 				PrintWriter script = response.getWriter();

@@ -268,10 +268,10 @@
 									</tr>
 									<tr style="background-color: #FFC57B;">
 										<!-- <th width="6%">|  담당자</th> -->
-										<th width="50%">| &nbsp; 업무내용</th>
-										<th width="10%">| &nbsp; 접수일</th>
-										<th width="10%">| &nbsp; 완료목표일</th>
-										<th width="10%">| &nbsp;&nbsp; 진행율<br>&nbsp;&nbsp;&nbsp;&nbsp;/완료일</th>
+										<th style="text-align:center" width="50%"> &nbsp; 업무내용</th>
+										<th style="text-align:center" width="10%"> &nbsp; 접수일</th>
+										<th style="text-align:center" width="10%"> &nbsp; 완료목표일</th>
+										<th style="text-align:center" width="10%"> &nbsp;&nbsp; 진행율/<br>&nbsp;&nbsp;&nbsp;완료일</th>
 										<th></th>
 										<th></th>
 									</tr>
@@ -286,8 +286,9 @@
 													 <option> [시스템] </option>
 													 <%
 													 for(int count=0; count < works.size(); count++) {
+														 String wo = works.get(count).replaceAll("/", "");
 													 %>
-													 	<option> <%= works.get(count) %> </option>
+													 	<option> <%= wo.trim() %> </option>
 													 <%
 													 }
 													 %>
@@ -300,7 +301,7 @@
 										 </td>
 										 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart0" class="form-control" placeholder="접수일" name="bbsStart0" value="<%= now %>" ></td>
 										 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget0" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget0" ></td>		
-										 <td><textarea class="textarea end" id="bbsEnd0" style="height:45px; width:100%; border:none; resize:none"  placeholder="진행율&#13;&#10;/완료일" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd0" ></textarea></td>
+										 <td><textarea class="textarea end" id="bbsEnd0" style="height:45px; width:100%; border:none; resize:none"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd0" ></textarea></td>
 										 <td><button type="button" style="margin-bottom:5px; margin-top:5px; visibility:hidden" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button></td>
 										 <td><button type="button" id="paste0" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button></td>
 									</tr>
@@ -320,9 +321,9 @@
 								<th colspan="6" style="background-color: #D4D2FF;" align="center">차주 업무 계획</th>
 							</tr>
 							<tr style="background-color: #FFC57B;">
-								<th width="50%">| &nbsp; 업무내용</th>
-								<th width="10%">| &nbsp; 접수일</th>
-								<th width="10%">| &nbsp; 완료목표일</th>
+								<th style="text-align:center" width="50%"> &nbsp; 업무내용</th>
+								<th style="text-align:center" width="10%"> &nbsp; 접수일</th>
+								<th style="text-align:center" width="10%"> &nbsp; 완료목표일</th>
 								<th></th>
 								<th></th>
 							</tr>
@@ -332,8 +333,9 @@
 									<option> [시스템] </option>
 									<%
 									 for(int count=0; count < works.size(); count++) {
+										 String nwo = works.get(count).replaceAll("/", "");
 									 %>
-									 	<option> <%= works.get(count) %> </option>
+									 	<option> <%= nwo.trim() %> </option>
 									 <%
 									 }
 									 %>
@@ -402,9 +404,11 @@
 		
 		var val = document.getElementById("bbsEnd"+num).value;
 		
-		if(val.indexOf("-") > -1) {
+		var reg = /[!@#$%^&*()_+|<>?:{}]/g;
+		//if(val.indexOf("-") > -1) {
+		if(reg.test(val)) {
 			alert("날짜 양식은 '/'만 사용 가능합니다.");
-			document.getElementById("bbsEnd"+num).value = val.replaceAll("-","/");
+			document.getElementById("bbsEnd"+num).value = val.replaceAll(reg,"/");
 		}
 	});
 	</script>
@@ -424,17 +428,18 @@
 	<script>
 	var con = 0;
 	var trCnt = 1;
+	
+	var work = "";
+	work = document.getElementById("work").value;
+	work = work.replaceAll("[","");
+	work = work.replaceAll("]","");
+	work = work.replaceAll(/\n/g,"");
+	work = work.replaceAll("/","");
+	work = work.split(',');		
+	
 		function addRow() {
-			var work = "";
 			var strworks ="";
-			
-			work = document.getElementById("work").value;
-			work = work.replace("[","");
-			work = work.replace("]","");
-			work = work.replace(/\n/g,"");
-			work = work.split(',');		
-		
-			
+
 			for(var count=0; count < work.length; count++) {
 				if(work[count]!="") {
 					strworks += "<option>"+work[count]+ "</option>"
@@ -445,7 +450,7 @@
 				//var trCnt = parseInt(document.getElementById("len").value) + parseInt($('#bbsTable tr').length) + 1 - parseInt($('#bbsTable tr').length);
 				
 				//console.log(trCnt); // 버튼을 처음 눌렀을 때, 7 / 기본 6 -> + 누를 시, 1씩 증가
-				if(trCnt < 30) {
+				if(trCnt < 15) {
 				
 				var now = document.getElementById("now").value;
 
@@ -477,7 +482,7 @@
 	            innerHtml += '  </div> </td>';
 	            innerHtml += '  <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsStart'+c+'" class="form-control" placeholder="접수일" name="bbsStart'+c+'"  value="'+now+'"></td>';
 	            innerHtml += ' <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget'+c+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일" name="bbsTarget'+c+'" ></td>';
-	            innerHtml += '  <td><textarea class="textarea end" id="bbsEnd'+c+'" style="height:45px; resize:none; width:100%; border:none;" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다."  placeholder="진행율\n/완료일" name="bbsEnd'+c+'" ></textarea></td>'; 
+	            innerHtml += '  <td><textarea class="textarea end" id="bbsEnd'+c+'" style="height:45px; resize:none; width:100%; border:none;" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다."  placeholder="MM/dd" name="bbsEnd'+c+'" ></textarea></td>'; 
 	            innerHtml += '    <td>';
 	            innerHtml += '<button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button>';
 	            innerHtml += '    </td>';
@@ -488,7 +493,7 @@
 	            trCnt += 1;
 	            $('#bbsTable > tbody:last').append(innerHtml);
 				} else {
-					alert("업무 예정은 최대 30개를 넘을 수 없습니다.");
+					alert("업무 예정은 최대 15개를 넘을 수 없습니다.");
 				}
 		};
 	</script>
@@ -506,14 +511,7 @@
 	var ncon = 0;
 	var trNCnt = 1;
 		function addNRow() {
-			var work = "";
 			var strworks ="";
-			
-			work = document.getElementById("work").value;
-			work = work.replace("[","");
-			work = work.replace("]","");
-			work = work.replace(/\n/g,"");
-			work = work.split(',');
 				
 			for(var count=0; count < work.length; count++) {
 				if(work[count]!="") {
@@ -522,7 +520,7 @@
 			} 
 				//var trNCnt = parseInt(document.getElementById("nlen").value) + parseInt($('#bbsNTable tr').length) + 1 - parseInt($('#bbsNTable tr').length);
 				
-				if(trNCnt < 30) {
+				if(trNCnt < 15) {
 				//console.log(trNCnt); // 버튼을 처음 눌렀을 때, 7 / 기본 6 -> + 누를 시, 1씩 증가
 				if(document.getElementsByClassName('ncon').length != 0) {
 				var now = document.getElementById("now").value;
@@ -560,7 +558,7 @@
 	            trNCnt += 1;
 	            $('#bbsNTable > tbody:last').append(innerHtml);
 				} else {
-					alert("업무 예정은 최대 30개를 넘을 수 없습니다.");
+					alert("업무 예정은 최대 15개를 넘을 수 없습니다.");
 				}
 
 		};
@@ -681,6 +679,7 @@
 		}
 	}
 	</script>
+	
 	<script>
 	function paste(id) {
 		//alert(id); //pasteX
@@ -709,8 +708,13 @@
 				$("#bbsTarget"+(Number(unum))).val(target);
 				
 		} else {
-			 document.getElementById("add").click();
-			 paste(id);
+			if(trCnt < 15) {
+			 	document.getElementById("add").click();
+			 	paste(id);
+			} else { // 15거나 이상인 경우, 
+				//document.getElementById(id).style.visibility="hidden";
+				alert("주간 업무 개수는 최대 15개를 넘을 수 없습니다.");
+			}
 		}
 	}
 	
@@ -741,8 +745,12 @@
 				$("#bbsNTarget"+(Number(unum))).val(target);
 				
 		} else {
+			if(trNCnt < 15) {
 			 document.getElementById("nadd").click();
 			 npaste(id);
+			} else {
+				alert("주간 업무 개수는 최대 15개를 넘을 수 없습니다.");
+			}
 		}
 	}
 	</script>
