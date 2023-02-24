@@ -1,3 +1,5 @@
+<%@page import="rmssumm.rmssumm"%>
+<%@page import="rmssumm.RmssummDAO"%>
 <%@page import="rmsrept.rmsrept"%>
 <%@page import="rmsuser.rmsuser"%>
 <%@page import="rmsrept.RmsreptDAO"%>
@@ -37,6 +39,7 @@
 	<%
 		RmsuserDAO userDAO = new RmsuserDAO(); //사용자 정보
 		RmsreptDAO rms = new RmsreptDAO(); //주간보고 목록
+		RmssummDAO sum = new RmssummDAO();
 		
 		// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
 		String id = null;
@@ -208,8 +211,11 @@
 				 dllist.remove(i);
 			 }
 		 }
+		 
+		 //이미 저장된 요약본이 있는지 확인
+		 //ArrayList<rmssumm> alsum = sum.getSumDiv(pl, rms_dl, "T"); 
+		 int alsum = sum.getSumDiv(pl, rms_dl, "T").size(); 
 	%>
-	<textarea><%= Arrays.toString(pllist) %></textarea>
     <!-- ************ 상단 네비게이션바 영역 ************* -->
 	<nav class="navbar navbar-default"> 
 		<div class="navbar-header"> 
@@ -271,7 +277,10 @@
 								aria-expanded="false">summary<span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
+								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
 								<li><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
+								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; AMS 주간보고</h5></li>
+								<li><a href="/RMS/admin/ams/attachment.jsp">첨부 및 출력</a></li>
 								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
 								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
 								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
@@ -281,7 +290,7 @@
 							}
 						%>
 				</ul>
-			
+				
 		
 			
 			<!-- 헤더 우측에 나타나는 드랍다운 영역 -->
@@ -505,7 +514,10 @@
 			Date today = dateFormat.parse(timenow);
 			
 			%>
+			
+			<% if(alsum == 0) { %>
 			<a href="/RMS/pl/bbsRkwrite.jsp?rms_dl=<%=rms_dl%>" style="width:50px; margin-right:20px" class="btn btn-info pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="요약본(Summary) 작성" id="summary"> 작성</a>
+			<% } %>
 		</div>
 	</div>
 	
@@ -598,16 +610,16 @@
 	
 	
 	$("#summary").on('mousedown', function() {
-		//noSub -> 미제출자
-		if(<%= noSub %> != 0) { //즉, 미제출자가 있다면!
-			var go;
-			go = confirm("미제출자가 있습니다.\n"+"["+data+"]"+"\n\n요약본을 작성 하시겠습니까?");
-			
-			if(go) { //출력 o
-				document.getElementById("summary").click();
-			} else { //출력 x
+			//noSub -> 미제출자
+			if(<%= noSub %> != 0) { //즉, 미제출자가 있다면!
+				var go;
+				go = confirm("미제출자가 있습니다.\n"+"["+data+"]"+"\n\n요약본을 작성 하시겠습니까?");
 				
-			}
+				if(go) { //출력 o
+					document.getElementById("summary").click();
+				} else { //출력 x
+					
+				}
 		
 		}
 	});

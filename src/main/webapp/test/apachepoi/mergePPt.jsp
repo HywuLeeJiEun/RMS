@@ -1,13 +1,14 @@
-<%@page import="java.io.BufferedOutputStream"%>
-<%@page import="java.io.BufferedInputStream"%>
-<%@page import="java.net.URLEncoder"%>
-<%@page import="java.io.File"%>
-<%@page import="javax.rmi.ssl.SslRMIClientSocketFactory"%>
+<%@page import="java.awt.Dimension"%>
+<%@page import="org.apache.poi.sl.usermodel.SlideShowFactory"%>
+<%@page import="org.apache.poi.sl.usermodel.SlideShow"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFSlideLayout"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFSlideMaster"%>
 <%@page import="java.io.OutputStream"%>
-<%@page import="java.util.List"%>
-<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.File"%>
 <%@page import="java.io.FileOutputStream"%>
-<%@page import="org.apache.poi.xslf.usermodel.*"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFSlide"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="org.apache.poi.xslf.usermodel.XMLSlideShow"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,48 +21,37 @@
 <%
 	//원본파일 경로
 	String file = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\1.pptx";
-	//String otherfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\5.pptx";
-	//String file = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
-	String otherfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\요약본_sample.pptx";
-	String[] inputFiles = {file, otherfile};
-
+	String ofile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\요약본_sample.pptx";
+	String tfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\2.pptx";
+	String thfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
+	String ffile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
+	String fifile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\03.pptx";
+	String[] inputFiles = {file, ofile, tfile, thfile, ffile, fifile};
+	
+	//ppt 사이즈 새로 정하기
+	int width = 820;
+	int height = 595;
+	
+	//ppt 사이즈 구하기
+	String[] putFiles = {file, ofile};
+	for(String f : putFiles) {
+		SlideShow<?,?> pptx = SlideShowFactory.create(new File(f));
+		System.out.println(pptx.getPageSize());
+	} 
+	
+	
 	//slide show 생성
 	XMLSlideShow ppt = new XMLSlideShow();
+	ppt.setPageSize(new java.awt.Dimension(width, height));
 	
 	for(String files : inputFiles) {
 		//원본 파일 읽기
 		FileInputStream input = new FileInputStream(files);
 		XMLSlideShow xmlslideShow = new XMLSlideShow(input);
 		for(XSLFSlide srcSlide : xmlslideShow.getSlides()) { //ppt 슬라이드를 가져옴.
-				//merging the contents
-				//XSLFSheet slide = srcSlide;
-			//if(srcSlide.getXmlObject().getCSld().getBg() != null) {
-			if(srcSlide.getXmlObject().getCSld().getName() != null) {
 				ppt.createSlide().importContent(srcSlide);
-			}
 		}
 	}  
-
-	/* for(String files : inputFiles) {
-		//원본 파일 읽기
-		FileInputStream input = new FileInputStream(files);
-		XMLSlideShow xmlslideShow = new XMLSlideShow(input);
-		for(XSLFSlide srcSlide : xmlslideShow.getSlides()) { //ppt 슬라이드를 가져옴.
-			List<XSLFShape> shapes = srcSlide.getShapes();
-			for(XSLFShape xslfshape : shapes) {
-				if(xslfshape instanceof XSLFTextShape) {
-					List<XSLFTextParagraph> textparagraphs = ((XSLFTextShape) xslfshape).getTextParagraphs();
-					for(XSLFTextParagraph textpragraph : textparagraphs) {
-						textpragraph.setLineSpacing(10d);
-					}
-				}
-			}
-				//merging the contents
-				//XSLFSheet slide = srcSlide;
-				ppt.createSlide().importContent(srcSlide);
-		}
-	}  */
-	
 	
 	//파일 저장하기
 	//String fileName = "ex.pptx";
@@ -87,7 +77,7 @@
 	OutputStream os = response.getOutputStream();
 	
 	int length;
-	byte[] b = new byte[(int)file.length()];
+	byte[] b = new byte[(int)fileName.length()];
 	
 	while ((length = in.read(b)) > 0) {
 		os.write(b,0,length);
@@ -95,7 +85,7 @@
 	
 	os.flush();
 	os.close();
-	in.close();
+	in.close();  
 	
 %>
 

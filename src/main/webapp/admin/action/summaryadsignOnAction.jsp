@@ -55,8 +55,10 @@
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('승인이 완료되었습니다.')");
-					script.println("location.href='/RMS/admin/summaryadRk.jsp'");
+					//script.println("location.href='/RMS/admin/summaryadRk.jsp'");
+					response.sendRedirect("/RMS/admin/pptx/make_pptAdmin.jsp?rms_dl="+rms_dl);
 					script.println("</script>");
+					
 				}
 			} else if(elist.size() == 0){
 				PrintWriter script = response.getWriter();

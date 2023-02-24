@@ -1,13 +1,23 @@
-<%@page import="java.io.BufferedOutputStream"%>
-<%@page import="java.io.BufferedInputStream"%>
-<%@page import="java.net.URLEncoder"%>
-<%@page import="java.io.File"%>
-<%@page import="javax.rmi.ssl.SslRMIClientSocketFactory"%>
-<%@page import="java.io.OutputStream"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFTextRun"%>
+<%@page import="org.apache.poi.sl.usermodel.TextBox"%>
+<%@page import="com.google.api.services.slides.v1.model.TextRun"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFTextBox"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFTable"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFShape"%>
+<%@page import="org.apache.poi.xslf.usermodel.SlideLayout"%>
 <%@page import="java.util.List"%>
-<%@page import="java.io.FileInputStream"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFTextShape"%>
+<%@page import="java.awt.Dimension"%>
+<%@page import="org.apache.poi.sl.usermodel.SlideShowFactory"%>
+<%@page import="org.apache.poi.sl.usermodel.SlideShow"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFSlideLayout"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFSlideMaster"%>
+<%@page import="java.io.OutputStream"%>
+<%@page import="java.io.File"%>
 <%@page import="java.io.FileOutputStream"%>
-<%@page import="org.apache.poi.xslf.usermodel.*"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFSlide"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="org.apache.poi.xslf.usermodel.XMLSlideShow"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,68 +30,63 @@
 <%
 	//원본파일 경로
 	String file = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\1.pptx";
-	String otherfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\5.pptx";
-	String[] inputFiles = {file, otherfile};
-
-	//slide show 생성
-	XMLSlideShow ppt = new XMLSlideShow();
 	
-	for(String files : inputFiles) {
-		//원본 파일 읽기
-		FileInputStream input = new FileInputStream(files);
-		XMLSlideShow xmlslideShow = new XMLSlideShow(input);
-		for(XSLFSlide srcSlide : xmlslideShow.getSlides()) { //ppt 슬라이드를 가져옴.
-				//merging the contents
-				//XSLFSheet slide = srcSlide;
-				ppt.createSlide().importContent(srcSlide);
-		}
-	}  
-
-	/* FileInputStream input = new FileInputStream(file);
-	XMLSlideShow xmlslideShow = new XMLSlideShow(input);
-	List<XSLFSlide> slide = xmlslideShow.getSlides();
+	//ppt 사이즈 새로 정하기
+	int width = 820;
+	int height = 595;
 	
-	//슬라이드 구성 요소
-	List<XSLFShape> shapes = slide.get(0).getShapes();  */
+	//ppt 사이즈 구하기
+	/* String[] putFiles = {file, ofile};
+	for(String f : putFiles) {
+		SlideShow<?,?> pptx = SlideShowFactory.create(new File(f));
+		System.out.println(pptx.getPageSize());
+	}  */
+	
+	//슬라이드 마스터 가지고 오기
+	XMLSlideShow xppt = new XMLSlideShow(new FileInputStream(file));
+	/* List<XSLFSlideMaster> slideM = xppt.getSlideMasters();
+		//첫번째 슬라이드 마스터
+	XSLFSlideMaster slideMaster = slideM.get(0);
+	XSLFSlideLayout contentlayout = slideMaster.getLayout(SlideLayout.TITLE_AND_CONTENT); */
+	
+	
+	//ppt 1.pptx -> 첫번째 슬라이드 수정
+	//XSLFTextShape[] shapes = xppt.getSlides().get(0).getPlaceholders();
+	XSLFSlide slide = xppt.getSlides().get(0);
+	for(XSLFShape shape : slide.getShapes()) {
+		shape.getAnchor();
 		
-	//파일 저장하기
-	//String fileName = "ex.pptx";
-	String fileName = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\merge.pptx";
+		if(shape instanceof XSLFTextBox) {
+			XSLFTextBox t = (XSLFTextBox) shape;
+			if(t.getShapeName().contains("Rect") && t.getShapeName().contains("2")){
+				//t.getCell(1,1).clearText();
+				//t.getCell(1,1).addNewTextParagraph().addNewTextRun().setText("가나다라");
+				XSLFTextRun run = t.setText("m월 w주차");
+				run.setFontSize(19.6);
+				run.setBold(true);
+				run.setFontFamily("맑은 고딕");
 	
-	/* FileOutputStream ppt_out = new FileOutputStream(fileName);
-	ppt.write(ppt_out);
-	ppt_out.close();
-	ppt_out.flush(); */
-	
-	//파일 저장하기
-	File dFile = new File(fileName);
-	FileInputStream in = new FileInputStream(fileName);
-	int fSize = (int)dFile.length();
-	
-	//encode 설정 
-	//String encodeFilename = "attachment; filename*=" + "UTF-8" + "''" + URLEncoder.encode(name,"UTF-8");
-	//response.setContentType("application/octet-stream;  charset=utf-8");
-	//response.setHeader("Contetn-Dispostion", encodeFilename);
-	//response.setContentLengthLong(fSize);
-	fileName = new String(fileName.getBytes("utf-8"),"8859_1");
-	response.setContentType("application/octet-stream");
-	response.setHeader("Content-Disposition","attachment; filename=merge.pptx");
-	out.clear();
-	out = pageContext.pushBody();
-	
-	OutputStream os = response.getOutputStream();
-	
-	int length;
-	byte[] b = new byte[(int)file.length()];
-	
-	while ((length = in.read(b)) > 0) {
-		os.write(b,0,length);
+			}else if(t.getShapeName().contains("Rect") && t.getShapeName().contains("3")){
+				//t.getCell(1,1).clearText();
+				//t.getCell(1,1).addNewTextParagraph().addNewTextRun().setText("가나다라");
+				XSLFTextRun run = t.setText("[년도/월/일 ~ 년도/월/일]");
+				run.setFontSize(19.6);
+				run.setBold(true);
+				run.setFontFamily("맑은 고딕");		
+			}
+		}
 	}
+	String Name = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\1.pptx";
 	
-	os.flush();
-	os.close();
-	in.close();
 	
+	FileOutputStream pout = new FileOutputStream(Name);
+	xppt.write(pout);
+	pout.close();
+	xppt.close();
+	
+
+
+
 %>
 
 </body>

@@ -217,7 +217,7 @@
 						<%
 							}
 						%>
-						<%
+												<%
 							if(au.equals("관리자") || au.equals("PL")) {
 						%>
 							<li class="dropdown">
@@ -226,7 +226,10 @@
 								aria-expanded="false">summary<span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
+								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
 								<li><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
+								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; AMS 주간보고</h5></li>
+								<li><a href="/RMS/admin/ams/attachment.jsp">첨부 및 출력</a></li>
 								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
 								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
 								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
@@ -497,9 +500,9 @@
 						<a href="/RMS/user/bbs.jsp" class="btn btn-primary pull-right" style="margin-bottom:100px; margin-left:20px">목록</a>
 						<% } %>
 				<%
-					if(id.equals(tlist.get(0).getUser_id())) {
-						if(dldate.after(today) || dldate.equals(today)){
-							if(nlist.get(0).getRms_sign().equals("미승인")) {
+					//if(id.equals(tlist.get(0).getUser_id())) {
+						//if(dldate.after(today) || dldate.equals(today)){
+							//if(nlist.get(0).getRms_sign().equals("미승인")) {
 				%>
 						<!-- 삭제 -->
 						<a onclick="return confirm('해당 게시글을 삭제하시겠습니까?')"
@@ -508,9 +511,9 @@
 						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-success pull-right" onclick="saveData()"> 수정 </button>									
 						<button type="Submit" id="save_sub" style="margin-bottom:50px; display:none" class="btn btn-primary pull-right"> 저장 </button>	
 				<%
-							}
-						}
-					}				
+						//	}
+					//	}
+					//}				
 				%>
 					</div>					
 				</form>
@@ -533,10 +536,10 @@
 		
 		var val = document.getElementById("bbsEnd"+num).value;
 		
-		var reg = /[!@#$%^&*()_+|<>?:{}]/g;
+		var reg = /[!@#$^&*()_+|<>?:{}]/g;
 		//if(val.indexOf("-") > -1) {
 		if(reg.test(val)) {
-			alert("날짜 양식은 '/'만 사용 가능합니다.");
+			alert("날짜 양식은 '/','%'만 사용 가능합니다.");
 			document.getElementById("bbsEnd"+num).value = val.replaceAll(reg,"/");
 		}
 	});

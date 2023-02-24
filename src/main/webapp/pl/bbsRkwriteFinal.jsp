@@ -169,7 +169,10 @@
 								aria-expanded="false">summary<span class="caret"></span></a>
 							<!-- 드랍다운 아이템 영역 -->	
 							<ul class="dropdown-menu">
+								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
 								<li><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
+								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; AMS 주간보고</h5></li>
+								<li><a href="/RMS/admin/ams/attachment.jsp">첨부 및 출력</a></li>
 								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
 								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
 								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
@@ -179,7 +182,7 @@
 							}
 						%>
 				</ul>
-			
+				
 		
 			
 			<!-- 헤더 우측에 나타나는 드랍다운 영역 -->

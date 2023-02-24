@@ -6,20 +6,49 @@
   <packaging>war</packaging>
 
 	<repositories>
+		<repository>
+	        <id>jitpack.io</id>
+	        <url>https://jitpack.io</url>
+	    </repository>
+    
 	    <repository>
 	        <id>AsposeJavaAPI</id>
 	        <name>Aspose Java API</name>
 	        <url>https://releases.aspose.com/java/repo/</url>
 	    </repository>
+	    
 	    <repository>
 		    <id>groupdocs-artifacts-repository</id>
 		    <name>GroupDocs Artifacts Repository</name>
 		    <url>https://releases.groupdocs.com/java/repo/</url>
 		</repository>
+		
+		<repository>   
+	        <id>com.e-iceblue</id>   
+	        <name>e-iceblue</name>   
+	        <url>http://repo.e-iceblue.com/nexus/content/groups/public/</url>   
+    	</repository> 	  
 	</repositories>
 
-
   <dependencies>
+	 <dependency>
+	    <groupId>com.github.Cloudmersive</groupId>
+	    <artifactId>Cloudmersive.APIClient.Java</artifactId>
+	    <version>v3.54</version>
+	</dependency>
+  
+  	<dependency>   
+        <groupId> e-iceblue </groupId>   
+        <artifactId>spire.presentation</artifactId>   
+        <version>7.5.2</version>   
+    </dependency>  
+  
+	 <dependency>
+	    <groupId>com.google.apis</groupId>
+	    <artifactId>google-api-services-slides</artifactId>
+	    <version>v1-rev20230209-2.0.0</version>
+	</dependency>
+  
 	 <dependency>
 	    <groupId>com.groupdocs</groupId>
 	    <artifactId>groupdocs-merger</artifactId>
@@ -53,12 +82,12 @@
 	 <dependency>
 	    <groupId>org.apache.poi</groupId>
 	    <artifactId>poi</artifactId>
-	    <version>3.17</version>
+	    <version>5.2.0</version>
 	</dependency>
 	<dependency>
 	    <groupId>org.apache.poi</groupId>
 	    <artifactId>poi-ooxml</artifactId>
-	    <version>3.17</version>
+	    <version>5.2.0</version>
 	</dependency>
 	<dependency>
 	    <groupId>net.sf.jasperreports</groupId>

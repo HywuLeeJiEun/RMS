@@ -47,6 +47,7 @@
 
 	// RMSSUMM에 해당하는 rms_dl
 	String rms_dl = request.getParameter("rms_dl");
+	String[] dl = rms_dl.split("-");
 	//e_state, w_state => 색상표
 
 	
@@ -69,9 +70,9 @@
 	ArrayList<rmssumm> wnlist = sumDAO.getSumDiv("WEB", rms_dl, "N");
 	
 	//1)개인 pc 환경
-	//String templatePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\SummaryAD.jrxml";
+	String templatePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\SummaryAD.jrxml";
 	//2)local pc환경
-	String templatePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\SummaryAD.jrxml";
+	//String templatePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\SummaryAD.jrxml";
 	Connection conn = null;
 	
 	try {
@@ -84,11 +85,11 @@
 	 // 1) 개인 pc 환경
 	 //String logo = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
 	 // 2) local pc 환경
-	 String logo = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
+	 //String logo = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
 	 Map<String,Object> paramMap = new HashMap<String,Object>();
 	
 	 paramMap.put("deadLine",rms_dl);	  
-	 paramMap.put("logo",logo);
+	 //paramMap.put("logo",logo);
 	 String e_state = "";
 	 String w_state = "";
 	 if(etlist.get(0).getSum_pro().equals("완료")) {
@@ -233,17 +234,13 @@
 	 JRPptxExporter pptxExporter = new JRPptxExporter();
 	 pptxExporter.setExporterInput(new SimpleExporterInput(print));
 	 //pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("D:\\git\\RMS\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\주간보고_sample.pptx")));
+	 // 저장하기
 	 // 1) 개인 pc 환경
 	 //pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\요약본_sample.pptx")));
+	 pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\summary"+rms_dl+".pptx")));
 	 // 2) local pc 환경
-	 pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\요약본_sample.pptx")));
-	 
-	 // frame으로 출력
-	 /* JFrame frame = new JFrame("Report");
-	 frame.getContentPane().add(new JRViewer(print));
-	 frame.pack();
-	 frame.setVisible(true); */
-	 
+	 //pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\요약본_sample.pptx")));
+	  
 	 
 	 pptxExporter.exportReport();
      
@@ -252,10 +249,11 @@
 	
 	}
  	String fileName = "요약본_sample.pptx";
+ 	//저장 환경
 	// 1) 개인 pc 환경
-	//String downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
+	String downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
 	// 2) local pc 환경
-	String downLoadFile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
+	//String downLoadFile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
 	
 	File file = new File(downLoadFile);
 	FileInputStream in = new FileInputStream(downLoadFile);
@@ -263,7 +261,7 @@
 	fileName = new String(fileName.getBytes("utf-8"), "8859_1");
 	
 	response.setContentType("application/octet-stream");
-	response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+	response.setHeader("Content-Disposition", "attachment; filename=" + "summary"+rms_dl+".pptx");
 	
 	out.clear();
 	out = pageContext.pushBody();
