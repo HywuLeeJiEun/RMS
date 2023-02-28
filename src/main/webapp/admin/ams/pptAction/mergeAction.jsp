@@ -1,3 +1,4 @@
+<%@page import="org.apache.poi.xslf.usermodel.XSLFBackground"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -73,7 +74,7 @@
 	String[] inputFiles = {file1, file2, file3, file4, file5, file6, file7, file8, file9, file11};
 	
 	//ppt 사이즈 새로 정하기
-	int width = 815;
+	int width = 781;
 	int height = 595;
 	
 
@@ -89,6 +90,28 @@
 				ppt.createSlide().importContent(srcSlide);
 		}
 	}  
+	
+	//slide 마스터 복사
+	XMLSlideShow fromppt = new XMLSlideShow(new FileInputStream(file2));
+	for(XSLFSlide fromSlide : fromppt.getSlides()) {
+		XSLFSlide toSlide = ppt.createSlide();
+		//copy Slide
+		toSlide.setFollowMasterGraphics(false);
+		toSlide.setFollowMasterObjects(false);
+		
+		XSLFSlideLayout fromLayout = fromSlide.getSlideLayout();
+		XSLFSlideMaster fromMaster = fromSlide.getSlideMaster();
+		XSLFBackground fromBackground = fromSlide.getBackground();
+		
+		XSLFSlideLayout toLayout = toSlide.getSlideLayout();
+		XSLFSlideMaster toMaster = toSlide.getSlideMaster();
+		XSLFBackground toBackground = toSlide.getBackground();
+	
+		toLayout.importContent(fromLayout);
+		toMaster.importContent(fromMaster);
+		toBackground.setFillColor(fromBackground.getFillColor());
+	}
+	
 	
 	String fileName = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+month+"월"+getWeek+"주차_주간보고_AMS.pptx";
 	FileOutputStream ppt_out = new FileOutputStream(fileName);

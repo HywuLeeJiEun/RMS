@@ -283,7 +283,7 @@
 										 </td>
 										 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart0" class="form-control" placeholder="접수일" name="bbsStart0" value="<%= now %>" ></td>
 										 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget0" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget0" ></td>		
-										 <td><textarea class="textarea end" id="bbsEnd0" style="height:45px; width:100%; border:none; resize:none"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd0" ></textarea></td>
+										 <td><textarea class="textarea end" id="bbsEnd0" style="height:45px; width:100%; border:none; resize:none; text-align:center"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd0" ></textarea></td>
 										 <td><button type="button" style="margin-bottom:5px; margin-top:5px; visibility:hidden" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button></td>
 										 <td><button type="button" id="paste0" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button></td>
 									</tr>
@@ -462,7 +462,7 @@
 	            innerHtml += '  </div> </td>';
 	            innerHtml += '  <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsStart'+c+'" class="form-control" placeholder="접수일" name="bbsStart'+c+'"  value="'+now+'"></td>';
 	            innerHtml += ' <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget'+c+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일" name="bbsTarget'+c+'" ></td>';
-	            innerHtml += '  <td><textarea class="textarea end" id="bbsEnd'+c+'" style="height:45px; resize:none; width:100%; border:none;"  data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." maxlength="5" placeholder="MM/dd" name="bbsEnd'+c+'" ></textarea></td>'; 
+	            innerHtml += '  <td><textarea class="textarea end" id="bbsEnd'+c+'" style="height:45px; resize:none; width:100%; border:none; text-align:center"  data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." maxlength="5" placeholder="MM/dd" name="bbsEnd'+c+'" ></textarea></td>'; 
 	            innerHtml += '    <td>';
 	            innerHtml += '<button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button>';
 	            innerHtml += '    </td>';

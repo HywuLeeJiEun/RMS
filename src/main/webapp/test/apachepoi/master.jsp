@@ -1,6 +1,5 @@
 <%@page import="org.apache.poi.xslf.usermodel.XSLFTextRun"%>
 <%@page import="org.apache.poi.sl.usermodel.TextBox"%>
-<%@page import="com.google.api.services.slides.v1.model.TextRun"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFTextBox"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFTable"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFShape"%>

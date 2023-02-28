@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFAutoShape"%>
 <%@page import="java.awt.Rectangle"%>
 <%@page import="java.awt.geom.Rectangle2D"%>
@@ -33,7 +34,7 @@
 	rmsvationDAO vacaDAO = new rmsvationDAO(); //휴가 정보
 	RmsuserDAO userDAO = new RmsuserDAO(); //사용자 정보
 
-	String rms_dl = (String) request.getAttribute("rms_dl");
+	String rms_dl = "2023-02-20";
 	String[] dl = rms_dl.split("-");
 	String vaca_ym = dl[0]+"-"+dl[1];
 	int result = -1;
@@ -43,58 +44,74 @@
 	
 	// 파일이 있는지 확인
 		//수정 후 파일은 name 앞에 10. 포함!
-	String filePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\10.calendar"+dl[1]+".pptx";
-	File f = new File(filePath);
-	if(f.exists()) { //파일이 존재한다면,
-		if(!f.isDirectory()) { // 디렉토리가 아니라면,
-			//파일이 이미 존재
-		}
-	} else {
-	
-	//public에 있는 vacation pptx를 가지고옴 (토대가 됨)
-	String vfile =  "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\10.vacation.pptx";
+	String filePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\10.test_calendar"+dl[1]+".pptx";
+
+
 
 	//휴가 계획을 담당하는 ppt Action (년도-월/ 에 위치. 달에 1번 필요함!)
+	String vfile =  "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\10.vacation.pptx";
+	
+	//public에 있는 vacation pptx를 가지고옴 (토대가 됨)
 	String file = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\calendar"+dl[1]+".pptx";
+	
 	
 	//슬라이드 마스터 가지고 오기
 	XMLSlideShow xppt = new XMLSlideShow(new FileInputStream(file));
 	XSLFSlide slide = xppt.getSlides().get(0); 
 	
+	//테이블 붙여넣기
 	XMLSlideShow vppt = new XMLSlideShow(new FileInputStream(vfile));
 	XSLFSlide vslide = vppt.getSlides().get(0);
+	//List<XSLFShape> vshape = vslide.getShapes();
 	
 	//vshape에서 데이터 가져오기
-		for(XSLFShape vshape : vslide.getShapes()) {
-			vshape.getAnchor();
-			if(vshape instanceof XSLFAutoShape) {
-				XSLFAutoShape t = (XSLFAutoShape) vshape;
-				if(t.getShapeName().contains("Text")) {
-					System.out.println(t.getText());
-					//textbox 생성 후 데이터 삽입
-					XSLFTextBox txt = slide.createTextBox();
-					XSLFTextRun run = txt.setText("  ");
-					run.setBold(false);
-					if(t.getShapeName().contains("4")) {
-						run.setText(t.getText());
-						run.setFontColor(Color.black);
-						run.setFontSize(8.8);
-						txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
-					} else if(t.getShapeName().contains("1")){
-						run.setText(" ◑ 반 차 \n ● 1day");
-						run.setFontColor(Color.blue);
-						run.setFontSize(9.3);
-						txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
-					} else {
-						run.setText(t.getText());
-						run.setFontColor(Color.blue);
-						run.setFontSize(9.3);
-						txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
-					}
+	for(XSLFShape vshape : vslide.getShapes()) {
+		vshape.getAnchor();
+		if(vshape instanceof XSLFAutoShape) {
+			XSLFAutoShape t = (XSLFAutoShape) vshape;
+			if(t.getShapeName().contains("Text")) {
+				System.out.println(t.getText());
+				//textbox 생성 후 데이터 삽입
+				XSLFTextBox txt = slide.createTextBox();
+				XSLFTextRun run = txt.setText("  ");
+				run.setBold(false);
+				if(t.getShapeName().contains("4")) {
+					run.setText(t.getText());
+					run.setFontColor(Color.black);
+					run.setFontSize(8.8);
+					txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
+				} else if(t.getShapeName().contains("1")){
+					run.setText(" ◑ 반 차 \n ● 1day");
+					run.setFontColor(Color.blue);
+					run.setFontSize(9.3);
+					txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
+				} else {
+					run.setText(t.getText());
+					run.setFontColor(Color.blue);
+					run.setFontSize(9.3);
+					txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
 				}
-					
 			}
+				
 		}
+	}
+	
+	
+	//slide textbox 추가하기 (휴가 형태(3개), 하단 부가설명) & 별첨 수정하기
+	//TextBox txt = new TextBox();
+	/* XSLFTextBox txt = slide.createTextBox();
+	XSLFTextRun run = txt.setText(" ◑ 반 차 \n ● 1day");
+	run.setFontSize(9.3);
+	run.setFontColor(Color.BLUE);
+	txt.setAnchor(new Rectangle(500, 200, 100, 100)); //x,y, 크기(x,y)
+	
+	XSLFTextBox txt2 = slide.createTextBox();
+	XSLFTextRun run2 = txt2.setText(" 예비군/민방위 훈련  교육, 내부회의");
+	run2.setFontSize(9.3);
+	run2.setFontColor(Color.BLUE);
+	txt2.setAnchor(new Rectangle(500, 200, 100, 100)); //x,y, 크기(x,y) */
+	
+	
 	
 	for(int v=0; v < vaca.size(); v++) {
 	//2번째 슬라이드 수정
@@ -194,20 +211,15 @@
 	
 
 	
-		
 	FileOutputStream pout = new FileOutputStream(filePath);
 	xppt.write(pout);
 	pout.close();
 	xppt.close(); 
 
-	}
+
 	
-	result = 1;
-	request.setAttribute("rms_dl", rms_dl);
-	request.setAttribute("result", result);
-	RequestDispatcher dispatcher = request.getRequestDispatcher("AllAction.jsp");
-	dispatcher.forward(request, response);
 %>
+
 <a>vacationAction 페이지 입니다</a>
 </body>
 </html>

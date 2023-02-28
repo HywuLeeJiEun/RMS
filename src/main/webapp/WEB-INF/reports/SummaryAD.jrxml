@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sample_bbs" pageWidth="800" pageHeight="595" orientation="Landscape" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4fa471af-7fa1-4c49-8f10-262f0b8833f7">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sample_bbs" pageWidth="780" pageHeight="595" orientation="Landscape" columnWidth="740" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4fa471af-7fa1-4c49-8f10-262f0b8833f7">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="mm"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="mm"/>
@@ -62,7 +62,8 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="44" splitType="Stretch">
+		<band height="48" splitType="Immediate">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement x="-10" y="10" width="408" height="30" uuid="d65e83e6-4ac4-4943-8677-9d08988f6489"/>
 				<textElement textAlignment="Left">
@@ -71,28 +72,28 @@ WHERE
 				<text><![CDATA[2. Summary - ①Baynex]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="690" y="3" width="60" height="40" uuid="605d8b64-894c-4361-ae1f-588395573a87"/>
+				<reportElement x="660" y="-7" width="60" height="40" uuid="605d8b64-894c-4361-ae1f-588395573a87"/>
 				<textElement>
-					<font fontName="맑은 고딕" size="8"/>
+					<font fontName="맑은 고딕" size="9.8"/>
 				</textElement>
 				<text><![CDATA[: 완료
 :진행중
 :미완료(문제)]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="660" y="1" width="21" height="11" backcolor="#00FF00" uuid="407c70ce-10a5-4c5d-98b0-7e4f45fae55e"/>
+				<reportElement x="640" y="-9" width="20" height="11" backcolor="#00FF00" uuid="407c70ce-10a5-4c5d-98b0-7e4f45fae55e"/>
 				<graphicElement>
 					<pen lineColor="#FFFFFF"/>
 				</graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="660" y="13" width="21" height="11" backcolor="#FFFF00" uuid="1d424682-aa9e-4544-9b81-7b490e2146ad"/>
+				<reportElement x="640" y="5" width="20" height="11" backcolor="#FFFF00" uuid="1d424682-aa9e-4544-9b81-7b490e2146ad"/>
 				<graphicElement>
 					<pen lineColor="#FFFFFF"/>
 				</graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="660" y="25" width="21" height="11" backcolor="#FF0000" uuid="bd61d975-49d1-40b1-a1d9-bfafc4b77ec3"/>
+				<reportElement x="640" y="19" width="20" height="11" backcolor="#FF0000" uuid="bd61d975-49d1-40b1-a1d9-bfafc4b77ec3"/>
 				<graphicElement>
 					<pen lineColor="#FFFFFF"/>
 				</graphicElement>
@@ -116,7 +117,7 @@ WHERE
 				<text><![CDATA[" "]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="491" y="240" width="276" height="56" uuid="8b9e046d-e0c9-46b3-a92a-d9b842ca5756"/>
+				<reportElement stretchType="ElementGroupHeight" x="473" y="240" width="276" height="56" uuid="8b9e046d-e0c9-46b3-a92a-d9b842ca5756"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -129,7 +130,7 @@ WHERE
 				<textFieldExpression><![CDATA[$P{ennote}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="417" y="240" width="63" height="56" uuid="0018c13a-f054-485f-857d-0ecd0e2d0639"/>
+				<reportElement stretchType="ElementGroupHeight" x="417" y="240" width="45" height="56" uuid="0018c13a-f054-485f-857d-0ecd0e2d0639"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -182,7 +183,9 @@ WHERE
 				<text><![CDATA[ 차주 업무 계획]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="-8" y="22" width="59" height="31" backcolor="#FFCC99" uuid="bd5e4ed5-9280-4b4e-aa8e-5fbb789bec90"/>
+				<reportElement mode="Opaque" x="-8" y="22" width="58" height="31" backcolor="#FFCC99" uuid="bd5e4ed5-9280-4b4e-aa8e-5fbb789bec90">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -195,7 +198,7 @@ WHERE
 				<textFieldExpression><![CDATA["구분"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="51" y="22" width="366" height="31" backcolor="#FFCC99" uuid="d6c2b6c7-c4de-4269-beb4-7c1d7d53d01e">
+				<reportElement mode="Opaque" x="50" y="22" width="366" height="31" backcolor="#FFCC99" uuid="d6c2b6c7-c4de-4269-beb4-7c1d7d53d01e">
 					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
 					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
 				</reportElement>
@@ -211,7 +214,7 @@ WHERE
 				<textFieldExpression><![CDATA["업무 내용"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="478" y="22" width="60" height="31" backcolor="#FFCC99" uuid="39c91f00-cba7-4d58-971d-39aaa6019431"/>
+				<reportElement mode="Opaque" x="461" y="22" width="60" height="31" backcolor="#FFCC99" uuid="39c91f00-cba7-4d58-971d-39aaa6019431"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -224,7 +227,7 @@ WHERE
 				<textFieldExpression><![CDATA["진행율"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="538" y="22" width="20" height="31" backcolor="#FFCC99" uuid="b1024b97-64a4-4568-92b7-764b65dafb57"/>
+				<reportElement mode="Opaque" x="521" y="22" width="20" height="31" backcolor="#FFCC99" uuid="b1024b97-64a4-4568-92b7-764b65dafb57"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -263,7 +266,7 @@ WHERE
 				<textFieldExpression><![CDATA["업무 내용"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="417" y="206" width="63" height="27" backcolor="#FFCC99" uuid="9cc96a76-261f-4aaa-8579-f6e3f9d1fad0"/>
+				<reportElement mode="Opaque" x="417" y="206" width="45" height="27" backcolor="#FFCC99" uuid="9cc96a76-261f-4aaa-8579-f6e3f9d1fad0"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -276,7 +279,7 @@ WHERE
 				<textFieldExpression><![CDATA["완료예정"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="558" y="22" width="209" height="31" backcolor="#FFCC99" uuid="e66413ea-3a25-40aa-b1a3-ab554561b774"/>
+				<reportElement mode="Opaque" x="541" y="22" width="209" height="31" backcolor="#FFCC99" uuid="e66413ea-3a25-40aa-b1a3-ab554561b774"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -289,7 +292,7 @@ WHERE
 				<textFieldExpression><![CDATA["비고"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="480" y="206" width="287" height="27" backcolor="#FFCC99" uuid="7b7f59d7-196f-4671-beef-33f75c8e32a5"/>
+				<reportElement mode="Opaque" x="462" y="206" width="287" height="27" backcolor="#FFCC99" uuid="7b7f59d7-196f-4671-beef-33f75c8e32a5"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -302,7 +305,7 @@ WHERE
 				<textFieldExpression><![CDATA["비고"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="417" y="22" width="61" height="31" backcolor="#FFCC99" uuid="8ac3abc1-7014-404d-95ad-d88338961d54"/>
+				<reportElement mode="Opaque" x="416" y="22" width="45" height="31" backcolor="#FFCC99" uuid="8ac3abc1-7014-404d-95ad-d88338961d54"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -315,7 +318,7 @@ WHERE
 				<textFieldExpression><![CDATA["완료일"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="491" y="304" width="276" height="55" uuid="67567100-5d68-4b45-9542-3562b2ecc2f6"/>
+				<reportElement stretchType="ElementGroupHeight" x="473" y="304" width="276" height="55" uuid="67567100-5d68-4b45-9542-3562b2ecc2f6"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -328,7 +331,7 @@ WHERE
 				<textFieldExpression><![CDATA[$P{wnnote}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="417" y="304" width="63" height="55" uuid="6d190b99-68c9-4200-988c-ad10c5d09fec"/>
+				<reportElement stretchType="ElementGroupHeight" x="417" y="304" width="45" height="55" uuid="6d190b99-68c9-4200-988c-ad10c5d09fec"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -369,7 +372,7 @@ WHERE
 				<textFieldExpression><![CDATA["WEB"]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement x="538" y="53" width="20" height="62" uuid="1de4afff-3bed-4943-bff7-a906e953b6ca">
+				<reportElement x="521" y="53" width="20" height="62" uuid="1de4afff-3bed-4943-bff7-a906e953b6ca">
 					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{e_state}]]></propertyExpression>
 				</reportElement>
 			</rectangle>
@@ -381,7 +384,7 @@ WHERE
 				<text><![CDATA[ERP 디버깅 권한신청 처리현황]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="500" y="409" width="130" height="23" uuid="6e017b97-86cc-4d4e-8fad-8d6c19bbe8eb"/>
+				<reportElement stretchType="ElementGroupHeight" x="490" y="409" width="130" height="23" uuid="6e017b97-86cc-4d4e-8fad-8d6c19bbe8eb"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -394,7 +397,7 @@ WHERE
 				<textFieldExpression><![CDATA[$P{erp_authority0}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="154" y="409" width="346" height="23" uuid="3396be43-de65-456d-a53d-d97df1169ad0"/>
+				<reportElement stretchType="ElementGroupHeight" x="144" y="409" width="346" height="23" uuid="3396be43-de65-456d-a53d-d97df1169ad0"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -407,7 +410,7 @@ WHERE
 				<textFieldExpression><![CDATA[$P{erp_stext0}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="-10" y="409" width="100" height="23" uuid="e3da354f-5a8f-4649-b1d7-8bcae737666c"/>
+				<reportElement stretchType="ElementGroupHeight" x="-10" y="409" width="90" height="23" uuid="e3da354f-5a8f-4649-b1d7-8bcae737666c"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -420,7 +423,7 @@ WHERE
 				<textFieldExpression><![CDATA[$P{erp_date0}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="-10" y="390" width="100" height="19" backcolor="#FF9933" uuid="c2ed2fe0-812a-4e47-92eb-e3aacf33bfc9"/>
+				<reportElement mode="Opaque" x="-10" y="390" width="90" height="19" backcolor="#FF9933" uuid="c2ed2fe0-812a-4e47-92eb-e3aacf33bfc9"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -433,7 +436,7 @@ WHERE
 				<textFieldExpression><![CDATA["Date"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="154" y="390" width="346" height="19" backcolor="#FF9933" uuid="873e7fc5-3fc8-4c44-9a1a-2242d4775453"/>
+				<reportElement mode="Opaque" x="144" y="390" width="346" height="19" backcolor="#FF9933" uuid="873e7fc5-3fc8-4c44-9a1a-2242d4775453"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -446,7 +449,7 @@ WHERE
 				<textFieldExpression><![CDATA["Text (변경값)"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="500" y="390" width="130" height="19" backcolor="#FF9933" uuid="73f1c6d5-bea9-4e9e-bb04-f128e824b47c"/>
+				<reportElement mode="Opaque" x="490" y="390" width="130" height="19" backcolor="#FF9933" uuid="73f1c6d5-bea9-4e9e-bb04-f128e824b47c"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -459,7 +462,7 @@ WHERE
 				<textFieldExpression><![CDATA["ERP 권한신청서번호"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="-10" y="432" width="100" height="23" uuid="ca4207e0-854c-4949-a7a8-775f938de19d"/>
+				<reportElement stretchType="ElementGroupHeight" x="-10" y="432" width="90" height="23" uuid="ca4207e0-854c-4949-a7a8-775f938de19d"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -472,7 +475,7 @@ WHERE
 				<textFieldExpression><![CDATA[($P{erp_date1} == null ? "" : $P{erp_date1})]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="500" y="432" width="130" height="23" uuid="0538b24c-c885-44d6-80f3-53bbb24a92d4"/>
+				<reportElement stretchType="ElementGroupHeight" x="490" y="432" width="130" height="23" uuid="0538b24c-c885-44d6-80f3-53bbb24a92d4"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -485,7 +488,7 @@ WHERE
 				<textFieldExpression><![CDATA[($P{erp_authority1} == null ? "" : $P{erp_authority1})]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="154" y="432" width="346" height="23" uuid="601ff2a8-8b12-400e-9937-5d92aff86da2"/>
+				<reportElement stretchType="ElementGroupHeight" x="144" y="432" width="346" height="23" uuid="601ff2a8-8b12-400e-9937-5d92aff86da2"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -498,7 +501,7 @@ WHERE
 				<textFieldExpression><![CDATA[($P{erp_stext1} == null ?  "" : $P{erp_stext1})]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="90" y="432" width="64" height="23" uuid="0fc309a5-dae7-472f-bbdc-6e921d144de6"/>
+				<reportElement stretchType="ElementGroupHeight" x="80" y="432" width="64" height="23" uuid="0fc309a5-dae7-472f-bbdc-6e921d144de6"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -511,7 +514,7 @@ WHERE
 				<textFieldExpression><![CDATA[($P{erp_user1} == null ? "" : $P{erp_user1})]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="90" y="409" width="64" height="23" uuid="2caa1f09-7e16-401c-86ab-9750146ed938"/>
+				<reportElement stretchType="ElementGroupHeight" x="80" y="409" width="64" height="23" uuid="2caa1f09-7e16-401c-86ab-9750146ed938"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -524,7 +527,7 @@ WHERE
 				<textFieldExpression><![CDATA[$P{erp_user0}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="90" y="390" width="64" height="19" backcolor="#FF9933" uuid="3c7f8c54-e17e-4c18-a0c4-e064d9e1a656"/>
+				<reportElement mode="Opaque" x="80" y="390" width="64" height="19" backcolor="#FF9933" uuid="3c7f8c54-e17e-4c18-a0c4-e064d9e1a656"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -537,7 +540,7 @@ WHERE
 				<textFieldExpression><![CDATA["User"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="630" y="432" width="134" height="23" uuid="a175e352-6e7d-431c-8059-cbece44fce8e"/>
+				<reportElement stretchType="ElementGroupHeight" x="620" y="432" width="134" height="23" uuid="a175e352-6e7d-431c-8059-cbece44fce8e"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -550,7 +553,7 @@ WHERE
 				<textFieldExpression><![CDATA[($P{erp_division1} == null ? "" : $P{erp_division1})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="630" y="390" width="134" height="19" backcolor="#FF9933" uuid="04a1408c-9433-4d4e-a498-1b9185f3b537"/>
+				<reportElement mode="Opaque" x="620" y="390" width="134" height="19" backcolor="#FF9933" uuid="04a1408c-9433-4d4e-a498-1b9185f3b537"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -563,7 +566,7 @@ WHERE
 				<textFieldExpression><![CDATA["구분(일반/긴급)"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="630" y="409" width="134" height="23" uuid="05f29e7c-280f-4fd7-a96d-e19c9e82a6c8"/>
+				<reportElement stretchType="ElementGroupHeight" x="620" y="409" width="134" height="23" uuid="05f29e7c-280f-4fd7-a96d-e19c9e82a6c8"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -604,7 +607,7 @@ WHERE
 				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="480" y="233" width="287" height="63" uuid="a719664b-ad14-4ae8-ad2b-cda68b70103e"/>
+				<reportElement stretchType="ElementGroupHeight" x="462" y="233" width="287" height="63" uuid="a719664b-ad14-4ae8-ad2b-cda68b70103e"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -617,7 +620,7 @@ WHERE
 				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="480" y="296" width="287" height="63" uuid="f7b4abec-bd1c-4cbe-b44b-a8d71b4b1514"/>
+				<reportElement stretchType="ElementGroupHeight" x="462" y="296" width="287" height="63" uuid="f7b4abec-bd1c-4cbe-b44b-a8d71b4b1514"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -630,7 +633,7 @@ WHERE
 				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="417" y="233" width="63" height="63" uuid="ba827373-8c15-49d5-9d83-db651df23904"/>
+				<reportElement stretchType="ElementGroupHeight" x="417" y="233" width="45" height="63" uuid="ba827373-8c15-49d5-9d83-db651df23904"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -643,7 +646,7 @@ WHERE
 				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="417" y="296" width="63" height="63" uuid="9c3ff193-5a6e-4d59-8b31-045d566b19aa"/>
+				<reportElement stretchType="ElementGroupHeight" x="417" y="296" width="45" height="63" uuid="9c3ff193-5a6e-4d59-8b31-045d566b19aa"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -658,7 +661,9 @@ WHERE
 			<frame>
 				<reportElement stretchType="ElementGroupHeight" x="-8" y="53" width="775" height="126" uuid="d194f56f-780e-4231-8e61-2812cfd53af2"/>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="0" y="0" width="59" height="62" uuid="21354f16-4994-4e00-99fb-b0be5f940536"/>
+					<reportElement stretchType="ElementGroupHeight" x="0" y="0" width="58" height="62" uuid="21354f16-4994-4e00-99fb-b0be5f940536">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -671,7 +676,7 @@ WHERE
 					<textFieldExpression><![CDATA["ERP"]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="69" y="6" width="356" height="56" uuid="30eac1b9-cb43-446b-9b3c-ad3cafc0b777">
+					<reportElement stretchType="ElementGroupHeight" x="68" y="6" width="356" height="56" uuid="30eac1b9-cb43-446b-9b3c-ad3cafc0b777">
 						<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
 						<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
 					</reportElement>
@@ -687,7 +692,7 @@ WHERE
 					<textFieldExpression><![CDATA[$P{econ}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="574" y="6" width="201" height="56" uuid="6112df65-0eea-4391-a4bc-4c974c4b0d1e"/>
+					<reportElement stretchType="ElementGroupHeight" x="557" y="6" width="201" height="56" uuid="6112df65-0eea-4391-a4bc-4c974c4b0d1e"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -700,7 +705,7 @@ WHERE
 					<textFieldExpression><![CDATA[$P{enote}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="486" y="0" width="60" height="62" uuid="265f0c4b-eccb-4803-afc5-597ae3f15777"/>
+					<reportElement stretchType="ElementGroupHeight" x="469" y="0" width="60" height="62" uuid="265f0c4b-eccb-4803-afc5-597ae3f15777"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -713,7 +718,7 @@ WHERE
 					<textFieldExpression><![CDATA[$P{eprogress}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="425" y="6" width="61" height="56" uuid="54aab276-1e5a-4b7c-a9dc-d5d38d92aabf"/>
+					<reportElement stretchType="ElementGroupHeight" x="424" y="6" width="45" height="56" uuid="54aab276-1e5a-4b7c-a9dc-d5d38d92aabf"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -726,7 +731,7 @@ WHERE
 					<textFieldExpression><![CDATA[$P{eend}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="59" y="0" width="366" height="62" uuid="d789e39d-4982-4637-8d20-aba26e646aa4">
+					<reportElement stretchType="ElementGroupHeight" x="58" y="0" width="366" height="62" uuid="d789e39d-4982-4637-8d20-aba26e646aa4">
 						<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
 						<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
 					</reportElement>
@@ -742,7 +747,7 @@ WHERE
 					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="566" y="0" width="209" height="62" uuid="4fb9297c-0524-4bda-a3fe-ecbafcfab1de"/>
+					<reportElement stretchType="ElementGroupHeight" x="549" y="0" width="209" height="62" uuid="4fb9297c-0524-4bda-a3fe-ecbafcfab1de"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -755,7 +760,7 @@ WHERE
 					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="425" y="0" width="61" height="62" uuid="0635dc68-f494-4e5a-809f-dc219f1db6dc"/>
+					<reportElement stretchType="ElementGroupHeight" x="424" y="0" width="45" height="62" uuid="0635dc68-f494-4e5a-809f-dc219f1db6dc"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -768,7 +773,9 @@ WHERE
 					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="0" y="62" width="59" height="64" uuid="91c9b2f0-fecd-4fcf-8783-104eb0c8099b"/>
+					<reportElement stretchType="ElementGroupHeight" x="0" y="62" width="58" height="64" uuid="91c9b2f0-fecd-4fcf-8783-104eb0c8099b">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -781,7 +788,7 @@ WHERE
 					<textFieldExpression><![CDATA["WEB"]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="69" y="66" width="356" height="60" uuid="80256e60-61d6-4807-90a8-db81a93d4f81">
+					<reportElement stretchType="ElementGroupHeight" x="68" y="66" width="356" height="60" uuid="80256e60-61d6-4807-90a8-db81a93d4f81">
 						<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
 						<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
 					</reportElement>
@@ -797,7 +804,7 @@ WHERE
 					<textFieldExpression><![CDATA[$P{wcon}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="574" y="66" width="201" height="60" uuid="d49c82e4-37e8-45ed-ac67-af354bdccc83"/>
+					<reportElement stretchType="ElementGroupHeight" x="557" y="66" width="201" height="60" uuid="d49c82e4-37e8-45ed-ac67-af354bdccc83"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -810,7 +817,7 @@ WHERE
 					<textFieldExpression><![CDATA[$P{wnote}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="486" y="62" width="60" height="64" uuid="d0a5999f-5b63-4458-a7a4-c3dbfe93ddfe"/>
+					<reportElement stretchType="ElementGroupHeight" x="469" y="62" width="60" height="64" uuid="d0a5999f-5b63-4458-a7a4-c3dbfe93ddfe"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -823,7 +830,7 @@ WHERE
 					<textFieldExpression><![CDATA[$P{wprogress}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="425" y="66" width="61" height="60" uuid="f5aa1755-e9fb-42e8-8645-a6f138f2418e"/>
+					<reportElement stretchType="ElementGroupHeight" x="424" y="66" width="45" height="60" uuid="f5aa1755-e9fb-42e8-8645-a6f138f2418e"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -836,7 +843,7 @@ WHERE
 					<textFieldExpression><![CDATA[$P{wend}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="59" y="62" width="366" height="64" uuid="3f48bdbf-0612-49b2-9db4-7c18a8ffc363">
+					<reportElement stretchType="ElementGroupHeight" x="58" y="62" width="366" height="64" uuid="3f48bdbf-0612-49b2-9db4-7c18a8ffc363">
 						<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
 						<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
 					</reportElement>
@@ -852,7 +859,7 @@ WHERE
 					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="566" y="62" width="209" height="64" uuid="d7d1f7fa-4e39-4d82-ac60-4a0038cf2e7f"/>
+					<reportElement stretchType="ElementGroupHeight" x="549" y="62" width="209" height="64" uuid="d7d1f7fa-4e39-4d82-ac60-4a0038cf2e7f"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -865,7 +872,7 @@ WHERE
 					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
-					<reportElement stretchType="ElementGroupHeight" x="425" y="62" width="61" height="64" uuid="50bc5f8d-40d9-41eb-91d4-307963b13a78"/>
+					<reportElement stretchType="ElementGroupHeight" x="424" y="62" width="45" height="64" uuid="50bc5f8d-40d9-41eb-91d4-307963b13a78"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -878,7 +885,7 @@ WHERE
 					<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 				</textField>
 				<rectangle>
-					<reportElement stretchType="ElementGroupHeight" x="546" y="62" width="20" height="64" uuid="f5cd0be6-5335-424a-ba51-5fcf5cb682f5">
+					<reportElement stretchType="ElementGroupHeight" x="529" y="62" width="20" height="64" uuid="f5cd0be6-5335-424a-ba51-5fcf5cb682f5">
 						<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{w_state}]]></propertyExpression>
 					</reportElement>
 				</rectangle>

@@ -1,3 +1,4 @@
+<%@page import="rmssumm.RmssummDAO"%>
 <%@page import="rmsrept.rmsedps"%>
 <%@page import="rmsrept.rmsrept"%>
 <%@page import="rmsuser.rmsuser"%>
@@ -36,6 +37,7 @@
 	<%
 		RmsuserDAO userDAO = new RmsuserDAO(); //사용자 정보
 		RmsreptDAO rms = new RmsreptDAO(); //주간보고 목록
+		RmssummDAO sum = new RmssummDAO();
 		
 		// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
 		String id = null;
@@ -158,6 +160,16 @@
 		
 		//미승인된 rms를 찾아옴.		
 		ArrayList<rmsrept> list = rms.getrmsSign(id, 1);
+		
+		
+		//이미 저장된 요약본이 있는지 확인
+		 //ArrayList<rmssumm> alsum = sum.getSumDiv(pl, rms_dl, "T"); 
+		 int alsum = sum.getSumDiv(pl, rms_dl, "T").size(); 
+		 
+		 
+		//con, ncon
+		int con = tlist.size();
+		int ncon = nlist.size();
 	%>
 	<c:set var="works" value="<%= works %>" />
 	<input type="hidden" id="work" value="<c:out value='${works}'/>">
@@ -321,10 +333,10 @@
 									</tr>
 									<tr style="background-color: #FFC57B;">
 										<!-- <th width="6%">|  담당자</th> -->
-										<th width="50%">| &nbsp; 업무내용</th>
-										<th width="10%">| &nbsp; 접수일</th>
-										<th width="10%">| &nbsp; 완료목표일</th>
-										<th width="10%">| &nbsp;&nbsp; 진행율<br>&nbsp;&nbsp;&nbsp;&nbsp;/완료일</th>
+										<th width="50%" style="text-align:center"> &nbsp; 업무내용</th>
+										<th width="10%" style="text-align:center"> &nbsp; 접수일</th>
+										<th width="10%" style="text-align:center"> &nbsp; 완료목표일</th>
+										<th width="10%" style="text-align:center"> &nbsp;&nbsp; 진행율/<br>&nbsp;&nbsp;완료일</th>
 									</tr>
 									
 									<tr align="center">
@@ -337,15 +349,15 @@
 									<tr>
 										 <td>
 										 <div style="float:left">
-											<input style="height:45px; width:110px; text-align:center;" readonly value="<%= tlist.get(i).getRms_job() %>">
+											<input style="height:45px; width:110px; text-align:center;" name="jobs<%= i %>" readonly value="<%= tlist.get(i).getRms_job() %>">
 										 </div>
 										 <div style="float:left">
-											 <textarea class="textarea con" wrap="hard" readonly id="bbsContent<%= i %>" maxlength="500" required style="height:45px;width:160%; border:none; resize:none " placeholder="업무내용" name="bbsContent<%= i %>"><%= tlist.get(i).getRms_con() %></textarea>
+											 <textarea class="textarea con" wrap="hard"  id="bbsContent<%= i %>" maxlength="500" required style="height:45px;width:185%; border:none; resize:none " placeholder="업무내용" name="bbsContent<%= i %>"><%= tlist.get(i).getRms_con() %></textarea>
 										 </div>
 										 </td>
 										 <td><input type="date" max="9999-12-31" readonly required style="height:45px; width:auto;" id="bbsStart<%= i %>" class="form-control" placeholder="접수일" name="bbsStart<%= i %>" value="<%= tlist.get(i).getRms_str() %>" ></td>
 										 <td><input type="date" max="9999-12-31" readonly style="height:45px; width:auto;" id="bbsTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget<%= i %>" value="<%= tlist.get(i).getRms_tar() %>"></td>		
-										 <td><textarea class="textarea" readonly id="bbsEnd<%= i %>" style="height:45px; width:100%; border:none; resize:none"  placeholder="진행율&#13;&#10;/완료일" maxlength="10" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>" ><%= tlist.get(i).getRms_end() %></textarea></td>
+										 <td><textarea class="textarea" readonly id="bbsEnd<%= i %>" style="height:45px; width:100%; border:none; resize:none; text-align:center"  placeholder="진행율&#13;&#10;/완료일" maxlength="10" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>" ><%= tlist.get(i).getRms_end() %></textarea></td>
 									</tr>
 									<%
 										}
@@ -364,9 +376,9 @@
 								<th colspan="100%" style="background-color: #D4D2FF;" align="center">차주 업무 계획</th>
 							</tr>
 							<tr style="background-color: #FFC57B;">
-								<th width="50%">| &nbsp; 업무내용</th>
-								<th width="10%">| &nbsp; 접수일</th>
-								<th width="10%">| &nbsp; 완료목표일</th>
+								<th width="50%" style="text-align:center"> &nbsp; 업무내용</th>
+								<th width="10%" style="text-align:center"> &nbsp; 접수일</th>
+								<th width="10%" style="text-align:center"> &nbsp; 완료목표일</th>
 							</tr>
 							<%
 							if(nlist.size() != 0){
@@ -375,10 +387,10 @@
 							<tr>
 								 <td>
 								 	<div style="float:left">
-									 <input style="height:45px; width:110px; text-align:center;" readonly value="<%= nlist.get(i).getRms_job() %>">
+									 <input style="height:45px; width:110px; text-align:center;" name="njobs<%= i %>" readonly value="<%= nlist.get(i).getRms_job() %>">
 									 </div>
 									 <div style="float:left">
-									 <textarea class="textarea ncon" readonly wrap="hard" id="bbsNContent<%= i %>" maxlength="500" required style="height:45px;width:160%; border:none; resize:none " placeholder="업무내용" name="bbsNContent<%= i %>"><%= nlist.get(i).getRms_con() %></textarea>
+									 <textarea class="textarea ncon" wrap="hard" id="bbsNContent<%= i %>" maxlength="500" required style="height:45px;width:185%; border:none; resize:none " placeholder="업무내용" name="bbsNContent<%= i %>"><%= nlist.get(i).getRms_con() %></textarea>
 									 </div>
 								 </td>
 								 <td><input type="date" readonly max="9999-12-31" required style="height:45px; width:auto;" id="bbsNStart<%= i %>" class="form-control" placeholder="접수일" name="bbsNStart<%= i %>" value="<%= nlist.get(i).getRms_str() %>" ></td>
@@ -431,8 +443,12 @@
 						<% } %>
 						<!-- 계정 관리 끝 -->
 						<div id="wrapper" style="width:100%; text-align: center;">
+						
 						<!-- 목록 -->
 						<a href="/RMS/pl/bbsRk.jsp?rms_dl=<%= rms_dl %>&pageNumber=<%= pageNumber %>" class="btn btn-primary pull-right" style="margin-bottom:100px; margin-left:20px">목록</a>
+						<% if(alsum == 0) { %>
+						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-success pull-right" onclick="saveData()"> 수정 </button>		
+						<% } %>
 					</div>					
 				</form>
 			</div>
@@ -480,6 +496,40 @@
 			document.getElementById("wrapper_account").style.display="block";
 		}
 	});
+	</script>
+	
+	<script>
+	var trCnt = <%= con %>;
+	var trNCnt = <%= ncon %>;
+	var user_id = "<%= user_id %>";
+	function saveData() {
+		if(trCnt == 0) {
+			alert("금주 업무 실적에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
+		} else if (trNCnt == 0) {
+			alert("차주 업무 계획에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
+		} else {
+
+		var innerHtml = "";
+		innerHtml += '<tr style="display:none">';
+		innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="trNCnt" name="trNCnt" readonly>'+trNCnt+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="con" name="con" readonly>'+trCnt+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="ncon" name="ncon" readonly>'+trNCnt+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="user_id" name="user_id" readonly>'+user_id+'</textarea></td>';
+		innerHtml += '</tr>';
+        $('#bbsNTable > tbody> tr:last').append(innerHtml);
+        
+ 		$("#save_sub").trigger("click");
+        
+        var form = document.getElementById("main");
+        	if(form.checkValidity()) {
+	        	form.action = "/RMS/pl/action/SignOnupdateAction.jsp";
+	            form.mathod = "post";
+	            form.submit(); 
+       	 }
+		}
+    }
+	</script>
 	</script>
 
 </body>

@@ -1,3 +1,17 @@
+<%@page import="org.openxmlformats.schemas.presentationml.x2006.main.CTOleObject"%>
+<%@page import="java.awt.Rectangle"%>
+<%@page import="java.awt.geom.Rectangle2D"%>
+<%@page import="org.apache.poi.xssf.usermodel.XSSFDrawing"%>
+<%@page import="org.apache.poi.ss.usermodel.Drawing"%>
+<%@page import="org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTGraphicalObjectFrame"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFObjectShape"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFAutoShape"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFTextBox"%>
+<%@page import="java.util.List"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFShape"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.awt.Dimension"%>
 <%@page import="org.apache.poi.sl.usermodel.SlideShowFactory"%>
 <%@page import="org.apache.poi.sl.usermodel.SlideShow"%>
@@ -19,30 +33,73 @@
 </head>
 <body>
 <%
+	String rms_dl = "2023-02-20";
+	String[] dl = rms_dl.split("-");
+	
+	
+	/* ******** 몆주차인지 구하는 메소드 ******** (mon - 월 / getWeek - 주차) */
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);	
+	//int thisWeek = getWeekOfYear(sdf.format(new Date()));
+	String Date = rms_dl;
+	
+    Calendar calendar = Calendar.getInstance();
+    String[] dates = Date.split("-");
+    int year = Integer.parseInt(dates[0]);
+    int month = Integer.parseInt(dates[1]);
+    int day = Integer.parseInt(dates[2]);
+    calendar.set(year, month - 1, day);
+    int getWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+	//월주차로 만들기
+	int mon = Integer.parseInt(dates[1]);
+		//달이 1개월보다 크다면, (이후부터 4주차를 계속 제거)
+	if(mon > 1) { 
+		getWeek = getWeek - (mon-1) * 4 ;
+	}
+		
+		
+	
 	//원본파일 경로
-	String file = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\1.pptx";
-	String ofile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\요약본_sample.pptx";
-	String tfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\2.pptx";
-	String thfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
-	String ffile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
-	String fifile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\03.pptx";
-	String[] inputFiles = {file, ofile, tfile, thfile, ffile, fifile};
+		//title  (주마다)
+	//String file1 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\title"+rms_dl+".pptx";
+		//calendar (달마다)
+	//String file2 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\calendar"+dl[1]+".pptx";
+		//index
+	//String file3 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\2.index.pptx";
+		//summary(erp/web)
+	//String file4 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\summary"+rms_dl+".pptx";
+		//summary
+	//String file5 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\3.summary.pptx";
+		//주간보고 CP
+	//String file6 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\4.CP.pptx";
+		//주간보고 ERP
+	//String file7 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\erp"+rms_dl+".pptx";
+		//주간보고 WEB
+	//String file8 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\web"+rms_dl+".pptx";
+		//주간보고 CRM
+	//String file9 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\5.CRM.pptx";
+		//별첨- ERP
+	String file10 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\6.erp.pptx";
+		//별첨- 휴가계획
+	String file11 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\10.calendar"+dl[1]+".pptx";
+	String[] inputFiles = {file10, file11};
 	
 	//ppt 사이즈 새로 정하기
-	int width = 820;
+	int width = 815;
 	int height = 595;
 	
-	//ppt 사이즈 구하기
-	String[] putFiles = {file, ofile};
-	for(String f : putFiles) {
-		SlideShow<?,?> pptx = SlideShowFactory.create(new File(f));
-		System.out.println(pptx.getPageSize());
-	} 
-	
-	
+
 	//slide show 생성
 	XMLSlideShow ppt = new XMLSlideShow();
-	ppt.setPageSize(new java.awt.Dimension(width, height));
+	
+	//file10을 수정해봅시다.. (epr 별첨)
+	FileInputStream input = new FileInputStream(file10);
+	XMLSlideShow slideshow = new XMLSlideShow(input);
+	XSLFSlide slide = slideshow.getSlides().get(0); //1번째 슬라이드
+	
+
+	
+	
+	/* ppt.setPageSize(new java.awt.Dimension(width, height));
 	
 	for(String files : inputFiles) {
 		//원본 파일 읽기
@@ -51,26 +108,23 @@
 		for(XSLFSlide srcSlide : xmlslideShow.getSlides()) { //ppt 슬라이드를 가져옴.
 				ppt.createSlide().importContent(srcSlide);
 		}
-	}  
+	}   */
 	
-	//파일 저장하기
-	//String fileName = "ex.pptx";
-	String fileName = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\merge.pptx";
-	
-	
+	/* String fileName = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+month+"월"+getWeek+"주차_주간보고_AMS.pptx";
 	FileOutputStream ppt_out = new FileOutputStream(fileName);
 	ppt.write(ppt_out);
 	ppt_out.close();
-	ppt.close();
+	ppt.close(); */
 	
 	//파일 저장하기
-	File dFile = new File(fileName);
+	/* File dFile = new File(fileName);
 	FileInputStream in = new FileInputStream(fileName);
 	int fSize = (int)dFile.length();
 	
-	fileName = new String(fileName.getBytes("utf-8"),"8859_1");
+	String filename = month+"월"+getWeek+"주차_주간보고_AMS.pptx";
+	filename = new String(filename.getBytes("utf-8"),"8859_1");
 	response.setContentType("application/octet-stream");
-	response.setHeader("Content-Disposition","attachment; filename=merge.pptx");
+	response.setHeader("Content-Disposition","attachment; filename="+filename);
 	out.clear();
 	out = pageContext.pushBody();
 	
@@ -85,9 +139,48 @@
 	
 	os.flush();
 	os.close();
-	in.close();  
+	in.close();  */  
+	
+	List<XSLFShape> shape = slide.getShapes();
+	int a = shape.size();
+	/* for(XSLFShape shape : slide.getShapes()) {
+		shape.getAnchor();
+		
+	} */
+	
+	//XSLFAutoShape t = (XSLFAutoShape) shape.get(7);
+	XSLFObjectShape t = (XSLFObjectShape) shape.get(7);
+	XSLFSlide slide1 = ppt.createSlide();
+	t.getCTOleObject();
+	//XSLFObjectShape obj = t.getObjectData();
+	//slide.createAutoShape();
+	//slide.addShape(t);
+	//slide1.addShape(t);
+	//slide1.getShapes().set(0, t);
+	CTOleObject obj = t.getCTOleObject();
+	//t.setAnchor(new Rectangle(500, 200, 100, 100));
+	//slide1.addShape(t);
+	
+	
+	String fileName = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_test.pptx";
+	FileOutputStream ppt_out = new FileOutputStream(fileName);
+	ppt.write(ppt_out);
+	ppt_out.close();
+	ppt.close();
 	
 %>
 
+<% for(int i=0; i < shape.size(); i++) { if(shape.get(i).getShapeName().contains("Object")) {%>
+<textarea> <%= shape.get(i).getShapeName()  %> </textarea><br>
+<a><%= i %></a>
+<% } }%>
+
+<a><%= a %></a>
+
+<br><br>
+<a><%= shape.get(7) %></a>
+<br>
+<a><%= t %></a><br>
+<textarea><%=  t.getCTOleObject() %></textarea>
 </body>
 </html>

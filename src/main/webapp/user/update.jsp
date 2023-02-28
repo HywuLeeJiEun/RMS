@@ -321,10 +321,10 @@
 									</tr>
 									<tr style="background-color: #FFC57B;">
 										<!-- <th width="6%">|  담당자</th> -->
-										<th style="text-align:center" width="50%">| &nbsp; 업무내용</th>
-										<th style="text-align:center" width="10%">| &nbsp; 접수일</th>
-										<th style="text-align:center" width="10%">| &nbsp; 완료목표일</th>
-										<th style="text-align:center" width="10%">| &nbsp;&nbsp; 진행율/<br>&nbsp;&nbsp;&nbsp;완료일</th>
+										<th style="text-align:center" width="50%"> &nbsp; 업무내용</th>
+										<th style="text-align:center" width="10%"> &nbsp; 접수일</th>
+										<th style="text-align:center" width="10%"> &nbsp; 완료목표일</th>
+										<th style="text-align:center" width="10%"> &nbsp;&nbsp; 진행율/<br>&nbsp;&nbsp;&nbsp;완료일</th>
 										<% if(nlist.get(0).getRms_sign().equals("미승인")) { %>
 										<th></th>
 										<th></th>
@@ -360,7 +360,7 @@
 										 </td>
 										 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart<%= i %>" class="form-control" placeholder="접수일" name="bbsStart<%= i %>" value="<%= tlist.get(i).getRms_str() %>" ></td>
 										 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget<%= i %>" value="<%= tlist.get(i).getRms_tar() %>"></td>		
-										 <td><textarea class="textarea end" id="bbsEnd<%= i %>" style="height:45px; width:100%; border:none; resize:none"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>" ><%= tlist.get(i).getRms_end() %></textarea></td>
+										 <td><textarea class="textarea end" id="bbsEnd<%= i %>" style="height:45px; width:100%; border:none; resize:none; text-align:center"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>" ><%= tlist.get(i).getRms_end() %></textarea></td>
 										 <% if(nlist.get(0).getRms_sign().equals("미승인")) { %>
 										 <td><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button></td>
 										 <td><button type="button" id="paste<%= i %>" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button></td>
