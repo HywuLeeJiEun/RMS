@@ -1,3 +1,4 @@
+<%@page import="org.apache.poi.ss.usermodel.DataFormatter"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="rmsvation.rmsvationDAO"%>
 <%@page import="rmsuser.RmsuserDAO"%>
@@ -23,7 +24,7 @@
 	RmsuserDAO userDAO = new RmsuserDAO(); //사용자 정보
 	rmsvationDAO vacaDAO = new rmsvationDAO(); //휴가 정보
 	
-	String rms_dl =(String) request.getAttribute("rms_dl");
+	String rms_dl ="2023-03-06";
 	String[] dl = rms_dl.split("-");
 	String vaca_ym = dl[0] + "-" + dl[1];
 	String name ="";
@@ -32,16 +33,10 @@
 	//ArrayList<String> name = new ArrayList<String>();
 
 	// 이미 rms_vation이 저장되어 있다면,
-	if(!vacaDAO.getVacaym(vaca_ym).isEmpty()) {
-		PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('이미 저장된 휴가계획서가 있습니다.')");
-			//script.println("history.back();");
-			script.println("</script>");
-	} else {
+
+	
 	
 	String filepath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
-	//String filepath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\2023-02\\202302.xlsx";
     FileInputStream file = new FileInputStream(filepath);
     XSSFWorkbook workbook = new XSSFWorkbook(file);
 
@@ -146,16 +141,17 @@
 	                break;
 	    	}
     	}
+ 		
  		user_va += value+"&";
  	}
-
- 	//user_va = user_va.replaceAll(".0", "");
+ 
+ 	user_va = user_va.replaceAll(".0", "");
  	List<String> user_vaca = new ArrayList<String>(Arrays.asList(user_va.split("&")));
 
  	
  	// 휴가 Database에 저장하기
  		//row(user_num)의 개수 => 총 인원 / 빈칸의 값은 false로 저장 / 값이 여러개 들어가 있을 수 있음. (,) 
-  		for(int i=0; i < user_num.size(); i++) {
+  		/* for(int i=0; i < user_num.size(); i++) {
  			if(!user_vaca.get(i).equals("false")) {
  				//값이 들어 있다면,
  				String[] vacation = user_vaca.get(i).split(","); //split된 경우, 개수가 하나 이상이라면 length가 1보다 큼!
@@ -164,14 +160,13 @@
  				if(vacation.length > 1) {
  					//휴가 일정이 여럿인 경우,
  						for(int j=0; j < vacation.length; j++) {
+ 							System.out.println(vacation[j]);
  							//부가 정보를 취득 (반차인지 아닌지 확인)
  							if(vacation[j].contains("오전")) {
  								userinfo = "오전";
  							} else if(vacation[j].contains("오후")){
  								userinfo = "오후";
- 							} else {
- 								userinfo = "full";
- 							}
+ 							} 
  							String day = vacation[j].replace(".0","");
  								   day = day.replaceAll("[^0-9]", ""); //숫자만 남김
  							//DB에 저장 (dl[0]-dl[1](rms_ym) / username / day / 부가정보(userinfo))
@@ -188,8 +183,8 @@
  							} else {
  								PrintWriter script = response.getWriter();
  								script.println("<script>");
- 								script.println("alert('저장이 완료되었습니다.')");
- 								script.println("history.back();");
+ 								//script.println("alert('저장이 완료되었습니다.')");
+ 								//script.println("history.back();");
  								script.println("</script>");
  							}
  						}
@@ -199,9 +194,7 @@
 							userinfo = "오전";
 						} else if(vacation[0].contains("오후")){
 							userinfo = "오후";
-						} else {
-							userinfo = "full";//else if(vacation[0].contains("X")) {}
-						}
+						} //else if(vacation[0].contains("X")) {}
  						String day = vacation[0].replace(".0","");
 							   day = day.replaceAll("[^0-9]", ""); //숫자만 남김
 						if(day != null && !day.isEmpty()) {
@@ -219,21 +212,66 @@
 							} else {
 								PrintWriter script = response.getWriter();
 								script.println("<script>");
-								script.println("alert('저장이 완료되었습니다.')");
+								//script.println("alert('저장이 완료되었습니다.')");
 								//script.println("history.back();");
 								script.println("</script>");
 							}
 						}
  				}
  				
- 			}
+ 			} 
  			
- 		} 
-	}
+ 		} */
+  		
 	
-	request.setAttribute("rms_dl", rms_dl);
-	RequestDispatcher dispatcher = request.getRequestDispatcher("vacationAction.jsp");
-	dispatcher.forward(request, response);
+	
+	//request.setAttribute("rms_dl", rms_dl);
+	//RequestDispatcher dispatcher = request.getRequestDispatcher("vacationAction.jsp");
+	//dispatcher.forward(request, response);
+	String a = "";
+	XSSFRow row = sheet.getRow(7); //해당 있는 행에만 적용
+	XSSFCell cell = row.getCell(Integer.parseInt(dl[1])+1); //3 -> 2월
+	DataFormatter dataFormatter = new DataFormatter();
+	a = dataFormatter.formatCellValue(cell);
+	/* if(cell == null) {
+	} else {
+		 //타입별로 내용 읽기
+            switch (cell.getCellType()){
+            case FORMULA:
+                a=cell.getCellFormula();
+                break;
+            case NUMERIC:
+                a=cell.getNumericCellValue()+"";
+                break;
+            case STRING:
+                a=cell.getStringCellValue().toString();
+                break;
+            case BLANK:
+                a=cell.getBooleanCellValue()+"";
+                break;
+            case ERROR:
+                a=cell.getErrorCellValue()+"";
+                break;
+    	}
+	} */
+	
+	//순현국 11번 - 5번째
+	String user_vacafull = String.join("& ",user_vaca);
+	String[] vacation = user_vaca.get(11).split(",");
+	
 %>
+<%= mon %><br>
+<textarea><%= user_va %></textarea>
+<br><br>
+user num :
+<a><%= String.join("&", user_num) %></a><br><br>
+cell 11 :
+<textarea><%= a %></textarea><br>
+<textarea><%= user_vacafull %></textarea>
+<br><br>
+순현국 정보창 : 
+<a><%= vacation.length %></a><br>
+<textarea><%= String.join("&",vacation) %></textarea><br>
+<textarea><%= vacation[1] %></textarea>
 </body>
 </html>

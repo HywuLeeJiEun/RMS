@@ -232,6 +232,7 @@
 			 String useDl = sumDAO.getDluse(dllist.get(i).getRms_dl(), pl);
 			 if(useDl != null && !useDl.isEmpty()) { //이미 요약본이 작성되어 있음!
 				 dllist.remove(i);
+			 	System.out.println(i + useDl);
 			 } 
 		 }
 		
@@ -561,6 +562,8 @@
 	
 	<!-- 부트스트랩 참조 영역 -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<!-- auto size를 위한 라이브러리 -->
+	<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 	<script src="../css/js/bootstrap.js"></script>
 	<script src="../modalFunction.js"></script>
 	
@@ -582,14 +585,12 @@
 	
 	<script>
 		// 자동 높이 확장 (textarea)
-		$("textarea").on('propertychange input keyup keydown focusin focusout blur mousemove', function() {
-			//var offset = this.offsetHeight - this.clientHeight;
-			//var resizeTextarea = function(el) {
-				//$(el).css('height','auto').css('height',el.scrollHeight + offset);
-				$(this).height(2).height($(this).prop('scrollHeight'));
-			//};
-			//$(this).on('propertychange keyup input keydown focusin focusout blur mousemove', Document ,function() {resizeTextarea(this); });
-			
+		$(document).ready(function() {
+			autosize($("textarea"));
+			//2. 자동 높이 확장 (textarea)
+			$(document).on('change input keyup kedown focusout blur mousemove', function() {
+				autosize($("textarea"));
+			});
 		});
 	</script>	
 	

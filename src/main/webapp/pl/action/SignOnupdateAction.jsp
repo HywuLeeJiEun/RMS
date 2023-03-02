@@ -56,6 +56,34 @@
 		String rms_title = request.getParameter("bbsTitle");
 		java.sql.Timestamp date = rms.getDateNow();
 		
+		// ********** 담당자를 가져오기 위한 메소드 *********** 
+		String workSet;
+		ArrayList<String> code = userDAO.getCode(id); //코드 리스트 출력(rmsmgrs에 접근하여, task_num을 가져옴.)
+		List<String> works = new ArrayList<String>();
+		
+		if(code.size() == 0) {
+			//1. 담당 업무가 없는 경우,
+			workSet = "";
+		} else {
+			//2. 담당 업무가 있는 경우
+			for(int i=0; i < code.size(); i++) {
+				if(i < code.size()-1) {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager+"/"); //즉, work 리스트에 모두 담겨 저장됨
+				} else {
+					//task_num을 받아옴.
+					String task_num = code.get(i);
+					// task_num을 통해 업무명을 가져옴.
+					String manager = userDAO.getManager(task_num);
+					works.add(manager); //즉, work 리스트에 모두 담겨 저장됨
+				}
+			}
+			workSet = String.join("\n",works) + "\n";
+		}
+		
 		int n = 0;
 		int nn = 0;
 		int an = 0;
@@ -218,7 +246,110 @@
 			} else {
 					//보류로 저장된 이전 데이터를 제거해야함! (이때, 헷갈리지 않도록 user_user_id도 검색 조건에 넣음.)
 					rms.RmsdeleteSign(user_id, rms_dl, "보류"); //보류로 생성된 이전의 데이터를 삭제
-					//erp user_user_id가 test인 데이터를 제거함.
+					
+					//pptxrms에도 수정사항 입력,
+						//pptxrms 기존 데이터 제거
+					rms.pptxdelete(user_id, rms_dl);
+					
+					//2. rms 데이터 생성
+					//데이터 불러오기 (this, next)
+					//금주
+					ArrayList<rmsrept> rms_this = rms.getRmsOne(rms_dl, user_id,"T");
+					//차주
+					ArrayList<rmsrept> rms_next = rms.getRmsOne(rms_dl, user_id,"N");
+					//데이터 가공하기
+					String bbsManager = workSet + userDAO.getName(user_id);
+					String bbsContent = "";
+					String bbsStart = "";
+					String bbsTarget = "";
+					String bbsEnd = "";
+					String bbsNContent = "";
+					String bbsNStart = "";
+					String bbsNTarget = "";
+					//금주 업무 (this)
+					for(int j=0; j < rms_this.size(); j++) {
+						//content, ncotent의 줄바꿈 개수만큼 추가함
+						int num = rms_this.get(j).getRms_con().split(System.lineSeparator()).length-1;
+							if(rms_this.get(j).getRms_con().indexOf('-') > -1 &&  rms_this.get(j).getRms_con().indexOf('-') < 2) { // - 가 있는 경우,
+								if(rms_this.get(j).getRms_job().contains("시스템") || rms_this.get(j).getRms_job().contains("기타")) {
+									bbsContent += rms_this.get(j).getRms_con() + System.lineSeparator();
+								} else {
+									bbsContent += "- ["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
+								}
+							} else {
+								if(rms_this.get(j).getRms_job().contains("시스템") || rms_this.get(j).getRms_job().contains("기타")) {
+									bbsContent += "- "+rms_this.get(j).getRms_con() + System.lineSeparator();
+								} else {
+									bbsContent += "- ["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con() + System.lineSeparator();
+								}
+							}
+							//bbsContent += rms_this.get(j).getRms_con() + System.lineSeparator();
+							 bbsStart += rms_this.get(j).getRms_str().substring(5).replace("-","/") + System.lineSeparator();
+							 if(rms_this.get(j).getRms_tar() == null || rms_this.get(j).getRms_tar().isEmpty()) {
+							 	bbsTarget += "[보류]" + System.lineSeparator();
+							 } else {
+								 if(rms_this.get(j).getRms_tar().length() > 5) {
+								 bbsTarget += rms_this.get(j).getRms_tar().substring(5).replace("-","/") + System.lineSeparator();
+								 }else {
+									 bbsTarget += "[보류]" + System.lineSeparator();
+								 }
+							 }
+							 bbsEnd += rms_this.get(j).getRms_end() + System.lineSeparator();
+							
+							 for(int k=0;k < num; k ++) {
+								 bbsStart +=System.lineSeparator();
+								 bbsTarget +=System.lineSeparator();
+								 bbsEnd +=System.lineSeparator();
+							 }
+					}
+					//차주 (next)
+					for(int j=0; j < rms_next.size(); j++) {
+						//content, ncotent의 줄바꿈 개수만큼 추가함
+						int nnum = rms_next.get(j).getRms_con().split(System.lineSeparator()).length-1;
+							if(rms_next.get(j).getRms_con().indexOf('-') > -1 &&  rms_next.get(j).getRms_con().indexOf('-') < 2) { // - 가 있는 경우,
+								if(rms_next.get(j).getRms_job().contains("시스템") || rms_next.get(j).getRms_job().contains("기타")) {
+									bbsNContent += rms_next.get(j).getRms_con() + System.lineSeparator();
+								} else {
+									bbsNContent += "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
+								}
+							} else { // - 가 없는 경우! 
+								if(rms_next.get(j).getRms_job().contains("시스템") || rms_next.get(j).getRms_job().contains("기타")) {
+									bbsNContent += "- "+rms_next.get(j).getRms_con() + System.lineSeparator();
+								} else {
+									bbsNContent += "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con() + System.lineSeparator();
+								}
+							} 
+							//bbsNContent += rms_next.get(j).getRms_con() + System.lineSeparator();
+							 bbsNStart += rms_next.get(j).getRms_str().substring(5).replace("-","/") + System.lineSeparator();
+							 if(rms_next.get(j).getRms_tar() == null || rms_next.get(j).getRms_tar().isEmpty()) {
+								 bbsNTarget += "[보류]" + System.lineSeparator();
+							 } else {
+								 if(rms_next.get(j).getRms_tar().length() > 5) {
+								 bbsNTarget += rms_next.get(j).getRms_tar().substring(5).replace("-","/") + System.lineSeparator();
+								 } else {
+									 bbsNTarget += "[보류]" + System.lineSeparator();
+								 }
+							 }
+							 for (int h=0; h < nnum; h++) {
+								 bbsNStart += System.lineSeparator();
+								 bbsNTarget += System.lineSeparator();
+							 }
+					}
+			//3. 데이터 저장하기
+			int rmsTSuc = rms.PptxRmsWrite(user_id, rms_dl, rms_title, bbsManager, bbsContent, bbsStart, bbsTarget, bbsEnd, "T", "승인");
+			int rmsNSuc = rms.PptxRmsWrite(user_id, rms_dl, rms_title, bbsManager, bbsNContent, bbsNStart, bbsNTarget, null, "N", "승인");
+			//(rms_this.get(0).getUserID(), rms_this.get(0).getBbsDeadline(), rms_this.get(0).getBbsTitle(), rms_this.get(0).getBbsDate(), bbsManager, bbsContent, bbsStart, bbsTarget, bbsEnd, bbsNContent, bbsNStart, bbsNTarget, rms_next.get(0).getPluser());			
+			
+				if(rmsTSuc == -1 || rmsNSuc == -1) {
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('최종 저장에 문제가 발생하였습니다. 관리자에게 문의 바랍니다.')");
+					script.println("location.href='../login.jsp'");
+					script.println("</script>");
+				}
+			
+					
+					
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('수정이 완료되었습니다.')");

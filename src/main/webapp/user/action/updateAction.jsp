@@ -66,7 +66,10 @@
 		//필요한 데이터 추출
 		String rms_dl = request.getParameter("bbsDeadline");		
 		String rms_title = request.getParameter("bbsTitle");
-		String before_dl = request.getParameter("before_dl");
+		String before_dl = rms_dl;
+				if(request.getParameter("before_dl") != null) {
+					before_dl = request.getParameter("before_dl");
+				}
 		java.sql.Timestamp date = rms.getDateNow();
 		
 		int n = 0;

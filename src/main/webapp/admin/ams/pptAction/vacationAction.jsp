@@ -109,8 +109,10 @@
 			String name = userDAO.getName(vaca.get(v).getUser_id());
 			//부가정보에 다른 모션 표시
 			String info = vaca.get(v).getVaca_info();
-			if(info.contains("오후") || info.contains("오전")) {
+			if(info.contains("오후")) {
 				info = "◑";
+			} else if (info.contains("오전")) {
+				info = "◐";
 			} else {
 				info = "●";
 			}

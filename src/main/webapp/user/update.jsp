@@ -500,9 +500,9 @@
 						<a href="/RMS/user/bbs.jsp" class="btn btn-primary pull-right" style="margin-bottom:100px; margin-left:20px">목록</a>
 						<% } %>
 				<%
-					//if(id.equals(tlist.get(0).getUser_id())) {
-						//if(dldate.after(today) || dldate.equals(today)){
-							//if(nlist.get(0).getRms_sign().equals("미승인")) {
+					if(id.equals(tlist.get(0).getUser_id())) {
+						if(dldate.after(today) || dldate.equals(today)){
+							if(nlist.get(0).getRms_sign().equals("미승인")) {
 				%>
 						<!-- 삭제 -->
 						<a onclick="return confirm('해당 게시글을 삭제하시겠습니까?')"
@@ -511,9 +511,9 @@
 						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-success pull-right" onclick="saveData()"> 수정 </button>									
 						<button type="Submit" id="save_sub" style="margin-bottom:50px; display:none" class="btn btn-primary pull-right"> 저장 </button>	
 				<%
-						//	}
-					//	}
-					//}				
+							}
+						}
+					}				
 				%>
 					</div>					
 				</form>
@@ -525,37 +525,12 @@
 	
 	<!-- 부트스트랩 참조 영역 -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+	<!-- auto size를 위한 라이브러리 -->
+	<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 	<script src="../css/js/bootstrap.js"></script>
 	<script src="../modalFunction.js"></script>
-	
-	<script>
-	//진행율/완료일 '-' 작성 금지!
-	$(document).on('input keyup',".end", function(event){
-		var num = event.target.id;
-		num = num[num.length - 1];
-		
-		var val = document.getElementById("bbsEnd"+num).value;
-		
-		var reg = /[!@#$^&*()_+|<>?:{}]/g;
-		//if(val.indexOf("-") > -1) {
-		if(reg.test(val)) {
-			alert("날짜 양식은 '/','%'만 사용 가능합니다.");
-			document.getElementById("bbsEnd"+num).value = val.replaceAll(reg,"/");
-		}
-	});
-	</script>
-
-	<script>
-		// 자동 높이 확장 (textarea)
-		$("textarea").on('input keyup keydown focusin focusout blur mousemove', function() {
-			var offset = this.offsetHeight - this.clientHeight;
-			var resizeTextarea = function(el) {
-				$(el).css('height','auto').css('height',el.scrollHeight + offset);
-			};
-			$(this).on('keyup input keydown focusin focusout blur mousemove', Document ,function() {resizeTextarea(this); });
-			
-		});
-	</script>	
+	<script src="/RMS/user/action/sortableAction.js"></script>
 	
 	<script>
 	var con = document.getElementsByClassName('con').length;

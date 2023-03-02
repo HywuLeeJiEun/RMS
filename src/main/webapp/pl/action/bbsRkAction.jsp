@@ -84,10 +84,10 @@
 			script.println("</script>");
 		} else {
 			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('정상적으로 요약본이 제출되었습니다.')");
+			//script.println("<script>");
+			//script.println("alert('정상적으로 요약본이 제출되었습니다.')");
 			//script.println("location.href='../summaryRk.jsp'");
-			script.println("</script>");
+			//script.println("</script>");
 			//제출한 경우, erp 데이터를 확정됨을 암시하고 저장함 (pptx)
 			response.sendRedirect("/RMS/pl/pptx/make_ppt.jsp?rms_dl="+rms_dl+"&pluser="+pl);
 		}   

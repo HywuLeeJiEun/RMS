@@ -234,21 +234,21 @@
 				<form method="post" action="/RMS/user/action/mainAction.jsp" id="main" name="main" onsubmit="return false">
 					<table class="table" id="bbsTable" style="text-align: center; border: 1px solid #dddddd; cellpadding:50px;" >
 						<thead>
-							<tr>
+							<tr class="ui-state-default ui-state-disabled">
 								<th colspan="6" style="background-color: #eeeeee; text-align: center;">주간보고 작성</th>
 							</tr>
 						</thead>
 						<tbody id="tbody">
-							<tr>
+							<tr class="ui-state-default ui-state-disabled">
 									<td colspan="2"> 
 									주간보고 명세서 <input type="text" required class="form-control" placeholder="주간보고 명세서" name="bbsTitle" maxlength="50"></td>
 									<td colspan="1"></td>
-									<td colspan="3">  주간보고 제출일 <input type="date" max="9999-12-31" style="width:80%; margin-left:20px" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" id="bbsDeadline" value=""></td>
+									<td colspan="3">  주간보고 제출일 <input type="date" max="9999-12-31" style="width:80%; margin-left:20px" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" value=""></td>
 							</tr>
-									<tr>
+									<tr class="ui-state-default ui-state-disabled">
 										<th colspan="6" style="background-color: #D4D2FF;" align="center">금주 업무 실적</th>
 									</tr>
-									<tr style="background-color: #FFC57B;">
+									<tr style="background-color: #FFC57B;" class="ui-state-default ui-state-disabled">
 										<!-- <th width="6%">|  담당자</th> -->
 										<th style="text-align:center" width="50%">&nbsp; 업무내용</th>
 										<th style="text-align:center" width="10%">&nbsp; 접수일</th>
@@ -258,7 +258,7 @@
 										<th></th>
 									</tr>
 									
-									<tr align="center">
+									<tr align="center" class="ui-state-default ui-state-disabled">
 										<td style="display:none"><textarea class="textarea" id="bbsManager" name="bbsManager" style="height:auto; width:100%; border:none; overflow:auto" placeholder="구분/담당자"   readonly><%= workSet %><%= name %></textarea></td> 
 									</tr>
 									<tr>
@@ -299,10 +299,10 @@
 				<thead>
 				</thead>
 				<tbody id="tbody">
-							<tr>
+							<tr class="ui-state-default ui-state-disabled">
 								<th colspan="5" style="background-color: #D4D2FF;" align="center">차주 업무 계획</th>
 							</tr>
-							<tr style="background-color: #FFC57B;">
+							<tr style="background-color: #FFC57B;" class="ui-state-default ui-state-disabled">
 								<th style="text-align:center" width="50%"> &nbsp; 업무내용</th>
 								<th style="text-align:center" width="10%"> &nbsp; 접수일</th>
 								<th style="text-align:center" width="10%"> &nbsp; 완료목표일</th>
@@ -379,7 +379,6 @@
 	<script src="../css/js/bootstrap.js"></script>
 	<script src="../modalFunction.js"></script>
 	<script src="/RMS/user/action/sortableAction.js"></script>
-	<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 	
 	<script>
 	var con = 0;
@@ -596,33 +595,6 @@
 		</script>
 	
 	<script>
-	//날짜 요일 구하기
-	const week = ["일","월","화","수","목","금","토"];
-	
-	function saveData() {
-		var innerHtml = "";
-		innerHtml += '<tr style="display:none">';
-		innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="trNCnt" name="trNCnt" readonly>'+trNCnt+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="trACnt" name="trACnt" readonly>'+trACnt+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="con" name="con" readonly>'+con+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="ncon" name="ncon" readonly>'+ncon+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="acon" name="acon" readonly>'+acon+'</textarea></td>';
-		innerHtml += '</tr>';
-        $('#bbsNTable > tbody> tr:last').append(innerHtml);
-        
- 		$("#save_sub").trigger("click");
-        
-        var form = document.getElementById("main");
-        if(form.checkValidity()) {
-        	form.action = "/RMS/user/action/mainAction.jsp";
-            form.mathod = "post";
-            form.submit(); 
-        }
-    }
-	</script>
-	
-	<script>
 	function paste(id) {
 		//alert(id); //pasteX
 		const regex = /[^0-9]/g;
@@ -695,5 +667,32 @@
 			}
 		}
 	}
+	</script>
+	
+	<script>
+	//날짜 요일 구하기
+	const week = ["일","월","화","수","목","금","토"];
+	
+	function saveData() {
+		var innerHtml = "";
+		innerHtml += '<tr style="display:none">';
+		innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="trNCnt" name="trNCnt" readonly>'+trNCnt+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="trACnt" name="trACnt" readonly>'+trACnt+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="con" name="con" readonly>'+con+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="ncon" name="ncon" readonly>'+ncon+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="acon" name="acon" readonly>'+acon+'</textarea></td>';
+		innerHtml += '</tr>';
+        $('#bbsNTable > tbody> tr:last').append(innerHtml);
+        
+ 		$("#save_sub").trigger("click");
+        
+        var form = document.getElementById("main");
+        if(form.checkValidity()) {
+        	form.action = "/RMS/user/action/mainAction.jsp";
+            form.mathod = "post";
+            form.submit(); 
+        }
+    }
 	</script>
 </body>

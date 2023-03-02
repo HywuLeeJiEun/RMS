@@ -45,13 +45,29 @@
 	// 2) local pc 환경
 	//templatePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_EW.jrxml";
 	
+	String local = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1];
+	String location = local+"\\"+dl[2];
+	//String location = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2];
+	//폴더가 없다면, 생성
+	File folder = new File(local); //외부 폴더가 있는지 부터 확인,
+	if(!folder.exists()) {
+		//폴더가 없는 경우,
+		folder.mkdir();
+		
+		File folder2 = new File(location); //내부 폴더가 있는지 확인,
+		if(!folder2.exists()) {
+			folder2.mkdir();
+		}
+	}
+	
+	
 	//파일 저장 경로
 	if(pluser.equals("WEB")) {
-		newfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\web"+rms_dl+".pptx";
+		newfile = location+"\\web"+rms_dl+".pptx";
 		//newfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
 		//newfile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
 	} else if(pluser.equals("ERP")) {
-		newfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\erp"+rms_dl+".pptx";
+		newfile = location+"\\erp"+rms_dl+".pptx";
 		//newfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
 		//newfile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
 	}

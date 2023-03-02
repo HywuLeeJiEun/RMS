@@ -396,37 +396,13 @@
 	
 	<!-- 부트스트랩 참조 영역 -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+	<!-- auto size를 위한 라이브러리 -->
+	<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 	<script src="../css/js/bootstrap.js"></script>
 	<script src="../modalFunction.js"></script>
+	<script src="/RMS/user/action/sortableAction.js"></script>
 	
-	<script>
-	//진행율/완료일 '-' 작성 금지!
-	$(document).on('input keyup',".end", function(event){
-		var num = event.target.id;
-		num = num[num.length - 1];
-		
-		var val = document.getElementById("bbsEnd"+num).value;
-		
-		var reg = /[!@#$^&*()_+|<>?:{}]/g;
-		//if(val.indexOf("-") > -1) {
-		if(reg.test(val)) {
-			alert("날짜 양식은 '/','%'만 사용 가능합니다.");
-			document.getElementById("bbsEnd"+num).value = val.replaceAll(reg,"/");
-		}
-	});
-	</script>
-
-	<script>
-		// 자동 높이 확장 (textarea)
-		$("textarea").on('input keyup keydown focusin focusout blur mousemove', function() {
-			var offset = this.offsetHeight - this.clientHeight;
-			var resizeTextarea = function(el) {
-				$(el).css('height','auto').css('height',el.scrollHeight + offset);
-			};
-			$(this).on('keyup input keydown focusin focusout blur mousemove', Document ,function() {resizeTextarea(this); });
-			
-		});
-	</script>	
 	
 	<script>
 	var con = 0;

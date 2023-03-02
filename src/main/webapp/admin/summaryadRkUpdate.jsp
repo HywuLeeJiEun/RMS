@@ -177,10 +177,18 @@
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">주간보고<span class="caret"></span></a>
 						<!-- 드랍다운 아이템 영역 -->	
+						<% if(au.equals("관리자")) { %>
 						<ul class="dropdown-menu">
-							<li ><a href="/RMS/admin/bbsAdmin.jsp">조회</a></li>
-							<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
+							<li class="active"><a href="/RMS/user/bbs.jsp">조회</a></li>
 						</ul>
+						<% }else { %>
+							<ul class="dropdown-menu">
+								<li><a href="/RMS/user/bbs.jsp">조회</a></li>
+								<li><a href="/RMS/user/bbsUpdate.jsp">작성</a></li>
+								<li><a href="/RMS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
+								<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
+							</ul>
+						<% } %>
 					</li>
 						<%
 							if(au.equals("PL")) {
@@ -593,21 +601,22 @@
 	
 	<!-- 부트스트랩 참조 영역 -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<!-- auto size를 위한 라이브러리 -->
+	<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 	<script src="../css/js/bootstrap.js"></script>
 	<script src="../modalFunction.js"></script>
 	
 	
 	<script>
 		// 자동 높이 확장 (textarea)
-		$("textarea").on('input keyup keydown focusin focusout blur mousemove', function() {
-			var offset = this.offsetHeight - this.clientHeight;
-			var resizeTextarea = function(el) {
-				$(el).css('height','auto').css('height',el.scrollHeight + offset);
-			};
-			$(this).on('keyup input keydown focusin focusout blur mousemove', Document ,function() {resizeTextarea(this); });
-			
+		$(document).ready(function() {
+			autosize($("textarea"));
+			//2. 자동 높이 확장 (textarea)
+			$(document).on('change input keyup kedown focusout blur mousemove', function() {
+				autosize($("textarea"));
+			});
 		});
-	</script>	
+	</script>
 	
 	
 	<script>

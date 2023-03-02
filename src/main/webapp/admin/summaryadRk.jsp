@@ -141,10 +141,18 @@
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">주간보고<span class="caret"></span></a>
 						<!-- 드랍다운 아이템 영역 -->	
+						<% if(au.equals("관리자")) { %>
 						<ul class="dropdown-menu">
-							<li ><a href="/RMS/admin/bbsAdmin.jsp">조회</a></li>
-							<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
+							<li class="active"><a href="/RMS/user/bbs.jsp">조회</a></li>
 						</ul>
+						<% }else { %>
+							<ul class="dropdown-menu">
+								<li><a href="/RMS/user/bbs.jsp">조회</a></li>
+								<li><a href="/RMS/user/bbsUpdate.jsp">작성</a></li>
+								<li><a href="/RMS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
+								<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
+							</ul>
+						<% } %>
 					</li>
 						<%
 							if(au.equals("PL")) {

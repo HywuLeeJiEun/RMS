@@ -39,6 +39,17 @@
 		String location = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1];
 		int maxSize = 1024 * 1024 * 5; // 키로바이트 * 메가바이트 * 기가바이트   
 		 
+		//폴더가 없다면, 생성
+		File folder = new File(location);
+		if(!folder.exists()) {
+			//폴더가 없는 경우,
+			folder.mkdir();
+			//Path file1 = Paths.get(location+"\\새 폴더");
+			//Path file2 = Paths.get(location+"\\"+dl[0]+"-"+dl[1]);
+			
+			//Files.move(file1, file2);
+		}
+		
 		MultipartRequest multi = new MultipartRequest(request,
 							 						  location,
 													  maxSize,

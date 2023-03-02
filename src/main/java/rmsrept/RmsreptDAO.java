@@ -557,6 +557,22 @@ public class RmsreptDAO {
 	}
 	
 	
+	//PPTXRMS  제거하기 (delete) - signOnupdateAction.jsp - PL
+	public int pptxdelete(String user_id, String rms_dl) {
+		//실제 데이터 또한 삭제한다.
+		String sql = "delete from pptxrms where user_id = ? and rms_dl = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			pstmt.setString(2, rms_dl);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //데이터베이스 오류 
+	}
+	
+	
 	// PPTXRMS 조회하기, 저장된 내용을 불러와 형태 보여주기(pptx) //signOnReportRk.jsp
 	public ArrayList<pptxrms> getPptxRmsData(String rms_dl, String user_id, String rms_div){//특정한 리스트를 받아서 반환
 	      ArrayList<pptxrms> list = new ArrayList<pptxrms>();
