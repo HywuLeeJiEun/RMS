@@ -53,8 +53,7 @@
 		MultipartRequest multi = new MultipartRequest(request,
 							 						  location,
 													  maxSize,
-													  "utf-8",
-													  new DefaultFileRenamePolicy());
+													  "utf-8");
 
 		
 		Enumeration<?> files = multi.getFileNames(); // <input type="file">인 모든 파라메타를 반환
@@ -76,9 +75,11 @@
 		File newFile = new File(location,filename);
 		
 		if(newFile.exists()) {
-			File f = new File(location+"\\"+filename);
-			f.delete();
+			//파일이 있는 경우,
+			if(!filename.equals(filesystemName)) {
+			newFile.delete();
 			oldFile.renameTo(newFile); 
+			}
 		} else {
 			oldFile.renameTo(newFile); 
 		}
