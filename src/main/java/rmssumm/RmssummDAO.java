@@ -268,13 +268,14 @@ public class RmssummDAO {
 	
 	
 	//RMSSUMM 승인(sum_sign)으로 변경하기 - summaryadsignOnAction.jsp
-	public int signSum(String sum_sign, String id, String rms_dl) {
-		String sql = "update rmssumm set sum_sign = ?, sum_updu=? where rms_dl= ?";
+	public int signSum(String sum_sign, String id, String rms_dl, java.sql.Timestamp now) {
+		String sql = "update rmssumm set sum_sign = ? sum_time = ? sum_updu=? where rms_dl= ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sum_sign);
-			pstmt.setString(2, id);
-			pstmt.setString(3, rms_dl);
+			pstmt.setTimestamp(2, now);
+			pstmt.setString(3, id);
+			pstmt.setString(4, rms_dl);
 			return pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();

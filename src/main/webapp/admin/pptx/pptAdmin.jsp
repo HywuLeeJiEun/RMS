@@ -251,7 +251,7 @@
  	String fileName = "요약본_sample.pptx";
  	//저장 환경
 	// 1) 개인 pc 환경
-	String downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
+	String downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\summary"+rms_dl+".pptx";
 	// 2) local pc 환경
 	//String downLoadFile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
 	

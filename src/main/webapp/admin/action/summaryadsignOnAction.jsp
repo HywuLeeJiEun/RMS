@@ -1,3 +1,4 @@
+<%@page import="java.sql.Timestamp"%>
 <%@page import="rmssumm.rmssumm"%>
 <%@page import="rmssumm.RmssummDAO"%>
 <%@page import="rmsrept.RmsreptDAO"%>
@@ -42,7 +43,8 @@
 			ArrayList<rmssumm> wlist = sumDAO.getSumDiv("WEB", rms_dl, "T");
 			if(elist.size() != 0 && wlist.size() != 0) {
 				//sign을 승인으로 변경!
-				int num = sumDAO.signSum("승인",id,rms_dl);
+				Timestamp summaryDate = rms.getDateNow();
+				int num = sumDAO.signSum("승인",id,rms_dl, summaryDate);
 				
 				if(num == -1) {
 					//정상적으로 이루어지지 않음!
