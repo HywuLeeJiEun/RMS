@@ -50,16 +50,14 @@
 	//String location = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2];
 	//폴더가 없다면, 생성
 	File folder = new File(local); //외부 폴더가 있는지 부터 확인,
+	File folder2 = new File(location); //내부 폴더가 있는지 확인,
 	if(!folder.exists()) {
 		//폴더가 없는 경우,
 		folder.mkdir();
-		
-		File folder2 = new File(location); //내부 폴더가 있는지 확인,
-		if(!folder2.exists()) {
-			folder2.mkdir();
-		}
 	}
-	
+	if(!folder2.exists()) {
+		folder2.mkdir();
+	}
 	
 	//파일 저장 경로
 	if(pluser.equals("WEB")) {
