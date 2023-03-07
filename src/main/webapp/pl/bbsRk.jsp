@@ -497,10 +497,10 @@
 				</tbody>
 			</table>
 			<% if(pl.equals("ERP")) {%>
-			<a href="/RMS/pl/pptx/ppt.jsp?rms_dl=<%=rmslist.get(0).getRms_dl()%>&pluser=<%= pl %>" style="width:50px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력(ERP)" id="pptx" type="button"> 출력</a>
+			<a href="/RMS/pl/pptx/ppt.jsp?rms_dl=<%=rmslist.get(0).getRms_dl()%>&pluser=<%= pl %>" style="width:50px; margin-bottom:200px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력(ERP)" id="pptx" type="button"> 출력</a>
 			<% }  %>
 			<% if(pl.equals("WEB")) {%>
-			<a href="/RMS/pl/pptx/ppt.jsp?rms_dl=<%=rmslist.get(0).getRms_dl()%>&pluser=<%= pl %>" style="width:50px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력(WEB)" id="pptx" type="button"> 출력</a>
+			<a href="/RMS/pl/pptx/ppt.jsp?rms_dl=<%=rmslist.get(0).getRms_dl()%>&pluser=<%= pl %>" style="width:50px; margin-bottom:200px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력(WEB)" id="pptx" type="button"> 출력</a>
 			<% }  %>
 			<% 	
 			// 현재 시간, 날짜를 구해 이전 데이터는 수정하지 못하도록 함!
