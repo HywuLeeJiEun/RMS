@@ -1,4 +1,3 @@
-
 <%@page import="org.apache.poi.xslf.usermodel.SlideLayout"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFSlideLayout"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFSlideMaster"%>
@@ -62,7 +61,7 @@
 	
 	
 	//1.title.pptx 수정하여 저장하기
-	String file = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\1.title.pptx";
+	String file = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\1.title.pptx";
 	
 	//슬라이드 마스터 가지고 오기
 	XMLSlideShow xppt = new XMLSlideShow(new FileInputStream(file));
@@ -96,7 +95,7 @@
 	}
 	
 	// 저장할 경로
-	String Name = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\title"+rms_dl+".pptx";
+	String Name = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\title"+rms_dl+".pptx";
 	
 	
 	FileOutputStream pout = new FileOutputStream(Name);

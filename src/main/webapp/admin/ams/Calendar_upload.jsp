@@ -19,7 +19,6 @@
 	// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
 	String id = null;
 	String rms_dl = "";
-	int i = -1;
 	if(session.getAttribute("id") != null){
 		id = (String)session.getAttribute("id");
 	}
@@ -36,7 +35,7 @@
 		
 		request.setCharacterEncoding("utf-8");
 		//저장될 위치 (rms_dl을 받아와 데이터 삽입)
-		String location = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1];
+		String location = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1];
 		int maxSize = 1024 * 1024 * 5; // 키로바이트 * 메가바이트 * 기가바이트   
 		 
 		//폴더가 없다면, 생성
@@ -76,13 +75,17 @@
 		File newFile = new File(location,filename);
 		
 		if(newFile.exists()) {
+			if(!filename.equals(filesystemName)) {
+				newFile.delete();
+				oldFile.renameTo(newFile); 
+			}
+		} else {
 			File f = new File(location+"\\"+filename);
 			f.delete();
 			oldFile.renameTo(newFile); 
-		} else {
-			oldFile.renameTo(newFile); 
 		}
 	
+		
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('파일 등록이 완료되었습니다.')");

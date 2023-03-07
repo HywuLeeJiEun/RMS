@@ -37,38 +37,36 @@
 
 	String rms_dl = request.getParameter("rms_dl");
 	String[] dl = rms_dl.split("-");
-	String pluser = request.getParameter("pluser"); // 해당되는 pluser가 나옴(web, erp)
+	String pluser = request.getParameter("pluser").toUpperCase(); // 해당되는 pluser가 나옴(web, erp)
 	String templatePath = null;
 	String newfile = null;
 	// 1) 개인 pc 환경
-	templatePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_EW.jrxml";
+	templatePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_EW.jrxml";
 	// 2) local pc 환경
 	//templatePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_EW.jrxml";
 	
-	String local = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1];
+	String local = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1];
 	String location = local+"\\"+dl[2];
-	//String location = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2];
+	//String location = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2];
 	//폴더가 없다면, 생성
 	File folder = new File(local); //외부 폴더가 있는지 부터 확인,
+	File folder2 = new File(location); //내부 폴더가 있는지 확인,
 	if(!folder.exists()) {
 		//폴더가 없는 경우,
 		folder.mkdir();
-		
-		File folder2 = new File(location); //내부 폴더가 있는지 확인,
-		if(!folder2.exists()) {
-			folder2.mkdir();
-		}
 	}
-	
+	if(!folder2.exists()) {
+		folder2.mkdir();
+	}
 	
 	//파일 저장 경로
 	if(pluser.equals("WEB")) {
 		newfile = location+"\\web"+rms_dl+".pptx";
-		//newfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
+		//newfile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
 		//newfile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\web_sample.pptx";
 	} else if(pluser.equals("ERP")) {
 		newfile = location+"\\erp"+rms_dl+".pptx";
-		//newfile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
+		//newfile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
 		//newfile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\erp_sample.pptx";
 	}
 	
@@ -80,7 +78,7 @@
 	 
 	
 	 // (2)파라메타 생성	  
-	 //String logo = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
+	 //String logo = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
 	 //String logo = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
 	 Map<String,Object> paramMap = new HashMap<String,Object>();
 	
@@ -118,7 +116,7 @@
 	} else if(pluser.equals("ERP")) {
 		fileName = "erp"+rms_dl+".pptx";
 	}
-	//String downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\"+fileName;
+	//String downLoadFile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\"+fileName;
 	String downLoadFile = newfile;
 	
 	File file = new File(downLoadFile);

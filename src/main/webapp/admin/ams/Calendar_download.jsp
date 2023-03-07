@@ -29,7 +29,7 @@
 		String rms_dl = request.getParameter("rms_dl");
 		String dl[] = rms_dl.split("-");
 		String fileName = request.getParameter("fileName");
-		String downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+fileName;
+		String downLoadFile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+fileName;
 				//request.getParameter("filePath");
 		
 		

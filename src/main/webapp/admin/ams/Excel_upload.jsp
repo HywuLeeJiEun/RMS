@@ -19,7 +19,6 @@
 	// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
 	String id = null;
 	String rms_dl = "";
-	int i = -1;
 	if(session.getAttribute("id") != null){
 		id = (String)session.getAttribute("id");
 	}
@@ -36,7 +35,7 @@
 		
 		request.setCharacterEncoding("utf-8");
 		//저장될 위치 (rms_dl을 받아와 데이터 삽입)
-		String location = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1];
+		String location = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1];
 		//폴더가 없다면, 생성
 		File folder = new File(location);
 		if(!folder.exists()) {
@@ -53,8 +52,7 @@
 		MultipartRequest multi = new MultipartRequest(request,
 							 						  location,
 													  maxSize,
-													  "utf-8",
-													  new DefaultFileRenamePolicy());
+													  "utf-8");
 
 		
 		Enumeration<?> files = multi.getFileNames(); // <input type="file">인 모든 파라메타를 반환
@@ -76,9 +74,10 @@
 		File newFile = new File(location,filename);
 		
 		if(newFile.exists()) {
-			File f = new File(location+"\\"+filename);
-			f.delete();
-			oldFile.renameTo(newFile); 
+			if(!filename.equals(filesystemName)) {
+				newFile.delete();
+				oldFile.renameTo(newFile); 
+			}
 		} else {
 			oldFile.renameTo(newFile); 
 		}
