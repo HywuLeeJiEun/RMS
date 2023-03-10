@@ -306,20 +306,20 @@
 							</tr>
 						</thead>
 						<tbody id="tbody">
-							<tr>
+							<tr class="ui-state-default ui-state-disabled">
 									<td colspan="2"> 
 									주간보고 명세서 <input type="text" required class="form-control" placeholder="주간보고 명세서" name="bbsTitle" maxlength="50" value="<%= tlist.get(0).getRms_title() %>"></td>
 									<td colspan="1"></td>
 									<% if(nlist.get(0).getRms_sign().equals("미승인")) { %>
 									<td colspan="3">  주간보고 제출일 <input type="date" max="9999-12-31" style="width:80%; margin-left:20px" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" value="<%= tlist.get(0).getRms_dl() %>"><textarea name="before_dl" style="display:none"><%= tlist.get(0).getRms_dl() %></textarea></td>
 									<% }else { %>
-									<td colspan="2">  주간보고 제출일 <input type="date" max="9999-12-31" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" value="<%= tlist.get(0).getRms_dl() %>" readonly><textarea name="rms_sign" style="display:none"><%= tlist.get(0).getRms_sign() %></textarea></td>
+									<td colspan="2">  주간보고 제출일 <input type="date" max="9999-12-31" required class="form-control" placeholder="주간보고 날짜(월 일)" name="rms_dl" value="<%= tlist.get(0).getRms_dl() %>" readonly><textarea name="rms_sign" style="display:none"><%= tlist.get(0).getRms_sign() %></textarea></td>
 									<% } %>
 							</tr>
-									<tr>
+									<tr class="ui-state-default ui-state-disabled">
 										<th colspan="100%" style="background-color: #D4D2FF;" align="center">금주 업무 실적</th>
 									</tr>
-									<tr style="background-color: #FFC57B;">
+									<tr style="background-color: #FFC57B;" class="ui-state-default ui-state-disabled">
 										<!-- <th width="6%">|  담당자</th> -->
 										<th style="text-align:center" width="50%"> &nbsp; 업무내용</th>
 										<th style="text-align:center" width="10%"> &nbsp; 접수일</th>
@@ -355,12 +355,12 @@
 												 </select>
 											 </div>
 											 <div style="float:left">
-											 <textarea class="textarea con" wrap="hard" id="bbsContent<%= i %>" maxlength="500" required style="height:45px;width:180%; border:none; resize:none " placeholder="업무내용" name="bbsContent<%= i %>"><%= tlist.get(i).getRms_con() %></textarea>
+											 <textarea class="textarea con" wrap="hard" id="bbsContent<%= i %>" maxlength="500" required style="height:45px;width:290px; border:none; resize:none " placeholder="업무내용" name="bbsContent<%= i %>"><%= tlist.get(i).getRms_con() %></textarea>
 											 </div>
 										 </td>
 										 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart<%= i %>" class="form-control" placeholder="접수일" name="bbsStart<%= i %>" value="<%= tlist.get(i).getRms_str() %>" ></td>
 										 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget<%= i %>" value="<%= tlist.get(i).getRms_tar() %>"></td>		
-										 <td><textarea class="textarea end" id="bbsEnd<%= i %>" style="height:45px; width:100%; border:none; resize:none; text-align:center"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>" ><%= tlist.get(i).getRms_end() %></textarea></td>
+										 <td><textarea class="textarea end" id="bbsEnd<%= i %>" style="height:45px; width:70px; border:none; resize:none; text-align:center"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>" ><%= tlist.get(i).getRms_end() %></textarea></td>
 										 <% if(nlist.get(0).getRms_sign().equals("미승인")) { %>
 										 <td><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button></td>
 										 <td><button type="button" id="paste<%= i %>" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button></td>
@@ -384,10 +384,10 @@
 				<thead>
 				</thead>
 				<tbody id="tbody">
-							<tr>
+							<tr class="ui-state-default ui-state-disabled">
 								<th colspan="100%" style="background-color: #D4D2FF;" align="center">차주 업무 계획</th>
 							</tr>
-							<tr style="background-color: #FFC57B;">
+							<tr style="background-color: #FFC57B;" class="ui-state-default ui-state-disabled">
 								<th style="text-align:center" width="50%"> &nbsp; 업무내용</th>
 								<th style="text-align:center" width="10%"> &nbsp; 접수일</th>
 								<th style="text-align:center" width="10%"> &nbsp; 완료목표일</th>
@@ -417,7 +417,7 @@
 										 </select>
 									 </div>
 									 <div style="float:left">
-									 <textarea class="textarea ncon" wrap="hard" id="bbsNContent<%= i %>" maxlength="500" required style="height:45px;width:180%; border:none; resize:none " placeholder="업무내용" name="bbsNContent<%= i %>"><%= nlist.get(i).getRms_con() %></textarea>
+									 <textarea class="textarea ncon" wrap="hard" id="bbsNContent<%= i %>" maxlength="500" required style="height:45px;width:290px; border:none; resize:none " placeholder="업무내용" name="bbsNContent<%= i %>"><%= nlist.get(i).getRms_con() %></textarea>
 									 </div>
 								 </td>
 								 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsNStart<%= i %>" class="form-control" placeholder="접수일" name="bbsNStart<%= i %>" value="<%= nlist.get(i).getRms_str() %>" ></td>
@@ -504,15 +504,22 @@
 						if(dldate.after(today) || dldate.equals(today)){
 							if(nlist.get(0).getRms_sign().equals("미승인")) {
 				%>
+						<!-- 승인 -->
+						<a class="btn btn-success pull-right" href="/RMS/user/action/signOnAction.jsp?rms_dl=<%= tlist.get(0).getRms_dl() %>" onclick="return confirm('제출하시겠습니까?\n제출시, 수정/삭제가 불가합니다.');"> 제출 </a>
 						<!-- 삭제 -->
 						<a onclick="return confirm('해당 게시글을 삭제하시겠습니까?')"
-									href="/RMS/user/action/deleteAction.jsp?rms_dl=<%= rms_dl %>" class="btn btn-danger pull-right" style="margin-bottom:100px;">삭제</a>
+									href="/RMS/user/action/deleteAction.jsp?rms_dl=<%= rms_dl %>" class="btn btn-danger pull-right" style="margin-bottom:100px; margin-right:20px">삭제</a>
 						<!-- 수정 버튼 생성 -->
 						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-success pull-right" onclick="saveData()"> 수정 </button>									
 						<button type="Submit" id="save_sub" style="margin-bottom:50px; display:none" class="btn btn-primary pull-right"> 저장 </button>	
 				<%
+							} else if (nlist.get(0).getRms_sign().equals("승인")) {
+								%>
+								<!-- 승인 취소 -->
+								<button type="button" id="revert" style="margin-bottom:50px;" class="btn btn-danger pull-right" onclick="revertSign()" data-toggle="tooltip" data-html="true" data-placement="bottom" title="미제출로 변경합니다."> 변경 </button>	
+								<% 
 							}
-						}
+						} 
 					}				
 				%>
 					</div>					
@@ -589,11 +596,11 @@
 	            innerHtml += ' </select>';
 	            innerHtml += ' </div>';
 	            innerHtml += ' <div style="float:left">';
-	            innerHtml += ' <textarea wrap="hard" class="textarea con" id="bbsContent'+c+'" maxlength="500" required style="height:45px;width:180%; border:none; resize:none" placeholder="업무내용" name="bbsContent'+c+'"></textarea>';
+	            innerHtml += ' <textarea wrap="hard" class="textarea con" id="bbsContent'+c+'" maxlength="500" required style="height:45px;width:290px; border:none; resize:none" placeholder="업무내용" name="bbsContent'+c+'"></textarea>';
 	            innerHtml += '  </div> </td>';
 	            innerHtml += '  <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsStart'+c+'" class="form-control" placeholder="접수일" required name="bbsStart'+c+'"  value="'+now+'"></td>';
 	            innerHtml += ' <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget'+c+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일" name="bbsTarget'+c+'" ></td>';
-	            innerHtml += '  <td><textarea class="textarea end" id="bbsEnd'+c+'" style="height:45px; resize:none; width:100%; border:none;"  data-toggle="tooltip" maxlength="5" data-placement="bottom" title="미입력시 [보류]로 표시됩니다."  placeholder="MM/dd" name="bbsEnd'+c+'" ></textarea></td>'; 
+	            innerHtml += '  <td><textarea class="textarea end" id="bbsEnd'+c+'" style="height:45px; resize:none; width:70px; border:none;"  data-toggle="tooltip" maxlength="5" data-placement="bottom" title="미입력시 [보류]로 표시됩니다."  placeholder="MM/dd" name="bbsEnd'+c+'" ></textarea></td>'; 
 	            innerHtml += '    <td>';
 	            innerHtml += '<button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button>';
 	            innerHtml += '    </td>';
@@ -664,7 +671,7 @@
 	            innerHtml += ' </select>';
 	            innerHtml += ' </div>';
 	            innerHtml += ' <div style="float:left">';
-	            innerHtml += ' <textarea wrap="hard" class="textarea ncon" id="bbsNContent'+n+'" maxlength="500" required style="height:45px;width:180%; resize:none; border:none; " placeholder="업무내용" name="bbsNContent'+n+'"></textarea>';
+	            innerHtml += ' <textarea wrap="hard" class="textarea ncon" id="bbsNContent'+n+'" maxlength="500" required style="height:45px;width:290px; resize:none; border:none; " placeholder="업무내용" name="bbsNContent'+n+'"></textarea>';
 	            innerHtml += '</div> </td>';
 	            innerHtml += '<td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsNStart'+n+'" class="form-control" placeholder="접수일" required name="bbsNStart'+n+'" value="'+now+'"></td>';
 	            innerHtml += '<td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget'+n+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일" name="bbsNTarget'+n+'" ></td>';
@@ -884,6 +891,19 @@
 			} else {
 				alert("주간 업무 개수는 최대 15개를 넘을 수 없습니다.");
 			}
+		}
+	}
+	</script>
+	
+	<script>
+	// revertSign() - 승인상태 되돌리기
+	function revertSign() {
+		if(confirm("승인 상태가 [미제출](수정 가능)로 변경됩니다.\n변경 하시겠습니까?")) {
+			//확인시, 미제출로 변경
+			var form = document.getElementById("main");
+	        	form.action = "/RMS/user/action/DissignOnAction.jsp";
+	            form.mathod = "post";
+	            form.submit(); 
 		}
 	}
 	</script>

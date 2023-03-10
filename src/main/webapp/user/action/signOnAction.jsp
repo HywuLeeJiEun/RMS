@@ -180,14 +180,16 @@
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('제출이 완료되었습니다.')");
-					script.println("alert('주간보고가 모두 제출되었습니다. \\n조회 페이지로 이동합니다.')");
-					script.println("location.href='../bbs.jsp'");
+					//script.println("alert('주간보고가 모두 제출되었습니다. \\n조회 페이지로 이동합니다.')");
+					//script.println("location.href='../bbs.jsp'");
+					script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
 					script.println("</script>");
 				} else {
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('제출이 완료되었습니다.')");
-					script.println("location.href='../bbsUpdateDelete.jsp'");
+					//script.println("location.href='../bbsUpdateDelete.jsp'");
+					script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
 					script.println("</script>");
 				}
 				

@@ -290,7 +290,8 @@
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('수정이 완료되었습니다.')");
-					script.println("location.href='../bbsUpdateDelete.jsp'");
+					//script.println("location.href='../bbsUpdateDelete.jsp'");
+					script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
 					script.println("</script>");
 				}else {
 					//보류로 저장된 이전 데이터를 제거해야함! (이때, 헷갈리지 않도록 user_id도 검색 조건에 넣음.)
@@ -302,8 +303,9 @@
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('수정이 완료되었습니다.')");
-					script.println("alert('주간보고가 모두 제출되었습니다. \\n조회 페이지로 이동합니다.')");
-					script.println("location.href='../bbs.jsp'");
+					//script.println("alert('주간보고가 모두 제출되었습니다. \\n조회 페이지로 이동합니다.')");
+					//script.println("location.href='../bbs.jsp'");
+					script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
 					script.println("</script>");
 				}
 			} 

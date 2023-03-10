@@ -112,3 +112,103 @@
 			}
 		});
 	});	
+	
+	
+	
+	//금주 차주 업무 붙이기 ▼ ▲
+		// 금주 -> 차주
+	$(document).on("click","#post", function() {
+		//생성 전, 차주 업무 개수를 미리 받아놓음.
+		var before = trNCnt;
+		//15개 이상은 생성할 수 없음!
+		var count_result = 1;
+		var ommission = 0; //누락건 카운트
+		//금주 개수만큼 업무 추가(trCnt)
+		for(var i=0; i < trCnt; i++) {
+			if(trNCnt < 15) {
+			document.getElementById("nadd").click();
+			} else {
+				if(count_result != -1) {
+					count_result = -1;
+				}
+				ommission += 1;
+			}
+		}
+		
+		//before 기준으로, trNCnt(추가된것까지 포함!)까지 돌림
+		for(var b = before; b < trNCnt; b ++) {
+			//데이터 삽입 작업 시작
+ 			var num = b - before;
+				var a = document.getElementById("jobs"+num);
+				var jobs = a.options[a.selectedIndex].value;
+				//작성된 업무 내용
+				var content = document.getElementById("bbsContent"+num).value;
+				//작성된 접수일 내용
+				var start = document.getElementById("bbsStart"+num).value;
+				//작성된 완료목표일 내용
+				var target = document.getElementById("bbsTarget"+num).value;
+				
+				//데이터 삽입
+				$("#njobs"+b).val(jobs).prop("selected", true);
+					//작성된 업무내용 넣기
+				$("#bbsNContent"+b).val(content);
+					//작성된 접수일 넣기
+				$("#bbsNStart"+b).val(start);
+					//작성된 완료목표일 넣기
+				$("#bbsNTarget"+b).val(target);
+		}
+		if(count_result == -1) {
+			alert("추가 완료되었습니다.(금주 → 차주)\n최대 15개를 넘을 수 없어 조건에 맞춰 추가되었습니다. (미등록 "+ommission+"건)");
+		} else {
+			alert("추가 완료되었습니다.(금주 → 차주)");
+		}
+	});
+		
+		
+		//차주 -> 금주
+		$(document).on("click","#npost", function() {
+		//생성 전, 금주 업무 개수를 미리 받아놓음.
+		var before = trCnt;
+		//15개 이상은 생성할 수 없음!
+		var count_result = 1;
+		var ommission = 0; //누락건 카운트
+		//차주 개수만큼 업무 추가(trNCnt)
+		for(var i=0; i < trNCnt; i++) {
+			if(trNCnt < 15) {
+			document.getElementById("add").click();
+			} else {
+				if(count_result != -1) {
+					count_result = -1;
+				}
+				ommission += 1;
+			}
+		}
+		
+		//before 기준으로, trCnt(추가된것까지 포함!)까지 돌림
+		for(var b = before; b < trCnt; b ++) {
+			//데이터 삽입 작업 시작
+ 			var num = b - before;
+				var a = document.getElementById("njobs"+num);
+				var jobs = a.options[a.selectedIndex].value;
+				//작성된 업무 내용
+				var content = document.getElementById("bbsNContent"+num).value;
+				//작성된 접수일 내용
+				var start = document.getElementById("bbsNStart"+num).value;
+				//작성된 완료목표일 내용
+				var target = document.getElementById("bbsNTarget"+num).value;
+				
+				//데이터 삽입
+				$("#jobs"+b).val(jobs).prop("selected", true);
+					//작성된 업무내용 넣기
+				$("#bbsContent"+b).val(content);
+					//작성된 접수일 넣기
+				$("#bbsStart"+b).val(start);
+					//작성된 완료목표일 넣기
+				$("#bbsTarget"+b).val(target);
+		}
+		if(count_result == -1) {
+			alert("추가 완료되었습니다.(차주 → 금주)\n최대 15개를 넘을 수 없어 조건에 맞춰 추가되었습니다. (미등록 "+ommission+"건)");
+		} else {
+			alert("추가 완료되었습니다.(차주 → 금주)");
+		}
+	});
