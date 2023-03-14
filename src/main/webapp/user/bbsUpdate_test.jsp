@@ -267,8 +267,10 @@
 									<td colspan="3">  주간보고 제출일 <input type="date" max="9999-12-31" style="width:80%; margin-left:20px" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" value="<%= date %>"></td>
 							</tr>
 									<tr class="ui-state-default ui-state-disabled">
-										<th colspan="6" style="background-color: #D4D2FF;" align="center">금주 업무 실적
-										<button type="button" style="width:50px; height:30px; background-color:transparent" id="post" class="btn pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="금주 내용을<br>차주 내용에 추가합니다."><span class="glyphicon glyphicon-triangle-bottom"></span></button></th>
+										<th colspan="6" style="background-color: #D4D2FF;">금주 업무 실적
+										<button type="button" style="width:55px; height:30px; display:none" id="post" class="btn btn-success pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="금주 내용을<br>차주 내용에 추가합니다.">추가</button>
+										<button type="button" style="width:50px; height:30px; background-color:transparent" id="post_start" class="btn pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="금주 내용을<br>차주 내용에 추가합니다." value="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button></th>
+										
 									</tr>
 									<tr style="background-color: #FFC57B;" class="ui-state-default ui-state-disabled">
 										<!-- <th width="6%">|  담당자</th>  style="text-align:center" -->
@@ -322,7 +324,8 @@
 										 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget<%= i %>" value="<%= tlist.get(i).getRms_tar() %>"></td>		
 										 <td><textarea class="textarea end" id="bbsEnd<%= i %>" style="height:45px; width:70px; border:none; resize:none; text-align:center"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>"><%= end %></textarea></td>
 										 <td><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button></td>
-										 <td><button type="button" id="paste<%= i %>" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button></td>
+										 <td><button type="button" id="paste<%= i %>" class="btn btn-default paste" style="margin-bottom:5px; margin-top:5px; display:block;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>
+										 	 <input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="chkpos" value="<%= i %>"></td>
 									</tr>
 									<%
 										}
@@ -342,7 +345,8 @@
 				<tbody id="tbody">
 							<tr class="ui-state-default ui-state-disabled">
 								<th colspan="5" style="background-color: #D4D2FF;" align="center">차주 업무 계획
-								<button type="button" style="width:50px; height:30px; background-color:transparent" id="npost" class="btn pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="차주 내용을<br>금주 내용에 추가합니다."> <span class="glyphicon glyphicon-triangle-top"></span> </button></th>
+								<button type="button" style="width:55px; height:30px; display:none" id="npost" class="btn btn-success pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="차주 내용을<br>금주 내용에 추가합니다.">추가</button>
+								<button type="button" style="width:50px; height:30px; background-color:transparent" id="npost_start" class="btn pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="차주 내용을<br>금주 내용에 추가합니다." value="false"> <span class="glyphicon glyphicon-triangle-top"></span> </button></th>
 							</tr>
 							<tr style="background-color: #FFC57B;" class="ui-state-default ui-state-disabled">
 								<th style="text-align:center" width="60%">&nbsp; 업무내용</th>
@@ -382,7 +386,8 @@
 								 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsNStart<%= i %>" class="form-control" placeholder="접수일" name="bbsNStart<%= i %>" value="<%= nlist.get(i).getRms_str() %>" ></td>
 								 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsNTarget<%= i %>" value="<%= nlist.get(i).getRms_tar() %>"></td>		
 							 	<td><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delNRow" name="delNRow" class="btn btn-danger"> 삭제 </button></td>
-							 	<td><button type="button" id="npaste<%= i %>" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button></td>
+							 	<td><button type="button" id="npaste<%= i %>" class="btn btn-default npaste" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>
+							 		<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="nchkpos" value="<%= i %>"></td>
 							</tr>
 							<%
 								}
@@ -500,7 +505,8 @@
 	            innerHtml += '<button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button>';
 	            innerHtml += '    </td>';
 	            innerHtml += '    <td>';
-	            innerHtml += '<button type="button" id="paste'+c+'" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)"><span class="glyphicon glyphicon-arrow-down"></span></button>';
+	            innerHtml += '<button type="button" id="paste'+c+'" class="btn btn-default paste" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)"><span class="glyphicon glyphicon-arrow-down"></span></button>';
+	            innerHtml += '<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="chkpos" value="'+c+'">';
 	            innerHtml += '    </td>';
 	            innerHtml += '</tr>'; 
 	            trCnt += 1;
@@ -565,7 +571,9 @@
 	            innerHtml += '  <td><input type="date" required max="9999-12-31" style="height:45px; width:auto;" id="bbsNStart'+n+'" class="form-control" placeholder="접수일" name="bbsNStart'+n+'" value="'+now+'"></td>';
 	            innerHtml += ' <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget'+n+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일"  name="bbsNTarget'+n+'" ></td>';
 	            innerHtml += '<td><button type="button" style="margin-bottom:5px; margin-top:5px" id="delRow" name="delNRow" class="btn btn-danger"> 삭제 </button></td>';
-	            innerHtml += '<td><button type="button" id="npaste'+n+'" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button></td>';
+	            innerHtml += '<td><button type="button" id="npaste'+n+'" class="btn btn-default npaste" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>';
+	            innerHtml += '<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="nchkpos" value="'+n+'"></td>';
+	            innerHtml += '</td>';
 	            innerHtml += '</tr>'; 
 	            trNCnt += 1;
 	            $('#bbsNTable > tbody:last').append(innerHtml);
@@ -707,6 +715,7 @@
 	function paste(id) {
 		//alert(id); //pasteX
 		const regex = /[^0-9]/g;
+		//var num = $(id).attr('id').replace(regex,"");
 		var num = id.replace(regex,"");
 		//선택된 업무 내용 읽기
 		var a = document.getElementById("jobs"+num);
@@ -778,104 +787,6 @@
 	}
 	</script>
 	
-	<script>
-	//금주 차주 업무 붙이기
-		// 금주 -> 차주
-	$(document).on("click","#post", function() {
-		//생성 전, 차주 업무 개수를 미리 받아놓음.
-		var before = trNCnt;
-		//15개 이상은 생성할 수 없음!
-		var count_result = 1;
-		var ommission = 0; //누락건 카운트
-		//금주 개수만큼 업무 추가(trCnt)
-		for(var i=0; i < trCnt; i++) {
-			if(trNCnt < 15) {
-			document.getElementById("nadd").click();
-			} else {
-				if(count_result != -1) {
-					count_result = -1;
-				}
-				ommission += 1;
-			}
-		}
-		
-		//before 기준으로, trNCnt(추가된것까지 포함!)까지 돌림
-		for(var b = before; b < trNCnt; b ++) {
-			//데이터 삽입 작업 시작
- 			var num = b - before;
-				var a = document.getElementById("jobs"+num);
-				var jobs = a.options[a.selectedIndex].value;
-				//작성된 업무 내용
-				var content = document.getElementById("bbsContent"+num).value;
-				//작성된 접수일 내용
-				var start = document.getElementById("bbsStart"+num).value;
-				//작성된 완료목표일 내용
-				var target = document.getElementById("bbsTarget"+num).value;
-				
-				//데이터 삽입
-				$("#njobs"+b).val(jobs).prop("selected", true);
-					//작성된 업무내용 넣기
-				$("#bbsNContent"+b).val(content);
-					//작성된 접수일 넣기
-				$("#bbsNStart"+b).val(start);
-					//작성된 완료목표일 넣기
-				$("#bbsNTarget"+b).val(target);
-		}
-		if(count_result == -1) {
-			alert("추가 완료되었습니다.(금주 → 차주)\n최대 15개를 넘을 수 없어 조건에 맞춰 추가되었습니다. (미등록 "+ommission+"건)");
-		} else {
-			alert("추가 완료되었습니다.(금주 → 차주)");
-		}
-	});
-		
-		
-		//차주 -> 금주
-		$(document).on("click","#npost", function() {
-		//생성 전, 금주 업무 개수를 미리 받아놓음.
-		var before = trCnt;
-		//15개 이상은 생성할 수 없음!
-		var count_result = 1;
-		var ommission = 0; //누락건 카운트
-		//차주 개수만큼 업무 추가(trNCnt)
-		for(var i=0; i < trNCnt; i++) {
-			if(trNCnt < 15) {
-			document.getElementById("add").click();
-			} else {
-				if(count_result != -1) {
-					count_result = -1;
-				}
-				ommission += 1;
-			}
-		}
-		
-		//before 기준으로, trCnt(추가된것까지 포함!)까지 돌림
-		for(var b = before; b < trCnt; b ++) {
-			//데이터 삽입 작업 시작
- 			var num = b - before;
-				var a = document.getElementById("njobs"+num);
-				var jobs = a.options[a.selectedIndex].value;
-				//작성된 업무 내용
-				var content = document.getElementById("bbsNContent"+num).value;
-				//작성된 접수일 내용
-				var start = document.getElementById("bbsNStart"+num).value;
-				//작성된 완료목표일 내용
-				var target = document.getElementById("bbsNTarget"+num).value;
-				
-				//데이터 삽입
-				$("#jobs"+b).val(jobs).prop("selected", true);
-					//작성된 업무내용 넣기
-				$("#bbsContent"+b).val(content);
-					//작성된 접수일 넣기
-				$("#bbsStart"+b).val(start);
-					//작성된 완료목표일 넣기
-				$("#bbsTarget"+b).val(target);
-		}
-		if(count_result == -1) {
-			alert("추가 완료되었습니다.(차주 → 금주)\n최대 15개를 넘을 수 없어 조건에 맞춰 추가되었습니다. (미등록 "+ommission+"건)");
-		} else {
-			alert("추가 완료되었습니다.(차주 → 금주)");
-		}
-	});
-	</script>
+
 	
 </body>

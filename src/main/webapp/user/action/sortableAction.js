@@ -68,7 +68,7 @@
 						
 						//5번째 td - button(paste)
 						$(this).find('td').eq(5).find('button').attr('id',"paste"+index_num);
-						$(this).find('td').eq(5).find('button').attr('name',"paste"+index_num);
+						$(this).find('td').eq(5).find('input[name="chkpos"]').attr('value',index_num);
 					}
 				});
 
@@ -105,8 +105,8 @@
 					
 					//4번째 td - button(paste)
 					$(this).find('td').eq(4).find('button').attr('id',"npaste"+index_num);
-					$(this).find('td').eq(4).find('button').attr('name',"npaste"+index_num);
-
+					$(this).find('td').eq(4).find('input[name="nchkpos"]').attr('value',index_num);
+					
 				});
 
 			}
@@ -117,16 +117,54 @@
 	
 	//금주 차주 업무 붙이기 ▼ ▲
 		// 금주 -> 차주
+	$(document).on("click","#post_start", function() {
+		//재클릭시, 선택창 닫음!
+		var val = $(this).attr('value');
+		if(val == "false") {
+			//처음 선택됨!
+			$(this).attr('value','true');
+			//var pas = document.getElementsByName("paste");
+			var pas = document.getElementsByClassName("paste");
+			var chk = document.getElementsByName("chkpos");
+			document.getElementById("post").style.display="block";
+			for(var i=0; i<pas.length; i++) {
+				pas[i].style.display = "none";
+				chk[i].style.display = "block";
+			}	
+		} else {
+			$(this).attr('value','false');
+			//var pas = document.getElementsByName("paste");
+			var pas = document.getElementsByClassName("paste");
+			var chk = document.getElementsByName("chkpos");
+			document.getElementById("post").style.display="none";
+			for(var i=0; i<pas.length; i++) {
+			pas[i].style.display = "block";
+			chk[i].style.display = "none";
+			}	
+			$("input[name=chkpos]").prop("checked",false);
+		}
+	});
+	
 	$(document).on("click","#post", function() {
 		//생성 전, 차주 업무 개수를 미리 받아놓음.
 		var before = trNCnt;
+		var last = $('#bbsNTable').find("tr:last").find('input[name="nchkpos"]').attr('value');
+		if(last == undefined) {
+			last = 0;
+		} else {
+			++ last;
+		}
 		//15개 이상은 생성할 수 없음!
 		var count_result = 1;
 		var ommission = 0; //누락건 카운트
+		var countresult = 0; //작성건 카운트
 		//금주 개수만큼 업무 추가(trCnt)
-		for(var i=0; i < trCnt; i++) {
+			//chk가 기준!
+		var chk = document.querySelectorAll('input[name="chkpos"]:checked');
+		for(var i=0; i < chk.length; i++) {
 			if(trNCnt < 15) {
 			document.getElementById("nadd").click();
+			countresult += 1;
 			} else {
 				if(count_result != -1) {
 					count_result = -1;
@@ -134,48 +172,94 @@
 				ommission += 1;
 			}
 		}
+		$("input[name=chkpos]").prop("checked",false);
 		
 		//before 기준으로, trNCnt(추가된것까지 포함!)까지 돌림
 		for(var b = before; b < trNCnt; b ++) {
 			//데이터 삽입 작업 시작
  			var num = b - before;
-				var a = document.getElementById("jobs"+num);
+				var a = document.getElementById("jobs"+chk[num].value);
 				var jobs = a.options[a.selectedIndex].value;
 				//작성된 업무 내용
-				var content = document.getElementById("bbsContent"+num).value;
+				var content = document.getElementById("bbsContent"+chk[num].value).value;
 				//작성된 접수일 내용
-				var start = document.getElementById("bbsStart"+num).value;
+				var start = document.getElementById("bbsStart"+chk[num].value).value;
 				//작성된 완료목표일 내용
-				var target = document.getElementById("bbsTarget"+num).value;
+				var target = document.getElementById("bbsTarget"+chk[num].value).value;
 				
 				//데이터 삽입
-				$("#njobs"+b).val(jobs).prop("selected", true);
+					//b가 아닌, 추가로 생성되기 전의 번호를 알아야함! (해당 번호(last) + num로 계산)
+					var number = Number(num) + Number(last);
+				$("#njobs"+number).val(jobs).prop("selected", true);
 					//작성된 업무내용 넣기
-				$("#bbsNContent"+b).val(content);
+				$("#bbsNContent"+number).val(content);
 					//작성된 접수일 넣기
-				$("#bbsNStart"+b).val(start);
+				$("#bbsNStart"+number).val(start);
 					//작성된 완료목표일 넣기
-				$("#bbsNTarget"+b).val(target);
+				$("#bbsNTarget"+number).val(target);
 		}
 		if(count_result == -1) {
-			alert("추가 완료되었습니다.(금주 → 차주)\n최대 15개를 넘을 수 없어 조건에 맞춰 추가되었습니다. (미등록 "+ommission+"건)");
+			alert("추가 완료되었습니다.(금주 → 차주)\n최대 15개를 넘을 수 없어 조건에 맞춰 추가되었습니다. \n(등록 "+countresult+"건 / 미등록 "+ommission+"건)");
 		} else {
 			alert("추가 완료되었습니다.(금주 → 차주)");
 		}
+		
+		var pas = document.getElementsByClassName("paste");
+		var chk = document.getElementsByName("chkpos");
+		document.getElementById("post").style.display="none";
+		for(var i=0; i<pas.length; i++) {
+			pas[i].style.display = "block";
+			chk[i].style.display = "none";
+		}	
 	});
 		
 		
 		//차주 -> 금주
+		$(document).on("click","#npost_start", function() {
+			//재클릭시, 선택창 닫음!
+			var val = $(this).attr('value');
+			if(val == "false") {
+				$(this).attr('value','true');
+				var pas = document.getElementsByClassName("npaste");
+				var chk = document.getElementsByName("nchkpos");
+				document.getElementById("npost").style.display="block";
+				for(var i=0; i<pas.length; i++) {
+					pas[i].style.display = "none";
+					chk[i].style.display = "block";
+				}	
+			} else {
+				$(this).attr('value','false');
+				$("input[name=nchkpos]").prop("checked",false);
+				var pas = document.getElementsByClassName("npaste");
+				var chk = document.getElementsByName("nchkpos");
+				document.getElementById("npost").style.display="none";
+				for(var i=0; i<pas.length; i++) {
+					pas[i].style.display = "block";
+					chk[i].style.display = "none";
+					}
+				}
+		});
+	
 		$(document).on("click","#npost", function() {
 		//생성 전, 금주 업무 개수를 미리 받아놓음.
 		var before = trCnt;
+		var last = $('#bbsTable').find("tr:last").find('input[name="chkpos"]').attr('value');
+		if(last == undefined) {
+			last = 0;
+		} else {
+			++ last;
+		}
 		//15개 이상은 생성할 수 없음!
 		var count_result = 1;
 		var ommission = 0; //누락건 카운트
+		var countresult = 0; //작성건 카운트
 		//차주 개수만큼 업무 추가(trNCnt)
-		for(var i=0; i < trNCnt; i++) {
+			//chk가 기준!
+		var chk = document.querySelectorAll('input[name="nchkpos"]:checked');
+		for(var i=0; i < chk.length; i++) {
 			if(trNCnt < 15) {
 			document.getElementById("add").click();
+			countresult += 1;
 			} else {
 				if(count_result != -1) {
 					count_result = -1;
@@ -183,32 +267,44 @@
 				ommission += 1;
 			}
 		}
+		$("input[name=nchkpos]").prop("checked",false);
+		
 		
 		//before 기준으로, trCnt(추가된것까지 포함!)까지 돌림
 		for(var b = before; b < trCnt; b ++) {
 			//데이터 삽입 작업 시작
  			var num = b - before;
-				var a = document.getElementById("njobs"+num);
+				var a = document.getElementById("njobs"+chk[num].value);
 				var jobs = a.options[a.selectedIndex].value;
 				//작성된 업무 내용
-				var content = document.getElementById("bbsNContent"+num).value;
+				var content = document.getElementById("bbsNContent"+chk[num].value).value;
 				//작성된 접수일 내용
-				var start = document.getElementById("bbsNStart"+num).value;
+				var start = document.getElementById("bbsNStart"+chk[num].value).value;
 				//작성된 완료목표일 내용
-				var target = document.getElementById("bbsNTarget"+num).value;
+				var target = document.getElementById("bbsNTarget"+chk[num].value).value;
 				
 				//데이터 삽입
-				$("#jobs"+b).val(jobs).prop("selected", true);
+					//b가 아닌, 추가로 생성되기 전의 번호를 알아야함! (해당 번호(last) + num로 계산)
+					var number = Number(num) + Number(last);
+				$("#jobs"+number).val(jobs).prop("selected", true);
 					//작성된 업무내용 넣기
-				$("#bbsContent"+b).val(content);
+				$("#bbsContent"+number).val(content);
 					//작성된 접수일 넣기
-				$("#bbsStart"+b).val(start);
+				$("#bbsStart"+number).val(start);
 					//작성된 완료목표일 넣기
-				$("#bbsTarget"+b).val(target);
+				$("#bbsTarget"+number).val(target);
 		}
 		if(count_result == -1) {
-			alert("추가 완료되었습니다.(차주 → 금주)\n최대 15개를 넘을 수 없어 조건에 맞춰 추가되었습니다. (미등록 "+ommission+"건)");
+			alert("추가 완료되었습니다.(금주 → 차주)\n최대 15개를 넘을 수 없어 조건에 맞춰 추가되었습니다. \n(등록 "+countresult+"건 / 미등록 "+ommission+"건)");
 		} else {
 			alert("추가 완료되었습니다.(차주 → 금주)");
 		}
+		
+		var pas = document.getElementsByClassName("npaste");
+		var chk = document.getElementsByName("nchkpos");
+		document.getElementById("npost").style.display="none";
+		for(var i=0; i<pas.length; i++) {
+			pas[i].style.display = "block";
+			chk[i].style.display = "none";
+		}	
 	});

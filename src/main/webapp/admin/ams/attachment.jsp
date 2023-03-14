@@ -288,14 +288,14 @@
 					%>
 						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
 						<li><a href="/RMS/admin/work/workChange.jsp">담당업무 변경</a></li>
-						<li><a href="../logoutAction.jsp">로그아웃</a></li>
+						<li><a href="../../logoutAction.jsp">로그아웃</a></li>
 					<%
 					} else {
 					%>
 						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a>
 						
 						</li>
-						<li><a href="../logoutAction.jsp">로그아웃</a></li>
+						<li><a href="../../logoutAction.jsp">로그아웃</a></li>
 					<%
 					}
 					%>

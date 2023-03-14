@@ -790,32 +790,34 @@
    // $(document).on('click', "#id" ,function(){
 	//$("#save").on('click',function(){
 	function saveData() {
-		if(trCnt == 0) {
-			alert("금주 업무 실적에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
-		} else if (trNCnt == 0) {
-			alert("차주 업무 계획에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
-		} else {
-
-		var innerHtml = "";
-		innerHtml += '<tr style="display:none">';
-		innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="trNCnt" name="trNCnt" readonly>'+trNCnt+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="trACnt" name="trACnt" readonly>'+trACnt+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="con" name="con" readonly>'+con+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="ncon" name="ncon" readonly>'+ncon+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="acon" name="acon" readonly>'+acon+'</textarea></td>';
-		innerHtml += '</tr>';
-        $('#bbsNTable > tbody> tr:last').append(innerHtml);
-        
- 		$("#save_sub").trigger("click");
-        
-        var form = document.getElementById("main");
-        	if(form.checkValidity()) {
-	        	form.action = "/RMS/user/action/updateAction.jsp";
-	            form.mathod = "post";
-	            form.submit(); 
-       	 }
-		}
+		if(confirm('수정하시겠습니까?\n기존 데이터를 덮어씌웁니다.')) {
+			if(trCnt == 0) {
+				alert("금주 업무 실적에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
+			} else if (trNCnt == 0) {
+				alert("차주 업무 계획에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
+			} else {
+	
+			var innerHtml = "";
+			innerHtml += '<tr style="display:none">';
+			innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
+			innerHtml += '<td><textarea class="textarea" id="trNCnt" name="trNCnt" readonly>'+trNCnt+'</textarea></td>';
+			innerHtml += '<td><textarea class="textarea" id="trACnt" name="trACnt" readonly>'+trACnt+'</textarea></td>';
+			innerHtml += '<td><textarea class="textarea" id="con" name="con" readonly>'+con+'</textarea></td>';
+			innerHtml += '<td><textarea class="textarea" id="ncon" name="ncon" readonly>'+ncon+'</textarea></td>';
+			innerHtml += '<td><textarea class="textarea" id="acon" name="acon" readonly>'+acon+'</textarea></td>';
+			innerHtml += '</tr>';
+	        $('#bbsNTable > tbody> tr:last').append(innerHtml);
+	        
+	 		$("#save_sub").trigger("click");
+	        
+	        var form = document.getElementById("main");
+	        	if(form.checkValidity()) {
+		        	form.action = "/RMS/user/action/updateAction.jsp";
+		            form.mathod = "post";
+		            form.submit(); 
+	       	 }
+			}
+		} 
     }
 	</script>
 	

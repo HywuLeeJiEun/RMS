@@ -14,7 +14,7 @@
 		      <h3 class="modal-title" align="center">개인정보 수정</h3>
 		     </div>
 		     <!-- 모달에 포함될 내용 -->
-		     <form method="post" action="/RMS/ModalUpdateAction.jsp" id="modalform">
+		     <form method="post" action="/RMS/ModalUpdateAction.jsp" id="modalform" onsubmit="return confirm('개인정보를 수정하시겠습니까?');">
 		     <div class="modal-body">
 		     		<div class="row">
 		     			<div class="col-md-12" style="visibility:hidden">
@@ -120,7 +120,7 @@
 			     <div class="col-md-3" style="visibility:hidden">
      			</div>
      			<div class="col-md-6">
-			     	<button type="submit" class="btn btn-primary pull-left form-control" id="modalbtn" >수정</button>
+			     	<button type="submit" class="btn btn-primary pull-left form-control" id="modalbtn" onclick="modalAction();">수정</button>
 		     	</div>
 		     	 <div class="col-md-3" style="visibility:hidden">
 	   			</div>	

@@ -246,8 +246,9 @@
 									<td colspan="3">  주간보고 제출일 <input type="date" max="9999-12-31" style="width:80%; margin-left:20px" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" id="bbsDeadline" value=""></td>
 							</tr>
 									<tr class="ui-state-default ui-state-disabled">
-										<th colspan="6" style="background-color: #D4D2FF;" align="center">금주 업무 실적
-										<button type="button" style="width:50px; height:30px; background-color:transparent" id="post" class="btn pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="금주 내용을<br>차주 내용에 추가합니다."><span class="glyphicon glyphicon-triangle-bottom"></span></button></th>
+										<th colspan="6" style="background-color: #D4D2FF;">금주 업무 실적
+										<button type="button" style="width:55px; height:30px; display:none" id="post" class="btn btn-success pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="금주 내용을<br>차주 내용에 추가합니다.">추가</button>
+										<button type="button" style="width:50px; height:30px; background-color:transparent" id="post_start" class="btn pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="금주 내용을<br>차주 내용에 추가합니다." value="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button></th>
 									</tr>
 									<tr style="background-color: #FFC57B;" class="ui-state-default ui-state-disabled">
 										<!-- <th width="6%">|  담당자</th> -->
@@ -286,7 +287,8 @@
 										 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget0" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget0" ></td>		
 										 <td><textarea class="textarea end" id="bbsEnd0" style="height:45px; width:70px; border:none; resize:none; text-align:center"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd0" ></textarea></td>
 										 <td><button type="button" style="margin-bottom:5px; margin-top:5px; visibility:hidden" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button></td>
-										 <td><button type="button" id="paste0" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button></td>
+										 <td><button type="button" id="paste0" class="btn btn-default paste" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>
+										 	<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="chkpos" value="0"></td>
 									</tr>
 									</tbody>
 								</table>
@@ -302,7 +304,8 @@
 				<tbody id="tbody">
 							<tr class="ui-state-default ui-state-disabled">
 								<th colspan="5" style="background-color: #D4D2FF;" align="center">차주 업무 계획
-								<button type="button" style="width:50px; height:30px; background-color:transparent" id="npost" class="btn pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="차주 내용을<br>금주 내용에 추가합니다."> <span class="glyphicon glyphicon-triangle-top"></span> </button></th>
+								<button type="button" style="width:55px; height:30px; display:none" id="npost" class="btn btn-success pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="차주 내용을<br>금주 내용에 추가합니다.">추가</button>
+								<button type="button" style="width:50px; height:30px; background-color:transparent" id="npost_start" class="btn pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="차주 내용을<br>금주 내용에 추가합니다." value="false"> <span class="glyphicon glyphicon-triangle-top"></span> </button></th>
 							</tr>
 							<tr style="background-color: #FFC57B;" class="ui-state-default ui-state-disabled">
 								<th style="text-align:center" width="50%"> &nbsp; 업무내용</th>
@@ -334,7 +337,8 @@
 								 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsNStart0" class="form-control" placeholder="접수일" name="bbsNStart0" value="<%= now %>" ></td>
 								 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget0" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsNTarget0"></td>		
 								 <td><button type="button" style="margin-bottom:5px; margin-top:5px; visibility:hidden" id="delRow" name="delNRow" class="btn btn-danger"> 삭제 </button></td>
-								 <td><button type="button" id="npaste0" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button></td>
+								 <td><button type="button" id="npaste0" class="btn btn-default npaste" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>
+								 	<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="nchkpos" value="0>"></td>
 							</tr>
 							</tbody>
 						</table>
@@ -444,7 +448,8 @@
 	            innerHtml += '<button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button>';
 	            innerHtml += '    </td>';
 	            innerHtml += '    <td>';
-	            innerHtml += '<button type="button" id="paste'+c+'" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)"><span class="glyphicon glyphicon-arrow-down"></span></button>';
+	            innerHtml += '<button type="button" id="paste'+c+'" class="btn btn-default paste" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)"><span class="glyphicon glyphicon-arrow-down"></span></button>';
+	            innerHtml += '<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="chkpos" value="'+c+'">';
 	            innerHtml += '    </td>';
 	            innerHtml += '</tr>'; 
 	            trCnt += 1;
@@ -509,7 +514,9 @@
 	            innerHtml += ' <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget'+n+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일" name="bbsNTarget'+n+'" ></td>';
 	            innerHtml += '<td><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delNRow" class="btn btn-danger"> 삭제 </button>';
 	            innerHtml += '    </td>';
-	            innerHtml += '<td><button type="button" id="npaste'+n+'" class="btn btn-default" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)"><span class="glyphicon glyphicon-arrow-down"></span></button></td>';
+	            innerHtml += '<td><button type="button" id="npaste'+n+'" class="btn btn-default npaste" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)"><span class="glyphicon glyphicon-arrow-down"></span></button>';
+	            innerHtml += '<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="nchkpos" value="'+n+'">';
+	            innerHtml += '    </td>';
 	            innerHtml += '</tr>'; 
 	            trNCnt += 1;
 	            $('#bbsNTable > tbody:last').append(innerHtml);

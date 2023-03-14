@@ -36,12 +36,6 @@ Modal 실행 및 보조를 위한 자바스크립트
 		$(document).ready(function(){
 			$('[data-toggle="tooltip"]').tooltip();
 		});
-	
-	
-//	<!-- 모달 submit -->
-	$('#modalbtn').click(function(){
-		$('#modalform').text();
-	})
 
 //	<!-- 모달 update를 위한 history 감지 -->
 	window.onpageshow = function(event){
