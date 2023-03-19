@@ -334,21 +334,83 @@
 									//금주 업무 (this)
 									for(int j=0; j < rms_this.size(); j++) {
 										//content, ncotent의 줄바꿈 개수만큼 추가함
-										int num = rms_this.get(j).getRms_con().split(System.lineSeparator()).length-1;
+										int anum = 0; //rms_this.get(j).getRms_con().split(System.lineSeparator()).length-1;
+										String content = "";
 											if(rms_this.get(j).getRms_con().indexOf('-') > -1 &&  rms_this.get(j).getRms_con().indexOf('-') < 2) { // - 가 있는 경우,
 												if(rms_this.get(j).getRms_job().contains("시스템") || rms_this.get(j).getRms_job().contains("기타")) {
-													bbsContent += rms_this.get(j).getRms_con() + System.lineSeparator();
+													content = rms_this.get(j).getRms_con() + System.lineSeparator();
 												} else {
-													bbsContent += "- ["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
+													content = "- ["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
 												}
 											} else {
 												if(rms_this.get(j).getRms_job().contains("시스템") || rms_this.get(j).getRms_job().contains("기타")) {
-													bbsContent += "- "+rms_this.get(j).getRms_con() + System.lineSeparator();
+													content = "- "+rms_this.get(j).getRms_con() + System.lineSeparator();
 												} else {
-													bbsContent += "- ["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con() + System.lineSeparator();
+													content = "- ["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con() + System.lineSeparator();
 												}
 											}
-											//bbsContent += rms_this.get(j).getRms_con() + System.lineSeparator();
+											//content 가공하기
+											content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
+											//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
+											int maxlen = 83;
+											float curlen = 0;
+											float addlen = 0;
+											StringBuilder contentBuilder = new StringBuilder();
+											String[] text = content.split(""); 
+											for(int w=0; w < content.length(); w++) {								
+												if(text[w].matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+													//한글
+													curlen += 3;
+													addlen = 3;
+												} else if(text[w].matches("^[a-zA-Z0-9]*$")) {
+													if(Character.isLowerCase(text[w].charAt(0))) {
+														//소문자라면,
+														curlen += 1.5;
+														addlen = (float) 1.5;
+													} else {
+														//대문자 라면 ...
+														curlen += 2;
+														addlen = 2;
+													}
+												}else if(text[w].matches("^[0-9]+$")){
+													//숫자
+													curlen += 1.5;
+													addlen = (float) 1.5;
+												} else {
+													if(text[w].contains(" ") || text[w].contains(",") || text[w].contains("'")) { 
+														//공백
+														curlen += 1;
+														addlen = 1;
+													} else if (text[w].contains("-") || text[w].contains("[") || text[w].contains("]")) {										//특수문자
+														//특정 특수문자
+														curlen += 1.2;
+														addlen = (float) 1.2;
+													} else {
+														//기타 특수문자
+														curlen += 2;
+														addlen = 2;
+													}
+												}
+												if(curlen > maxlen ) { 
+													contentBuilder.append(text[w]);
+													if(i < content.length() -1) {
+														contentBuilder.append(System.lineSeparator());
+														contentBuilder.append("  ");
+													} 
+													curlen = 0;
+													curlen += 2; //공백 2개 넣기
+													curlen += addlen; 
+												} else {
+													contentBuilder.append(text[w]);
+												}
+											}
+											
+											if(j < rms_this.size()-1) {
+											 	bbsContent += contentBuilder.toString() + System.lineSeparator();
+											} else {
+												bbsContent += contentBuilder.toString();
+											}
+											 anum = contentBuilder.toString().split(System.lineSeparator()).length-1;
 											 bbsStart += rms_this.get(j).getRms_str().substring(5).replace("-","/") + System.lineSeparator();
 											 if(rms_this.get(j).getRms_tar() == null || rms_this.get(j).getRms_tar().isEmpty()) {
 											 	bbsTarget += "[보류]" + System.lineSeparator();
@@ -361,7 +423,7 @@
 											 }
 											 bbsEnd += rms_this.get(j).getRms_end() + System.lineSeparator();
 											
-											 for(int k=0;k < num; k ++) {
+											 for(int k=0;k < anum; k ++) {
 												 bbsStart +=System.lineSeparator();
 												 bbsTarget +=System.lineSeparator();
 												 bbsEnd +=System.lineSeparator();
@@ -370,21 +432,82 @@
 									//차주 (next)
 									for(int j=0; j < rms_next.size(); j++) {
 										//content, ncotent의 줄바꿈 개수만큼 추가함
-										int nnum = rms_next.get(j).getRms_con().split(System.lineSeparator()).length-1;
+										String content = "";
 											if(rms_next.get(j).getRms_con().indexOf('-') > -1 &&  rms_next.get(j).getRms_con().indexOf('-') < 2) { // - 가 있는 경우,
 												if(rms_next.get(j).getRms_job().contains("시스템") || rms_next.get(j).getRms_job().contains("기타")) {
-													bbsNContent += rms_next.get(j).getRms_con() + System.lineSeparator();
+													content = rms_next.get(j).getRms_con() + System.lineSeparator();
 												} else {
-													bbsNContent += "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
+													content = "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
 												}
-											} else { // - 가 없는 경우! 
+											} else {
 												if(rms_next.get(j).getRms_job().contains("시스템") || rms_next.get(j).getRms_job().contains("기타")) {
-													bbsNContent += "- "+rms_next.get(j).getRms_con() + System.lineSeparator();
+													content = "- "+rms_next.get(j).getRms_con() + System.lineSeparator();
 												} else {
-													bbsNContent += "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con() + System.lineSeparator();
+													content = "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con() + System.lineSeparator();
 												}
-											} 
-											//bbsNContent += rms_next.get(j).getRms_con() + System.lineSeparator();
+											}  
+											//content 가공하기
+											content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
+											//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
+											int maxlen = 83;
+											float curlen = 0;
+											float addlen = 0;
+											StringBuilder contentBuilder = new StringBuilder();
+											String[] text = content.split(""); 
+											for(int w=0; w < content.length(); w++) {								
+												if(text[w].matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+													//한글
+													curlen += 3;
+													addlen = 3;
+												} else if(text[w].matches("^[a-zA-Z0-9]*$")) {
+													if(Character.isLowerCase(text[w].charAt(0))) {
+														//소문자라면,
+														curlen += 1.5;
+														addlen = (float) 1.5;
+													} else {
+														//대문자 라면 ...
+														curlen += 2;
+														addlen = 2;
+													}
+												}else if(text[w].matches("^[0-9]+$")){
+													//숫자
+													curlen += 1.5;
+													addlen = (float) 1.5;
+												} else {
+													if(text[w].contains(" ") || text[w].contains(",") || text[w].contains("'")) { 
+														//공백
+														curlen += 1;
+														addlen = 1;
+													} else if (text[w].contains("-") || text[w].contains("[") || text[w].contains("]")) {										//특수문자
+														//특정 특수문자
+														curlen += 1.2;
+														addlen = (float) 1.2;
+													} else {
+														//기타 특수문자
+														curlen += 2;
+														addlen = 2;
+													}
+												}
+												if(curlen > maxlen ) { 
+													contentBuilder.append(text[w]);
+													if(w < content.length() -1) {
+														contentBuilder.append(System.lineSeparator());
+														contentBuilder.append("  ");
+													} 
+													curlen = 0;
+													curlen += 2; //공백 2개 넣기
+													curlen += addlen; 
+												} else {
+													contentBuilder.append(text[w]);
+												}
+											}
+											
+											if(j < rms_this.size()-1) {
+											 	bbsNContent += contentBuilder.toString() + System.lineSeparator();
+											} else {
+												bbsNContent += contentBuilder.toString();
+											}
+											 int nnum = contentBuilder.toString().split(System.lineSeparator()).length-1;
 											 bbsNStart += rms_next.get(j).getRms_str().substring(5).replace("-","/") + System.lineSeparator();
 											 if(rms_next.get(j).getRms_tar() == null || rms_next.get(j).getRms_tar().isEmpty()) {
 												 bbsNTarget += "[보류]" + System.lineSeparator();
@@ -446,21 +569,83 @@
 									//금주 업무 (this)
 									for(int j=0; j < rms_this.size(); j++) {
 										//content, ncotent의 줄바꿈 개수만큼 추가함
-										int num = rms_this.get(j).getRms_con().split(System.lineSeparator()).length-1;
+										int anum = 0; //rms_this.get(j).getRms_con().split(System.lineSeparator()).length-1;
+										String content = "";
 											if(rms_this.get(j).getRms_con().indexOf('-') > -1 &&  rms_this.get(j).getRms_con().indexOf('-') < 2) { // - 가 있는 경우,
 												if(rms_this.get(j).getRms_job().contains("시스템") || rms_this.get(j).getRms_job().contains("기타")) {
-													bbsContent += rms_this.get(j).getRms_con() + System.lineSeparator();
+													content = rms_this.get(j).getRms_con() + System.lineSeparator();
 												} else {
-													bbsContent += "- ["+rms_this.get(j).getRms_job()+"]"+ rms_this.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
+													content = "- ["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
 												}
 											} else {
 												if(rms_this.get(j).getRms_job().contains("시스템") || rms_this.get(j).getRms_job().contains("기타")) {
-													bbsContent += "- "+rms_this.get(j).getRms_con() + System.lineSeparator();
+													content = "- "+rms_this.get(j).getRms_con() + System.lineSeparator();
 												} else {
-													bbsContent += "- ["+rms_this.get(j).getRms_job()+"]"+ rms_this.get(j).getRms_con() + System.lineSeparator();
+													content = "- ["+rms_this.get(j).getRms_job()+"] "+ rms_this.get(j).getRms_con() + System.lineSeparator();
 												}
-											} 
-											//bbsContent += rms_this.get(j).getRms_con() + System.lineSeparator();
+											}
+											//content 가공하기
+											content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
+											//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
+											int maxlen = 83;
+											float curlen = 0;
+											float addlen = 0;
+											StringBuilder contentBuilder = new StringBuilder();
+											String[] text = content.split(""); 
+											for(int w=0; w < content.length(); w++) {								
+												if(text[w].matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+													//한글
+													curlen += 3;
+													addlen = 3;
+												} else if(text[w].matches("^[a-zA-Z0-9]*$")) {
+													if(Character.isLowerCase(text[w].charAt(0))) {
+														//소문자라면,
+														curlen += 1.5;
+														addlen = (float) 1.5;
+													} else {
+														//대문자 라면 ...
+														curlen += 2;
+														addlen = 2;
+													}
+												}else if(text[w].matches("^[0-9]+$")){
+													//숫자
+													curlen += 1.5;
+													addlen = (float) 1.5;
+												} else {
+													if(text[w].contains(" ") || text[w].contains(",") || text[w].contains("'")) { 
+														//공백
+														curlen += 1;
+														addlen = 1;
+													} else if (text[w].contains("-") || text[w].contains("[") || text[w].contains("]")) {										//특수문자
+														//특정 특수문자
+														curlen += 1.2;
+														addlen = (float) 1.2;
+													} else {
+														//기타 특수문자
+														curlen += 2;
+														addlen = 2;
+													}
+												}
+												if(curlen > maxlen ) { 
+													contentBuilder.append(text[w]);
+													if(i < content.length() -1) {
+														contentBuilder.append(System.lineSeparator());
+														contentBuilder.append("  ");
+													} 
+													curlen = 0;
+													curlen += 2; //공백 2개 넣기
+													curlen += addlen; 
+												} else {
+													contentBuilder.append(text[w]);
+												}
+											}
+											
+											if(j < rms_this.size()-1) {
+											 	bbsContent += contentBuilder.toString() + System.lineSeparator();
+											} else {
+												bbsContent += contentBuilder.toString();
+											}
+											 anum = contentBuilder.toString().split(System.lineSeparator()).length-1;
 											 bbsStart += rms_this.get(j).getRms_str().substring(5).replace("-","/") + System.lineSeparator();
 											 if(rms_this.get(j).getRms_tar() == null || rms_this.get(j).getRms_tar().isEmpty()) {
 											 	bbsTarget += "[보류]" + System.lineSeparator();
@@ -473,7 +658,7 @@
 											 }
 											 bbsEnd += rms_this.get(j).getRms_end() + System.lineSeparator();
 											
-											 for(int k=0;k < num; k ++) {
+											 for(int k=0;k < anum; k ++) {
 												 bbsStart +=System.lineSeparator();
 												 bbsTarget +=System.lineSeparator();
 												 bbsEnd +=System.lineSeparator();
@@ -482,21 +667,82 @@
 									//차주 (next)
 									for(int j=0; j < rms_next.size(); j++) {
 										//content, ncotent의 줄바꿈 개수만큼 추가함
-										int nnum = rms_next.get(j).getRms_con().split(System.lineSeparator()).length-1;
+										String content = "";
 											if(rms_next.get(j).getRms_con().indexOf('-') > -1 &&  rms_next.get(j).getRms_con().indexOf('-') < 2) { // - 가 있는 경우,
 												if(rms_next.get(j).getRms_job().contains("시스템") || rms_next.get(j).getRms_job().contains("기타")) {
-													bbsNContent += rms_next.get(j).getRms_con() + System.lineSeparator();
+													content = rms_next.get(j).getRms_con() + System.lineSeparator();
 												} else {
-													bbsNContent += "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
+													content = "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con().replaceFirst("-", "") + System.lineSeparator();
 												}
-											} else { // - 가 없는 경우! 
+											} else {
 												if(rms_next.get(j).getRms_job().contains("시스템") || rms_next.get(j).getRms_job().contains("기타")) {
-													bbsNContent += "- "+rms_next.get(j).getRms_con() + System.lineSeparator();
+													content = "- "+rms_next.get(j).getRms_con() + System.lineSeparator();
 												} else {
-													bbsNContent += "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con() + System.lineSeparator();
+													content = "- ["+rms_next.get(j).getRms_job()+"] "+ rms_next.get(j).getRms_con() + System.lineSeparator();
 												}
-											} 
-											//bbsNContent += rms_next.get(j).getRms_con() + System.lineSeparator();
+											}  
+											//content 가공하기
+											content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
+											//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
+											int maxlen = 83;
+											float curlen = 0;
+											float addlen = 0;
+											StringBuilder contentBuilder = new StringBuilder();
+											String[] text = content.split(""); 
+											for(int w=0; w < content.length(); w++) {								
+												if(text[w].matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+													//한글
+													curlen += 3;
+													addlen = 3;
+												} else if(text[w].matches("^[a-zA-Z0-9]*$")) {
+													if(Character.isLowerCase(text[w].charAt(0))) {
+														//소문자라면,
+														curlen += 1.5;
+														addlen = (float) 1.5;
+													} else {
+														//대문자 라면 ...
+														curlen += 2;
+														addlen = 2;
+													}
+												}else if(text[w].matches("^[0-9]+$")){
+													//숫자
+													curlen += 1.5;
+													addlen = (float) 1.5;
+												} else {
+													if(text[w].contains(" ") || text[w].contains(",") || text[w].contains("'")) { 
+														//공백
+														curlen += 1;
+														addlen = 1;
+													} else if (text[w].contains("-") || text[w].contains("[") || text[w].contains("]")) {										//특수문자
+														//특정 특수문자
+														curlen += 1.2;
+														addlen = (float) 1.2;
+													} else {
+														//기타 특수문자
+														curlen += 2;
+														addlen = 2;
+													}
+												}
+												if(curlen > maxlen ) { 
+													contentBuilder.append(text[w]);
+													if(w < content.length() -1) {
+														contentBuilder.append(System.lineSeparator());
+														contentBuilder.append("  ");
+													} 
+													curlen = 0;
+													curlen += 2; //공백 2개 넣기
+													curlen += addlen; 
+												} else {
+													contentBuilder.append(text[w]);
+												}
+											}
+											
+											if(j < rms_this.size()-1) {
+											 	bbsNContent += contentBuilder.toString() + System.lineSeparator();
+											} else {
+												bbsNContent += contentBuilder.toString();
+											}
+											 int nnum = contentBuilder.toString().split(System.lineSeparator()).length-1;
 											 bbsNStart += rms_next.get(j).getRms_str().substring(5).replace("-","/") + System.lineSeparator();
 											 if(rms_next.get(j).getRms_tar() == null || rms_next.get(j).getRms_tar().isEmpty()) {
 												 bbsNTarget += "[보류]" + System.lineSeparator();

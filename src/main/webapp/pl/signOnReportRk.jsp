@@ -352,7 +352,7 @@
 											<input style="height:45px; width:110px; text-align:center;" name="jobs<%= i %>" readonly value="<%= tlist.get(i).getRms_job() %>">
 										 </div>
 										 <div style="float:left">
-											 <textarea class="textarea con" wrap="hard"  id="bbsContent<%= i %>" maxlength="500" required style="height:45px;width:185%; border:none; resize:none " placeholder="업무내용" name="bbsContent<%= i %>"><%= tlist.get(i).getRms_con() %></textarea>
+											 <textarea class="textarea con" wrap="hard"  id="bbsContent<%= i %>" maxlength="500" required style="height:45px;width:290px; border:none; resize:none " placeholder="업무내용" name="bbsContent<%= i %>"><%= tlist.get(i).getRms_con() %></textarea>
 										 </div>
 										 </td>
 										 <td><input type="date" max="9999-12-31" readonly required style="height:45px; width:auto;" id="bbsStart<%= i %>" class="form-control" placeholder="접수일" name="bbsStart<%= i %>" value="<%= tlist.get(i).getRms_str() %>" ></td>
@@ -390,7 +390,7 @@
 									 <input style="height:45px; width:110px; text-align:center;" name="njobs<%= i %>" readonly value="<%= nlist.get(i).getRms_job() %>">
 									 </div>
 									 <div style="float:left">
-									 <textarea class="textarea ncon" wrap="hard" id="bbsNContent<%= i %>" maxlength="500" required style="height:45px;width:185%; border:none; resize:none " placeholder="업무내용" name="bbsNContent<%= i %>"><%= nlist.get(i).getRms_con() %></textarea>
+									 <textarea class="textarea ncon" wrap="hard" id="bbsNContent<%= i %>" maxlength="500" required style="height:45px;width:290px; border:none; resize:none " placeholder="업무내용" name="bbsNContent<%= i %>"><%= nlist.get(i).getRms_con() %></textarea>
 									 </div>
 								 </td>
 								 <td><input type="date" readonly max="9999-12-31" required style="height:45px; width:auto;" id="bbsNStart<%= i %>" class="form-control" placeholder="접수일" name="bbsNStart<%= i %>" value="<%= nlist.get(i).getRms_str() %>" ></td>

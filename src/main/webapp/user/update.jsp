@@ -1,3 +1,6 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.GregorianCalendar"%>
 <%@page import="rmsrept.rmsedps"%>
 <%@page import="rmsrept.rmsrept"%>
 <%@page import="rmsuser.rmsuser"%>
@@ -133,8 +136,14 @@
 		// 현재 시간, 날짜를 구해 이전 데이터는 수정하지 못하도록 함!
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
-		String dl = rms_dl;
-		if(dl.isEmpty()) { //삭제 되어 비어있다면,
+		//월요일 하루 이전으로 날짜 선정
+		Date SetDate = dateFormat.parse(rms_dl);
+		Calendar cal = new GregorianCalendar(Locale.KOREA);
+		cal.setTime(SetDate);
+		//하루 전으로 설정
+		cal.add(Calendar.DATE, -1);
+		
+		if(rms_dl.isEmpty()) { //삭제 되어 비어있다면,
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('게시글이 제거되거나 수정되었을 수 있습니다. 확인하여 주십시오.')");
@@ -144,7 +153,7 @@
 		Date time = new Date();
 		String timenow = dateFormat.format(time);
 
-		Date dldate = dateFormat.parse(dl);
+		Date dldate = cal.getTime();
 		Date today = dateFormat.parse(timenow);
 		
 		//현재날짜 구하기
