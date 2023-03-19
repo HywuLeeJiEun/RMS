@@ -153,7 +153,8 @@
 		Date time = new Date();
 		String timenow = dateFormat.format(time);
 
-		Date dldate = cal.getTime();
+		Date dldate = dateFormat.parse(rms_dl);
+		Date signdate = cal.getTime();
 		Date today = dateFormat.parse(timenow);
 		
 		//현재날짜 구하기
@@ -522,7 +523,7 @@
 						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-success pull-right" onclick="saveData()"> 수정 </button>									
 						<button type="Submit" id="save_sub" style="margin-bottom:50px; display:none" class="btn btn-primary pull-right"> 저장 </button>	
 				<%
-							} else if (nlist.get(0).getRms_sign().equals("승인")) {
+							} else if (nlist.get(0).getRms_sign().equals("승인") && signdate.after(today)) {
 								%>
 								<!-- 승인 취소 -->
 								<button type="button" id="revert" style="margin-bottom:50px;" class="btn btn-danger pull-right" onclick="revertSign()" data-toggle="tooltip" data-html="true" data-placement="bottom" title="미제출로 변경합니다."> 변경 </button>	
