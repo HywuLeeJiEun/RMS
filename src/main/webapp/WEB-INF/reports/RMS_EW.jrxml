@@ -105,7 +105,7 @@ order by user_name]]>
 	<pageHeader>
 		<band height="69" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="391" y="41" width="367" height="26" backcolor="#919191" uuid="c0877f2c-bf4e-4a4f-a3b0-20bf5bb9b44d">
+				<reportElement mode="Opaque" x="389" y="41" width="367" height="26" backcolor="#919191" uuid="c0877f2c-bf4e-4a4f-a3b0-20bf5bb9b44d">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -132,7 +132,7 @@ order by user_name]]>
 				<text><![CDATA[금주 업무 실적]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="392" y="39" width="363" height="26" backcolor="#C7CDFD" uuid="e8e6c1ef-f480-4658-adda-048d669b579b">
+				<reportElement mode="Opaque" x="390" y="39" width="363" height="26" backcolor="#C7CDFD" uuid="e8e6c1ef-f480-4658-adda-048d669b579b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -165,7 +165,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["구분/\n담당자"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="26" y="1" width="263" height="29" backcolor="#FFCC99" uuid="d6c2b6c7-c4de-4269-beb4-7c1d7d53d01e">
+				<reportElement mode="Opaque" x="26" y="1" width="265" height="29" backcolor="#FFCC99" uuid="d6c2b6c7-c4de-4269-beb4-7c1d7d53d01e">
 					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
 					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -182,7 +182,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["업무 내용"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="289" y="1" width="32" height="29" backcolor="#FFCC99" uuid="39c91f00-cba7-4d58-971d-39aaa6019431">
+				<reportElement mode="Opaque" x="291" y="1" width="31" height="29" backcolor="#FFCC99" uuid="39c91f00-cba7-4d58-971d-39aaa6019431">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -198,7 +198,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["접수일"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="321" y="1" width="32" height="29" backcolor="#FFCC99" uuid="b1024b97-64a4-4568-92b7-764b65dafb57">
+				<reportElement mode="Opaque" x="322" y="1" width="31" height="29" backcolor="#FFCC99" uuid="b1024b97-64a4-4568-92b7-764b65dafb57">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -228,7 +228,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["구분/\n담당자"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="432" y="1" width="263" height="29" backcolor="#FFCC99" uuid="94bbb6ef-5c5a-41b6-98cf-077925c42ace">
+				<reportElement mode="Opaque" x="432" y="1" width="265" height="29" backcolor="#FFCC99" uuid="94bbb6ef-5c5a-41b6-98cf-077925c42ace">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -243,7 +243,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["업무 내용"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="695" y="1" width="32" height="29" backcolor="#FFCC99" uuid="9cc96a76-261f-4aaa-8579-f6e3f9d1fad0">
+				<reportElement mode="Opaque" x="697" y="1" width="31" height="29" backcolor="#FFCC99" uuid="9cc96a76-261f-4aaa-8579-f6e3f9d1fad0">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -258,7 +258,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["접수일"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="353" y="1" width="32" height="29" backcolor="#FFCC99" uuid="e66413ea-3a25-40aa-b1a3-ab554561b774">
+				<reportElement mode="Opaque" x="353" y="1" width="31" height="29" backcolor="#FFCC99" uuid="e66413ea-3a25-40aa-b1a3-ab554561b774">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -273,7 +273,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["진행율\n완료일"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="727" y="1" width="32" height="29" backcolor="#FFCC99" uuid="7b7f59d7-196f-4671-beef-33f75c8e32a5">
+				<reportElement mode="Opaque" x="728" y="1" width="31" height="29" backcolor="#FFCC99" uuid="7b7f59d7-196f-4671-beef-33f75c8e32a5">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -292,7 +292,7 @@ order by user_name]]>
 	<detail>
 		<band height="214" splitType="Prevent">
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="727" y="-8" width="32" height="216" uuid="8b9e046d-e0c9-46b3-a92a-d9b842ca5756">
+				<reportElement stretchType="ElementGroupHeight" x="728" y="-8" width="31" height="216" uuid="8b9e046d-e0c9-46b3-a92a-d9b842ca5756">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -307,7 +307,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["\n"+$F{RMS_NTAR}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="695" y="-8" width="32" height="216" uuid="0018c13a-f054-485f-857d-0ecd0e2d0639">
+				<reportElement stretchType="ElementGroupHeight" x="697" y="-8" width="31" height="216" uuid="0018c13a-f054-485f-857d-0ecd0e2d0639">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -322,7 +322,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["\n"+$F{RMS_NSTR}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="437" y="-8" width="258" height="216" uuid="ef7696ba-57f4-41be-9175-6da4d26e4855">
+				<reportElement stretchType="ElementGroupHeight" x="436" y="-8" width="261" height="216" uuid="ef7696ba-57f4-41be-9175-6da4d26e4855">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -366,7 +366,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["\n"+$F{RMS_MGRS}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="31" y="-8" width="258" height="216" uuid="30eac1b9-cb43-446b-9b3c-ad3cafc0b777">
+				<reportElement stretchType="ElementGroupHeight" x="30" y="-8" width="261" height="216" uuid="30eac1b9-cb43-446b-9b3c-ad3cafc0b777">
 					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
 					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -383,7 +383,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["\n"+$F{RMS_CON}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="321" y="-8" width="32" height="216" uuid="4f0f4c6e-5f50-4a63-becc-57890fbc3cbf"/>
+				<reportElement stretchType="ElementGroupHeight" x="322" y="-8" width="31" height="216" uuid="4f0f4c6e-5f50-4a63-becc-57890fbc3cbf"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -396,7 +396,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["\n"+$F{RMS_TAR}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="353" y="-8" width="32" height="216" uuid="6112df65-0eea-4391-a4bc-4c974c4b0d1e">
+				<reportElement stretchType="ElementGroupHeight" x="353" y="-8" width="31" height="216" uuid="6112df65-0eea-4391-a4bc-4c974c4b0d1e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -411,7 +411,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["\n"+$F{RMS_END}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="289" y="-8" width="32" height="216" uuid="265f0c4b-eccb-4803-afc5-597ae3f15777">
+				<reportElement stretchType="ElementGroupHeight" x="291" y="-8" width="31" height="216" uuid="265f0c4b-eccb-4803-afc5-597ae3f15777">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -426,7 +426,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA["\n"+$F{RMS_STR}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="26" y="-8" width="263" height="216" uuid="cb552261-3680-4d4d-9ff4-2addecf7928d">
+				<reportElement stretchType="ElementGroupHeight" x="26" y="-8" width="265" height="216" uuid="cb552261-3680-4d4d-9ff4-2addecf7928d">
 					<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
 					<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -444,7 +444,7 @@ order by user_name]]>
 				<textFieldExpression><![CDATA[" "]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ElementGroupHeight" x="432" y="-8" width="263" height="216" uuid="00573799-9dab-45a4-aa79-65da8657efdc"/>
+				<reportElement stretchType="ElementGroupHeight" x="432" y="-8" width="265" height="216" uuid="00573799-9dab-45a4-aa79-65da8657efdc"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>

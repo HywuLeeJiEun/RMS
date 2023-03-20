@@ -117,7 +117,7 @@
 										//content 가공하기
 										content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
 										//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
-										int maxlen = 83;
+										int maxlen = 86;
 										float curlen = 0;
 										float addlen = 0;
 										StringBuilder contentBuilder = new StringBuilder();
@@ -157,11 +157,11 @@
 												}
 											}
 											if(curlen > maxlen ) { 
-												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
 													contentBuilder.append(System.lineSeparator());
 													contentBuilder.append("  ");
 												} 
+												contentBuilder.append(text[i]);
 												curlen = 0;
 												curlen += 2; //공백 2개 넣기
 												curlen += addlen; 
@@ -214,7 +214,7 @@
 										//content 가공하기
 										content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
 										//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
-										int maxlen = 83;
+										int maxlen = 86;
 										float curlen = 0;
 										float addlen = 0;
 										StringBuilder contentBuilder = new StringBuilder();
@@ -254,11 +254,11 @@
 												}
 											}
 											if(curlen > maxlen ) { 
-												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
 													contentBuilder.append(System.lineSeparator());
 													contentBuilder.append("  ");
 												} 
+												contentBuilder.append(text[i]);
 												curlen = 0;
 												curlen += 2; //공백 2개 넣기
 												curlen += addlen; 
@@ -289,11 +289,27 @@
 										 }
 								}
 
+								int rmsTSuc = -1; int rmsNSuc = -1;
 							//3. 데이터 저장하기
 							if(rms_this.size() != 0) {
-								int rmsTSuc = rms.PptxRmsWrite(id, rms_dl, rms_this.get(0).getRms_title(), bbsManager, bbsContent, bbsStart, bbsTarget, bbsEnd, "T", rms_this.get(0).getRms_sign());
-								int rmsNSuc = rms.PptxRmsWrite(id, rms_dl, rms_next.get(0).getRms_title(), bbsManager, bbsNContent, bbsNStart, bbsNTarget, null, "N", rms_next.get(0).getRms_sign());
+								rmsTSuc = rms.PptxRmsWrite(id, rms_dl, rms_this.get(0).getRms_title(), bbsManager, bbsContent, bbsStart, bbsTarget, bbsEnd, "T", rms_this.get(0).getRms_sign());
+								rmsNSuc = rms.PptxRmsWrite(id, rms_dl, rms_next.get(0).getRms_title(), bbsManager, bbsNContent, bbsNStart, bbsNTarget, null, "N", rms_next.get(0).getRms_sign());
 							}//(rms_this.get(0).getUserID(), rms_this.get(0).getBbsDeadline(), rms_this.get(0).getBbsTitle(), rms_this.get(0).getBbsDate(), bbsManager, bbsContent, bbsStart, bbsTarget, bbsEnd, bbsNContent, bbsNStart, bbsNTarget, rms_next.get(0).getPluser());			
+							
+							
+							if(rmsTSuc == -1 || rmsNSuc == -1) {
+								PrintWriter script = response.getWriter();
+								script.println("<script>");
+								script.println("alert('최종 저장에 문제가 발생하였습니다. 관리자에게 문의 바랍니다.')");
+								script.println("history.back;");
+								script.println("</script>");
+							} else {
+								PrintWriter script = response.getWriter();
+								script.println("<script>");
+								script.println("history.back;");
+								script.println("</script>");
+							}
+				
 				}
 			}
 
