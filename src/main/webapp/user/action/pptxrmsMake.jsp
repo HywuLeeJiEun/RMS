@@ -156,7 +156,7 @@
 													addlen = 2;
 												}
 											}
-											if(Math.floor(curlen) >= maxlen ) { 
+											if(Math.floor(curlen) > maxlen && Math.floor(curlen)-3 < maxlen) { //글자가 튀어나가지 않도록 함! 
 												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
 													contentBuilder.append(System.lineSeparator());
@@ -253,7 +253,7 @@
 													addlen = 2;
 												}
 											}
-											if(Math.floor(curlen) >= maxlen ) { 
+											if(Math.floor(curlen) > maxlen && Math.floor(curlen)-3 < maxlen) { 
 												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
 													contentBuilder.append(System.lineSeparator());
