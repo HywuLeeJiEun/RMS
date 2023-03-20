@@ -117,7 +117,7 @@
 										//content 가공하기
 										content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
 										//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
-										int maxlen = 86;
+										int maxlen = 84;
 										float curlen = 0;
 										float addlen = 0;
 										StringBuilder contentBuilder = new StringBuilder();
@@ -139,14 +139,14 @@
 												}
 											}else if(text[i].matches("^[0-9]+$")){
 												//숫자
-												curlen += 1.5;
-												addlen = (float) 1.5;
+												curlen += 1.6;
+												addlen = (float) 1.6;
 											} else {
-												if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'")) { 
+												if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("\"") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/")) {
 													//공백
 													curlen += 1;
 													addlen = 1;
-												} else if (text[i].contains("-") || text[i].contains("[") || text[i].contains("]")) {										//특수문자
+												} else if (text[i].contains("-") ) {	
 													//특정 특수문자
 													curlen += 1.2;
 													addlen = (float) 1.2;
@@ -156,12 +156,12 @@
 													addlen = 2;
 												}
 											}
-											if(curlen > maxlen ) { 
+											if(Math.floor(curlen) >= maxlen ) { 
+												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
 													contentBuilder.append(System.lineSeparator());
 													contentBuilder.append("  ");
 												} 
-												contentBuilder.append(text[i]);
 												curlen = 0;
 												curlen += 2; //공백 2개 넣기
 												curlen += addlen; 
@@ -214,7 +214,7 @@
 										//content 가공하기
 										content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
 										//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
-										int maxlen = 86;
+										int maxlen = 84;
 										float curlen = 0;
 										float addlen = 0;
 										StringBuilder contentBuilder = new StringBuilder();
@@ -236,14 +236,14 @@
 												}
 											}else if(text[i].matches("^[0-9]+$")){
 												//숫자
-												curlen += 1.5;
-												addlen = (float) 1.5;
+												curlen += 1.6;
+												addlen = (float) 1.6;
 											} else {
-												if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'")) { 
+												if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("\"") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/")) {
 													//공백
 													curlen += 1;
 													addlen = 1;
-												} else if (text[i].contains("-") || text[i].contains("[") || text[i].contains("]")) {										//특수문자
+												} else if (text[i].contains("-") ) {									//특수문자
 													//특정 특수문자
 													curlen += 1.2;
 													addlen = (float) 1.2;
@@ -253,12 +253,12 @@
 													addlen = 2;
 												}
 											}
-											if(curlen > maxlen ) { 
+											if(Math.floor(curlen) >= maxlen ) { 
+												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
 													contentBuilder.append(System.lineSeparator());
 													contentBuilder.append("  ");
-												} 
-												contentBuilder.append(text[i]);
+												} 							
 												curlen = 0;
 												curlen += 2; //공백 2개 넣기
 												curlen += addlen; 
