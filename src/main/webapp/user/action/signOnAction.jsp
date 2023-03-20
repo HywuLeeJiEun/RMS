@@ -80,7 +80,7 @@
 					//1. rms(pptxrms)에 저장되어 있는지 확인! (승인 -> 마감이 되는 경우 유의)
 					int rmsData = rms.getPptxRms(rms_dl, id);
 					if(rmsData == 0) { //작성된 기록이 없다!
-						rms.AllWritePptx();
+						rms.WritePptx(rms_dl, id);
 					}
 					PrintWriter script = response.getWriter();
 					script.println("<script>");

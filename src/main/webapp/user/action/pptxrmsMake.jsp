@@ -292,23 +292,11 @@
 								int rmsTSuc = -1; int rmsNSuc = -1;
 							//3. 데이터 저장하기
 							if(rms_this.size() != 0) {
-								rmsTSuc = rms.PptxRmsWrite(id, rms_dl, rms_this.get(0).getRms_title(), bbsManager, bbsContent, bbsStart, bbsTarget, bbsEnd, "T", rms_this.get(0).getRms_sign());
-								rmsNSuc = rms.PptxRmsWrite(id, rms_dl, rms_next.get(0).getRms_title(), bbsManager, bbsNContent, bbsNStart, bbsNTarget, null, "N", rms_next.get(0).getRms_sign());
+								if(!rms_this.get(0).getRms_sign().equals("미승인")) {
+									rmsTSuc = rms.PptxRmsWrite(id, rms_dl, rms_this.get(0).getRms_title(), bbsManager, bbsContent, bbsStart, bbsTarget, bbsEnd, "T", rms_this.get(0).getRms_sign());
+									rmsNSuc = rms.PptxRmsWrite(id, rms_dl, rms_next.get(0).getRms_title(), bbsManager, bbsNContent, bbsNStart, bbsNTarget, null, "N", rms_next.get(0).getRms_sign());
+								}
 							}//(rms_this.get(0).getUserID(), rms_this.get(0).getBbsDeadline(), rms_this.get(0).getBbsTitle(), rms_this.get(0).getBbsDate(), bbsManager, bbsContent, bbsStart, bbsTarget, bbsEnd, bbsNContent, bbsNStart, bbsNTarget, rms_next.get(0).getPluser());			
-							
-							
-							if(rmsTSuc == -1 || rmsNSuc == -1) {
-								PrintWriter script = response.getWriter();
-								script.println("<script>");
-								script.println("alert('최종 저장에 문제가 발생하였습니다. 관리자에게 문의 바랍니다.')");
-								script.println("history.back;");
-								script.println("</script>");
-							} else {
-								PrintWriter script = response.getWriter();
-								script.println("<script>");
-								script.println("history.back;");
-								script.println("</script>");
-							}
 				
 				}
 			}

@@ -324,7 +324,7 @@
 									//redirect
 								//response.sendRedirect("/RMS/user/action/pptxrmsMake.jsp");
 									//java
-								rms.AllWritePptx();
+								rms.WritePptx(list.get(i).getRms_dl(), id);
 							}
 						} else if((dldate.after(today) || dldate.equals(today)) && list.get(i).getRms_sign().equals("미승인")) {
 							//sign = list.get(i).getSign();
@@ -344,12 +344,12 @@
 								//pptxrmsMake 관련 불러오기
 									//forward
 								//pageContext.forward("/RMS/user/action/pptxrmsMake.jsp");
-								RequestDispatcher dispatcher = request.getRequestDispatcher("/RMS/user/action/pptxrmsMake.jsp");
-								dispatcher.forward(request, response);
+								//RequestDispatcher dispatcher = request.getRequestDispatcher("/RMS/user/action/pptxrmsMake.jsp");
+								//dispatcher.forward(request, response);
 									//redirect
 								//response.sendRedirect("/RMS/user/action/pptxrmsMake.jsp");
 									//java
-								rms.AllWritePptx();
+								rms.WritePptx(list.get(i).getRms_dl(), id);
 							}
 						}
 						%>
