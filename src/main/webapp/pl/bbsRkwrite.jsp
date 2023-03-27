@@ -233,6 +233,7 @@
 			 if(useDl != null && !useDl.isEmpty()) { //이미 요약본이 작성되어 있음!
 				 dllist.remove(i);
 			 	System.out.println(i + useDl);
+			 	i --;
 			 } 
 		 }
 		

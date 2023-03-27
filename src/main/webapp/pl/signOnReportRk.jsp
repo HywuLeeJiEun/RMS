@@ -504,33 +504,34 @@
 	var trNCnt = <%= ncon %>;
 	var user_id = "<%= user_id %>";
 	function saveData() {
-		if(trCnt == 0) {
-			alert("금주 업무 실적에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
-		} else if (trNCnt == 0) {
-			alert("차주 업무 계획에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
-		} else {
-
-		var innerHtml = "";
-		innerHtml += '<tr style="display:none">';
-		innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="trNCnt" name="trNCnt" readonly>'+trNCnt+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="con" name="con" readonly>'+trCnt+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="ncon" name="ncon" readonly>'+trNCnt+'</textarea></td>';
-		innerHtml += '<td><textarea class="textarea" id="user_id" name="user_id" readonly>'+user_id+'</textarea></td>';
-		innerHtml += '</tr>';
-        $('#bbsNTable > tbody> tr:last').append(innerHtml);
-        
- 		$("#save_sub").trigger("click");
-        
-        var form = document.getElementById("main");
-        	if(form.checkValidity()) {
-	        	form.action = "/RMS/pl/action/SignOnupdateAction.jsp";
-	            form.mathod = "post";
-	            form.submit(); 
-       	 }
+		if(confirm("주간보고의 변경 내용을 저장합니다.\n수정 하시겠습니까?")) {
+			if(trCnt == 0) {
+				alert("금주 업무 실적에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
+			} else if (trNCnt == 0) {
+				alert("차주 업무 계획에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
+			} else {
+	
+			var innerHtml = "";
+			innerHtml += '<tr style="display:none">';
+			innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
+			innerHtml += '<td><textarea class="textarea" id="trNCnt" name="trNCnt" readonly>'+trNCnt+'</textarea></td>';
+			innerHtml += '<td><textarea class="textarea" id="con" name="con" readonly>'+trCnt+'</textarea></td>';
+			innerHtml += '<td><textarea class="textarea" id="ncon" name="ncon" readonly>'+trNCnt+'</textarea></td>';
+			innerHtml += '<td><textarea class="textarea" id="user_id" name="user_id" readonly>'+user_id+'</textarea></td>';
+			innerHtml += '</tr>';
+	        $('#bbsNTable > tbody> tr:last').append(innerHtml);
+	        
+	 		$("#save_sub").trigger("click");
+	        
+	        var form = document.getElementById("main");
+	        	if(form.checkValidity()) {
+		        	form.action = "/RMS/pl/action/SignOnupdateAction.jsp";
+		            form.mathod = "post";
+		            form.submit(); 
+	       	 }
+			}
 		}
     }
-	</script>
 	</script>
 
 </body>
