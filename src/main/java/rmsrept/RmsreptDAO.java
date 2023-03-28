@@ -436,7 +436,7 @@ public class RmsreptDAO {
 	      				SQL += "user_id='"+plist[i].trim()+"'";
 	      			}
 	      		}
-	      		SQL += ")) r inner join rmsuser u on r.user_id = u.user_id where (rms_sign='승인' or rms_sign='마감') and rms_div = ? order by u.user_name asc";
+	      		SQL += ")) r inner join rmsuser u on r.user_id = u.user_id where (rms_sign='승인' or rms_sign='마감') and rms_div = ? order by u.user_name, r.rms_job";
 	      try {
 	            PreparedStatement pstmt=conn.prepareStatement(SQL);
 	            pstmt.setString(1, rms_dl);
