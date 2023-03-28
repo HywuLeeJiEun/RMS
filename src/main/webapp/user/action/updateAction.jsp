@@ -264,9 +264,6 @@
 			}
 			
 			
-			//미승인된 rms를 찾아옴.		
-			ArrayList<rmsrept> list = rms.getrmsSign(id, 1);
-			
 			if(n == -1 || nn == -1 || an == -1) { //llist.size() != 0
 				//위에서 생성된 데이터를 지움.
 				rms.RmsdeleteSign(id, rms_dl, rms_sign); //보류가 아닌, 새로 생성된 데이터를 삭제
@@ -280,34 +277,19 @@
 				script.println("history.back();");
 				script.println("</script>");
 			} else {
-				if(list.size() != 0) {
-					//보류로 저장된 이전 데이터를 제거해야함! (이때, 헷갈리지 않도록 user_id도 검색 조건에 넣음.)
-					rms.RmsdeleteSign(id, before_dl, "보류"); //보류로 생성된 이전의 데이터를 삭제
-					//erp user_id가 test인 데이터를 제거함.
-					if(rmsmgrs.equals(id)) {
-						rms.edelete("test", before_dl);
-					}
-					PrintWriter script = response.getWriter();
-					script.println("<script>");
-					script.println("alert('수정이 완료되었습니다.')");
-					//script.println("location.href='../bbsUpdateDelete.jsp'");
-					script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
-					script.println("</script>");
-				}else {
-					//보류로 저장된 이전 데이터를 제거해야함! (이때, 헷갈리지 않도록 user_id도 검색 조건에 넣음.)
-					rms.RmsdeleteSign(id, before_dl, "보류"); //보류로 생성된 이전의 데이터를 삭제
-					//erp user_id가 test인 데이터를 제거함.
-					if(rmsmgrs.equals(id)) {
-						rms.edelete("test", before_dl);
-					}
-					PrintWriter script = response.getWriter();
-					script.println("<script>");
-					script.println("alert('수정이 완료되었습니다.')");
-					//script.println("alert('주간보고가 모두 제출되었습니다. \\n조회 페이지로 이동합니다.')");
-					//script.println("location.href='../bbs.jsp'");
-					script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
-					script.println("</script>");
+				//보류로 저장된 이전 데이터를 제거해야함! (이때, 헷갈리지 않도록 user_id도 검색 조건에 넣음.)
+				rms.RmsdeleteSign(id, before_dl, "보류"); //보류로 생성된 이전의 데이터를 삭제
+				//erp user_id가 test인 데이터를 제거함.
+				if(rmsmgrs.equals(id)) {
+					rms.edelete("test", before_dl);
 				}
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('수정이 완료되었습니다.')");
+				//script.println("alert('주간보고가 모두 제출되었습니다. \\n조회 페이지로 이동합니다.')");
+				//script.println("location.href='../bbs.jsp'");
+				script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
+				script.println("</script>");
 			} 
 		}
 

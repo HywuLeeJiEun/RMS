@@ -58,32 +58,19 @@
 			int ndel = rms.Rmsdelete(id, rms_dl,"N");
 			int ldel = rms.edelete(id, rms_dl);		
 			
-			//미승인된 rms를 찾아옴.		
-			ArrayList<rmsrept> aflist = rms.getrmsSign(id, 1);
-			
 			if(tdel == -1 || ndel == -1 || ldel == -1) {
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("alert('삭제가 정상적으로 이루어지지 않았습니다. 관리자에게 문의 바랍니다.')");
 					script.println("location.href='/RMS/user/bbs.jsp'");
 					script.println("</script>");
-				}
-				else {
-					// 수정 및 제출 가능한 list가 없다면,
-					if(aflist.size() == 0) {
+				} else {
+						// 수정 및 제출 가능한 list가 없다면,
 						PrintWriter script = response.getWriter();
 						script.println("<script>");
 						script.println("alert('정상적으로 보고가 제거 되었습니다.')");
-						script.println("alert('수정 및 제출 가능한 주간보고가 없습니다. 조회페이지로 이동합니다.')");
 						script.println("location.href='/RMS/user/bbs.jsp'");
 						script.println("</script>");
-					} else {
-					PrintWriter script = response.getWriter();
-					script.println("<script>");
-					script.println("alert('정상적으로 보고가 제거 되었습니다.')");
-					script.println("location.href='/RMS/user/bbsUpdateDelete.jsp'");
-					script.println("</script>");
-					}
 				} 
 			}
 	%>

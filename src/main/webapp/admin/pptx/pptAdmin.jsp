@@ -118,11 +118,12 @@
 	 int num = 0;
 	 for (int i=0; i < etlist.size(); i++) {
 		 if(i < etlist.size()-1) {
-			 num = etlist.get(i).getSum_con().length() -  etlist.get(i).getSum_con().replaceAll("\r\n","").length() - 1;
-			 econ += etlist.get(i).getSum_con() + "\r\n";
-			 eend += etlist.get(i).getSum_enta() + "\r\n";
+			 //num = etlist.get(i).getSum_con().length() -  etlist.get(i).getSum_con().replaceAll(System.lineSeparator(),"").length() - 1;
+			 num = etlist.get(i).getSum_con().split(System.lineSeparator()).length - 1;
+			 econ += etlist.get(i).getSum_con() + System.lineSeparator();
+			 eend += etlist.get(i).getSum_enta() + System.lineSeparator();
 			 for(int j=0; j < num; j++) {
-				 eend += "\r\n";
+				 eend += System.lineSeparator();
 			 }
 		 } else {
 			 econ += etlist.get(i).getSum_con();
@@ -132,11 +133,12 @@
 
 	 for (int i=0; i < enlist.size(); i++) {
 		 if(i < enlist.size()-1) {
-			 num = enlist.get(i).getSum_con().length() -  enlist.get(i).getSum_con().replaceAll("\r\n","").length() - 1;
-			 encon += enlist.get(i).getSum_con() + "\r\n";
-			 entarget += enlist.get(i).getSum_enta() + "\r\n";
+			 //num = enlist.get(i).getSum_con().length() -  enlist.get(i).getSum_con().replaceAll(System.lineSeparator(),"").length() - 1;
+			 num = enlist.get(i).getSum_con().split(System.lineSeparator()).length - 1;
+			 encon += enlist.get(i).getSum_con() + System.lineSeparator();
+			 entarget += enlist.get(i).getSum_enta() + System.lineSeparator();
 			 for(int j=0; j < num; j++) {
-				 entarget += "\r\n";
+				 entarget += System.lineSeparator();
 			 }
 		 } else {
 			 encon += enlist.get(i).getSum_con();
@@ -159,11 +161,12 @@
 	 String wntarget = "";
 	 for (int i=0; i < wtlist.size(); i++) {
 		 if(i < wtlist.size()-1) {
-			 num = wtlist.get(i).getSum_con().length() -  wtlist.get(i).getSum_con().replaceAll("\r\n","").length() - 1;
-			 wcon += wtlist.get(i).getSum_con() + "\r\n";
-			 wend += wtlist.get(i).getSum_enta() + "\r\n";
+			 //num = wtlist.get(i).getSum_con().length() -  wtlist.get(i).getSum_con().replaceAll(System.lineSeparator(),"").length() - 1;
+			 num = wtlist.get(i).getSum_con().split(System.lineSeparator()).length - 1;
+			 wcon += wtlist.get(i).getSum_con() + System.lineSeparator();
+			 wend += wtlist.get(i).getSum_enta() + System.lineSeparator();
 			 for(int j=0; j < num; j++) {
-				 wend += "\r\n";
+				 wend += System.lineSeparator();
 			 }
 		 } else {
 			 wcon += wtlist.get(i).getSum_con();
@@ -173,11 +176,12 @@
 	 
 	 for (int i=0; i < wnlist.size(); i++) {
 		 if(i < wnlist.size()-1) {
-			 num = wnlist.get(i).getSum_con().length() -  wnlist.get(i).getSum_con().replaceAll("\r\n","").length() - 1;
-			 wncon += wnlist.get(i).getSum_con() + "\r\n";
-			 wntarget += wnlist.get(i).getSum_enta() + "\r\n";
+			 //num = wnlist.get(i).getSum_con().length() -  wnlist.get(i).getSum_con().replaceAll(System.lineSeparator(),"").length() - 1;
+			 num = wnlist.get(i).getSum_con().split(System.lineSeparator()).length - 1;
+			 wncon += wnlist.get(i).getSum_con() + System.lineSeparator();
+			 wntarget += wnlist.get(i).getSum_enta() + System.lineSeparator();
 			 for(int j=0; j < num; j++) {
-				 wntarget += "\r\n";
+				 wntarget += System.lineSeparator();
 			 }
 		 } else {
 			 wncon += wnlist.get(i).getSum_con();

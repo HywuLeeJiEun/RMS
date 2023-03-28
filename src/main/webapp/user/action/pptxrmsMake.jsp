@@ -117,7 +117,7 @@
 										//content 가공하기
 										content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
 										//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
-										int maxlen = 84;
+										int maxlen = 85;
 										float curlen = 0;
 										float addlen = 0;
 										StringBuilder contentBuilder = new StringBuilder();
@@ -128,7 +128,7 @@
 												curlen += 3;
 												addlen = 3;
 											} else if(text[i].matches("^[a-zA-Z0-9]*$")) {
-												if(Character.isLowerCase(text[i].charAt(0))) {
+												if(Character.isLowerCase(text[i].charAt(0)) || text[i].contains("I")) {
 													//소문자라면,
 													curlen += 1.5;
 													addlen = (float) 1.5;
@@ -142,21 +142,17 @@
 												curlen += 1.6;
 												addlen = (float) 1.6;
 											} else {
-												if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("\"") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/")) {
+												if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("\"") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/") || text[i].contains("(") || text[i].contains(")") || text[i].contains("-")) {
 													//공백
 													curlen += 1;
 													addlen = 1;
-												} else if (text[i].contains("-") ) {	
-													//특정 특수문자
-													curlen += 1.2;
-													addlen = (float) 1.2;
 												} else {
 													//기타 특수문자
 													curlen += 2;
 													addlen = 2;
 												}
 											}
-											if(Math.floor(curlen) > maxlen && Math.floor(curlen)-3 < maxlen) { //글자가 튀어나가지 않도록 함! 
+											if(Math.floor(curlen) >  maxlen && Math.floor(curlen)-3 <= maxlen) { //글자가 튀어나가지 않도록 함! 
 												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
 													contentBuilder.append(System.lineSeparator());
@@ -214,7 +210,7 @@
 										//content 가공하기
 										content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
 										//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
-										int maxlen = 84;
+										int maxlen = 85;
 										float curlen = 0;
 										float addlen = 0;
 										StringBuilder contentBuilder = new StringBuilder();
@@ -225,8 +221,8 @@
 												curlen += 3;
 												addlen = 3;
 											} else if(text[i].matches("^[a-zA-Z0-9]*$")) {
-												if(Character.isLowerCase(text[i].charAt(0))) {
-													//소문자라면,
+												if(Character.isLowerCase(text[i].charAt(0)) || text[i].contains("I")) {
+													//소문자라면, 또는 대문자 I라면(크기가 작음)
 													curlen += 1.5;
 													addlen = (float) 1.5;
 												} else {
@@ -239,21 +235,18 @@
 												curlen += 1.6;
 												addlen = (float) 1.6;
 											} else {
-												if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("\"") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/")) {
+												if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("\"") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/") || text[i].contains("(") || text[i].contains(")") || text[i].contains("-") ) {
 													//공백
 													curlen += 1;
 													addlen = 1;
-												} else if (text[i].contains("-") ) {									//특수문자
-													//특정 특수문자
-													curlen += 1.2;
-													addlen = (float) 1.2;
-												} else {
+												}  else {
 													//기타 특수문자
 													curlen += 2;
 													addlen = 2;
 												}
 											}
-											if(Math.floor(curlen) > maxlen && Math.floor(curlen)-3 < maxlen) { 
+											if(Math.floor(curlen) > maxlen && Math.floor(curlen)-3 <= maxlen) { 
+												//System.out.println(Math.floor(curlen)+text[i]);
 												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
 													contentBuilder.append(System.lineSeparator());
@@ -267,7 +260,7 @@
 											}
 										}
 										
-										if(j < rms_this.size()-1) {
+										if(j < rms_next.size()-1) {
 										 	bbsNContent += contentBuilder.toString() + System.lineSeparator();
 										} else {
 											bbsNContent += contentBuilder.toString();

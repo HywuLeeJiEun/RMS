@@ -162,139 +162,15 @@
 		LocalDate nowdate = LocalDate.now();
 		String now = nowdate.format(formatter);
 		
-		//미승인된 rms를 찾아옴.		
-		ArrayList<rmsrept> list = rms.getrmsSign(id, 1);
 	%>
 	<c:set var="works" value="<%= works %>" />
 	<input type="hidden" id="work" value="<c:out value='${works}'/>">
 	<input type="hidden" id="eSize" value="<%= eSize %>"/>
 	<input type="hidden" id="au" value="<%= au %>"/>
-        <!-- ************ 상단 네비게이션바 영역 ************* -->
-	<nav class="navbar navbar-default"> 
-		<div class="navbar-header"> 
-			<!-- 네비게이션 상단 박스 영역 -->
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<!-- 이 삼줄 버튼은 화면이 좁아지면 우측에 나타난다 -->
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="/RMS/user/bbs.jsp">Report Management System</a>
-		</div>
-		
-		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-left">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">주간보고<span class="caret"></span></a>
-						<!-- 드랍다운 아이템 영역 -->	
-					<% if(au.equals("관리자")) { %>
-						<ul class="dropdown-menu">
-							<li class="active"><a href="/RMS/user/bbs.jsp">조회</a></li>
-						</ul>
-					<% }else { %>
-						<ul class="dropdown-menu">
-							<li><a href="/RMS/user/bbs.jsp">조회</a></li>
-							<li ><a href="/RMS/user/bbsUpdate.jsp">작성</a></li>
-							<li><a href="/RMS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
-							<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
-						</ul>
-					<% } %>
-					</li>
-						<%
-							if(au.equals("PL")) {
-						%>
-							<li class="dropdown">
-							<a href="#" class="dropdown-toggle"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false"><%= pl %><span class="caret"></span></a>
-							<!-- 드랍다운 아이템 영역 -->	
-							<ul class="dropdown-menu">
-								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %></h5></li>
-								<li><a href="/RMS/pl/bbsRk.jsp">조회 및 출력</a></li>
-								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %> Summary</h5></li>
-								<li><a href="/RMS/pl/summaryRk.jsp">조회</a></li>
-								<li id="summary_nav"><a href="/RMS/pl/bbsRkwrite.jsp">작성</a></li>
-								<li><a href="/RMS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
-								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
-								<li id="summary_nav"><a href="/RMS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
-							</ul>
-							</li>
-						<%
-							}
-						%>
-												<%
-							if(au.equals("관리자") || au.equals("PL")) {
-						%>
-							<li class="dropdown">
-							<a href="#" class="dropdown-toggle"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false">summary<span class="caret"></span></a>
-							<!-- 드랍다운 아이템 영역 -->	
-							<ul class="dropdown-menu">
-								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
-								<li><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
-								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; AMS 주간보고</h5></li>
-								<li><a href="/RMS/admin/ams/attachment.jsp">첨부 및 출력</a></li>
-								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
-								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
-								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
-							</ul>
-							</li>
-						<%
-							}
-						%>
-				</ul>
-			
-		
-			
-			<!-- 헤더 우측에 나타나는 드랍다운 영역 -->
-			<ul class="nav navbar-nav navbar-right">
-				<li><a data-toggle="modal" href="#UserUpdateModal" style="color:#2E2E2E"><%= name %>(님)</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">관리<span class="caret"></span></a>
-					<!-- 드랍다운 아이템 영역 -->	
-					<ul class="dropdown-menu">
-					<%
-					if(au.equals("관리자")||au.equals("PL")) {
-					%>
-						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
-						<li><a href="/RMS/admin/work/workChange.jsp">담당업무 변경</a></li>
-						<li><a href="../logoutAction.jsp">로그아웃</a></li>
-					<%
-					} else {
-					%>
-						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a>
-						
-						</li>
-						<li><a href="../logoutAction.jsp">로그아웃</a></li>
-					<%
-					}
-					%>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</nav>
-	<!-- 네비게이션 영역 끝 -->
-	
-	<!-- 모달 불러오기 -->
-	<div id="modalCall">
-		<textarea style="display:none" id="ui"><%= id %></textarea>
-		<textarea style="display:none" id="pw"><%= password %></textarea>
-		<textarea style="display:none" id="nm"><%= name %></textarea>
-		<textarea style="display:none" id="rn"><%= rank %></textarea>
-		<textarea style="display:none" id="em"><%= email[0] %></textarea>
-		<textarea style="display:none" id="ws"><%= workSet %></textarea>
-		<jsp:include page="../modal.html" flush="false" />
-	</div>
-	
+       
+    <!-- nav바 불러오기 -->
+    <jsp:include page="../Nav.jsp"></jsp:include>
+
 	<!-- ********** 게시판 글쓰기 양식 영역 ********* -->
 		<div class="container">
 			<table class="table table-striped" style="text-align: center; cellpadding:50px;" >
@@ -507,15 +383,7 @@
 						<!-- 계정 관리 끝 -->
 						<div id="wrapper" style="width:100%; text-align: center;">
 						<!-- 목록 -->
-						<%
-						if(list.size() != 0) { //미승인 목록이 있을 경우,
-						%>
-						<a href="/RMS/user/bbsUpdateDelete.jsp" class="btn btn-primary pull-right" style="margin-bottom:100px; margin-left:20px">목록</a>
-						<%
-						} else {
-						%>
 						<a href="/RMS/user/bbs.jsp" class="btn btn-primary pull-right" style="margin-bottom:100px; margin-left:20px">목록</a>
-						<% } %>
 				<%
 					if(id.equals(tlist.get(0).getUser_id())) {
 						if(dldate.after(today) || dldate.equals(today)){

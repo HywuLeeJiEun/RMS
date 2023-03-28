@@ -87,10 +87,8 @@
 						PrintWriter script = response.getWriter();
 						script.println("<script>");
 						script.println("alert('변경이 완료 되었습니다.')");
-						//script.println("location.href='../bbsUpdateDelete.jsp'");
 						script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
 						script.println("</script>");
-						//response.sendRedirect("/RMS/user/update.jsp?rms_dl="+rms_dl);
 					}
 			}
 		}

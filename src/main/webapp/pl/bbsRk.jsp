@@ -60,35 +60,6 @@
 			script.println("</script>");
 		}
 		
-	
-		// ********** 담당자를 가져오기 위한 메소드 *********** 
-		String workSet;
-		ArrayList<String> code = userDAO.getCode(id); //코드 리스트 출력(rmsmgrs에 접근하여, task_num을 가져옴.)
-		List<String> works = new ArrayList<String>();
-		
-		if(code.size() == 0) {
-			//1. 담당 업무가 없는 경우,
-			workSet = "";
-		} else {
-			//2. 담당 업무가 있는 경우
-			for(int i=0; i < code.size(); i++) {
-				if(i < code.size()-1) {
-					//task_num을 받아옴.
-					String task_num = code.get(i);
-					// task_num을 통해 업무명을 가져옴.
-					String manager = userDAO.getManager(task_num);
-					works.add(manager+"/"); //즉, work 리스트에 모두 담겨 저장됨
-				} else {
-					//task_num을 받아옴.
-					String task_num = code.get(i);
-					// task_num을 통해 업무명을 가져옴.
-					String manager = userDAO.getManager(task_num);
-					works.add(manager); //즉, work 리스트에 모두 담겨 저장됨
-				}
-			}
-			workSet = String.join("\n",works) + "\n";
-		}
-		
 		// 사용자 정보 담기
 		ArrayList<rmsuser> ulist = userDAO.getUser(id);
 		String password = ulist.get(0).getUser_pwd();
@@ -216,129 +187,9 @@
 		 //ArrayList<rmssumm> alsum = sum.getSumDiv(pl, rms_dl, "T"); 
 		 int alsum = sum.getSumDiv(pl, rms_dl, "T").size(); 
 	%>
-    <!-- ************ 상단 네비게이션바 영역 ************* -->
-	<nav class="navbar navbar-default"> 
-		<div class="navbar-header"> 
-			<!-- 네비게이션 상단 박스 영역 -->
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<!-- 이 삼줄 버튼은 화면이 좁아지면 우측에 나타난다 -->
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="/RMS/user/bbs.jsp">Report Management System</a>
-		</div>
-		
-		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-left">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">주간보고<span class="caret"></span></a>
-						<!-- 드랍다운 아이템 영역 -->	
-						<ul class="dropdown-menu">
-							<li><a href="/RMS/user/bbs.jsp">조회</a></li>
-							<li><a href="/RMS/user/bbsUpdate.jsp">작성</a></li>
-							<li><a href="/RMS/user/bbsUpdateDelete.jsp">수정 및 제출</a></li>
-							<!-- <li><a href="signOn.jsp">승인(제출)</a></li> -->
-						</ul>
-					</li>
-						<%
-							if(au.equals("PL")) {
-						%>
-							<li class="dropdown">
-							<a href="#" class="dropdown-toggle"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false"><%= pl %><span class="caret"></span></a>
-							<!-- 드랍다운 아이템 영역 -->	
-							<ul class="dropdown-menu">
-								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %></h5></li>
-								<li class="active"><a href="/RMS/pl/bbsRk.jsp">조회 및 출력</a></li>
-								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; <%= pl %> Summary</h5></li>
-								<li><a href="/RMS/pl/summaryRk.jsp">조회</a></li>
-								<li id="summary_nav"><a href="/RMS/pl/bbsRkwrite.jsp">작성</a></li>
-								<li><a href="/RMS/pl/summaryUpdateDelete.jsp">수정 및 삭제</a></li>
-								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
-								<li id="summary_nav"><a href="/RMS/pl/summaryRkSign.jsp">조회 및 출력</a></li>
-							</ul>
-							</li>
-						<%
-							}
-						%>
-						<%
-							if(au.equals("관리자") || au.equals("PL")) {
-						%>
-							<li class="dropdown">
-							<a href="#" class="dropdown-toggle"
-								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false">summary<span class="caret"></span></a>
-							<!-- 드랍다운 아이템 영역 -->	
-							<ul class="dropdown-menu">
-								<li><h5 style="background-color: #e7e7e7; height:40px; margin-top:-20px" class="dropdwon-header"><br>&nbsp;&nbsp; [ERP/WEB] Summary</h5></li>
-								<li><a href="/RMS/admin/summaryadRk.jsp">조회 및 승인</a></li>
-								<li><h5 style="background-color: #e7e7e7; height:40px" class="dropdwon-header"><br>&nbsp;&nbsp; AMS 주간보고</h5></li>
-								<li><a href="/RMS/admin/ams/attachment.jsp">첨부 및 출력</a></li>
-								<!-- <li><a href="/RMS/admin/summaryadAdmin.jsp">작성</a></li>
-								<li><a href="/RMS/admin/summaryadUpdateDelete.jsp">수정 및 승인</a></li> -->
-								<!-- <li data-toggle="tooltip" data-html="true" data-placement="right" title="승인처리를 통해 제출을 확정합니다."><a href="bbsRkAdmin_backup.jsp">승인</a></li> -->
-							</ul>
-							</li>
-						<%
-							}
-						%>
-				</ul>
-				
-		
-			
-			<!-- 헤더 우측에 나타나는 드랍다운 영역 -->
-			<ul class="nav navbar-nav navbar-right">
-				<li><a data-toggle="modal" href="#UserUpdateModal" style="color:#2E2E2E"><%= name %>(님)</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">관리<span class="caret"></span></a>
-					<!-- 드랍다운 아이템 영역 -->	
-					<ul class="dropdown-menu">
-					<%
-					if(au.equals("PL")||au.equals("관리자")) {
-					%>
-						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a></li>
-						<li><a href="/RMS/admin/work/workChange.jsp">담당업무 변경</a></li>
-						<li><a href="../logoutAction.jsp">로그아웃</a></li>
-					<%
-					} else {
-					%>
-						<li><a data-toggle="modal" href="#UserUpdateModal">개인정보 수정</a>
-						
-						</li>
-						<li><a href="../logoutAction.jsp">로그아웃</a></li>
-					<%
-					}
-					%>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</nav>
-	<!-- 네비게이션 영역 끝 -->
-	
-	
-		
-	
-	<!-- 모달 불러오기 -->
-	<div id="modalCall">
-		<textarea style="display:none" id="ui"><%= id %></textarea>
-		<textarea style="display:none" id="pw"><%= password %></textarea>
-		<textarea style="display:none" id="nm"><%= name %></textarea>
-		<textarea style="display:none" id="rn"><%= rank %></textarea>
-		<textarea style="display:none" id="em"><%= email[0] %></textarea>
-		<textarea style="display:none" id="ws"><%= workSet %></textarea>
-		<jsp:include page="../modal.html" flush="false" />
-	</div>
-
+   
+    <!-- nav바 불러오기 -->
+    <jsp:include page="../Nav.jsp"></jsp:include>
 		
 	<div class="container area" style="cursor:pointer;" id="jb-title">
 		<table class="table table-striped" style="text-align: center; cellpadding:50px;" >

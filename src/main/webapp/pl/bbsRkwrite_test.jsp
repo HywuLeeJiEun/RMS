@@ -133,7 +133,7 @@
 		} 
 		
 		//만약 제출자가 전체 인원보다 적을 경우, 경고창을 띄움!
-		//pl 리스트 확인
+		//pl 리스트 확인 (order by - user name (이름으로 정렬))
 		ArrayList<String> plist = userDAO.getpluser(pl); //pl 관련 유저의 아이디만 출력
 		//pl에 해당하는 user_id 도출(pllist)
 		String[] pllist = plist.toArray(new String[plist.size()]); //해당 pllist를 바꿔야함! (제출한 사람만)
@@ -150,6 +150,7 @@
 		String SubUser = "";
 		for(int i=0; i<flist.size(); i++) {
 			if(i < flist.size()-1) {
+				System.out.println(flist.get(i).getUser_id());
 				SubUser += userDAO.getName(flist.get(i).getUser_id())+", ";
 			} else {
 				SubUser += userDAO.getName(flist.get(i).getUser_id());
@@ -168,7 +169,7 @@
 			username.add(userName);	
 		}
 		String[] usernamedata = username.toArray(new String[username.size()]);
-		Arrays.sort(usernamedata);
+		//Arrays.sort(usernamedata);
 		
 		String userdata = String.join(", ", usernamedata);
 		
@@ -191,7 +192,7 @@
 		}
 		
 		String[] nousernamedata = noSubname.toArray(new String[noSubname.size()]);
-		Arrays.sort(nousernamedata);
+		//Arrays.sort(nousernamedata);
 		
 		String nouserdata = String.join(", ", nousernamedata);
 		
@@ -205,7 +206,6 @@
 			 String useDl = sumDAO.getDluse(dllist.get(i).getRms_dl(), pl);
 			 if(useDl != null && !useDl.isEmpty()) { //이미 요약본이 작성되어 있음!
 				 dllist.remove(i);
-			 	System.out.println(i + useDl);
 			 	i --;
 			 } 
 		 }

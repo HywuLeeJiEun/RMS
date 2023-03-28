@@ -64,9 +64,7 @@
 			
 			//데이터를 승인으로 변경함! 
 			int num = rms.updateSign(id, "승인", rms_dl);
-			
-			//미승인된 rms를 찾아옴.		
-			ArrayList<rmsrept> list = rms.getrmsSign(id, 1);
+		
 			
 			if(num == -1) { //오류
 				PrintWriter script = response.getWriter();
@@ -75,29 +73,19 @@
 				script.println("location.href='../bbs.jsp'");
 				script.println("</script>");
 			} else {
-				if(list.size() == 0) {
-					//rms에 통합 저장 진행
-					//1. rms(pptxrms)에 저장되어 있는지 확인! (승인 -> 마감이 되는 경우 유의)
-					int rmsData = rms.getPptxRms(rms_dl, id);
-					if(rmsData == 0) { //작성된 기록이 없다!
-						rms.WritePptx(rms_dl, id);
-					}
-					PrintWriter script = response.getWriter();
-					script.println("<script>");
-					script.println("alert('제출이 완료되었습니다.')");
-					//script.println("alert('주간보고가 모두 제출되었습니다. \\n조회 페이지로 이동합니다.')");
-					//script.println("location.href='../bbs.jsp'");
-					script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
-					script.println("</script>");
-				} else {
-					PrintWriter script = response.getWriter();
-					script.println("<script>");
-					script.println("alert('제출이 완료되었습니다.')");
-					//script.println("location.href='../bbsUpdateDelete.jsp'");
-					script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
-					script.println("</script>");
+				//rms에 통합 저장 진행
+				//1. rms(pptxrms)에 저장되어 있는지 확인! (승인 -> 마감이 되는 경우 유의)
+				int rmsData = rms.getPptxRms(rms_dl, id);
+				if(rmsData == 0) { //작성된 기록이 없다!
+					rms.WritePptx(rms_dl, id);
 				}
-				 
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('제출이 완료되었습니다.')");
+				//script.println("alert('주간보고가 모두 제출되었습니다. \\n조회 페이지로 이동합니다.')");
+				//script.println("location.href='../bbs.jsp'");
+				script.println("location.href='../update.jsp?rms_dl="+rms_dl+"'");
+				script.println("</script>"); 
 			}
 		}
 %>

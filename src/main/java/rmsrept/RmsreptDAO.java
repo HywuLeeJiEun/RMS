@@ -396,7 +396,7 @@ public class RmsreptDAO {
 	//RMSREPT 데이터 조회하기 (USER_FD를 통해 찾아낸 USER_ID) bbsRk.jsp => rms_sign = 승인 or 마감  << full 조회 (limit XX) >>
 	public ArrayList<rmsrept> getRmsRkfull(String rms_dl, String[] plist){//특정한 리스트를 받아서 반환
 	      ArrayList<rmsrept> list = new ArrayList<rmsrept>();
-	      String SQL ="select distinct user_id, rms_dl, rms_title, rms_sign, rms_time from (select * from rmsrept where rms_dl=? and (";
+	      String SQL ="select distinct r.user_id, rms_dl, rms_title, rms_sign, rms_time from (select * from rmsrept where rms_dl=? and (";
 	      		for(int i=0; i<plist.length; i++) {
 	      			if(i < plist.length-1) {
 	      				SQL += "user_id='"+plist[i].trim()+"' or ";
@@ -404,7 +404,7 @@ public class RmsreptDAO {
 	      				SQL += "user_id='"+plist[i].trim()+"'";
 	      			}
 	      		}
-	      		SQL += ")) r where rms_sign='승인' or rms_sign='마감'";
+	      		SQL += ")) r inner join rmsuser u on r.user_id = u.user_id where rms_sign='승인' or rms_sign='마감' order by u.user_name";
 	      try {
 	            PreparedStatement pstmt=conn.prepareStatement(SQL);
 	            pstmt.setString(1, rms_dl);
@@ -428,7 +428,7 @@ public class RmsreptDAO {
 	//RMSREPT 데이터 조회하기 (USER_FD를 통해 찾아낸 USER_ID) bbsRk.jsp => rms_sign = 승인 or 마감  << full 조회 (limit XX) >>
 	public ArrayList<rmsrept> getRmsRkAll(String rms_dl, String[] plist, String rms_div){//특정한 리스트를 받아서 반환
 	      ArrayList<rmsrept> list = new ArrayList<rmsrept>();
-	      String SQL ="select * from (select * from rmsrept where rms_dl=? and (";
+	      String SQL ="select r.user_id, rms_dl, rms_title, rms_job, rms_con, rms_str, rms_tar, rms_end, rms_div, rms_sign, rms_time from (select * from rmsrept where rms_dl=? and (";
 	      		for(int i=0; i<plist.length; i++) {
 	      			if(i < plist.length-1) {
 	      				SQL += "user_id='"+plist[i].trim()+"' or ";
@@ -436,7 +436,7 @@ public class RmsreptDAO {
 	      				SQL += "user_id='"+plist[i].trim()+"'";
 	      			}
 	      		}
-	      		SQL += ")) r where (rms_sign='승인' or rms_sign='마감') and rms_div = ?";
+	      		SQL += ")) r inner join rmsuser u on r.user_id = u.user_id where (rms_sign='승인' or rms_sign='마감') and rms_div = ? order by u.user_name asc";
 	      try {
 	            PreparedStatement pstmt=conn.prepareStatement(SQL);
 	            pstmt.setString(1, rms_dl);
