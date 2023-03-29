@@ -349,7 +349,7 @@
 			<%
 			}else {
 			%>
-				<button type="button" class="btn btn-primary pull-right" style="width:50px; margin-left:10px; text-align:center; align:center" onclick="location.href='/RMS/pl/summaryUpdateDelete.jsp'">목록</button> 
+				<button type="button" class="btn btn-primary pull-right" style="width:50px; margin-left:10px; text-align:center; align:center" onclick="location.href='/RMS/pl/summaryRk.jsp'">목록</button> 
 			<% } %>
 			<%
 			if(tlist.get(0).getSum_sign().equals("미승인")) {
