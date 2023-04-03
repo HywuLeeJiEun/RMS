@@ -74,11 +74,9 @@
 		File oldFile = new File(location,filesystemName);
 		File newFile = new File(location,filename);
 		
-		if(newFile.exists()) {
-			if(!filename.equals(filesystemName)) {
+		if(newFile.exists()) { 
 				newFile.delete();
 				oldFile.renameTo(newFile); 
-			}
 		} else {
 			File f = new File(location+"\\"+filename);
 			f.delete();
