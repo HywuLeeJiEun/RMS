@@ -775,7 +775,7 @@ public class RmsreptDAO {
 									if(Math.floor(curlen) >= maxlen ) { 
 										contentBuilder.append(text[i]);
 										if(i < content.length() -1) {
-											if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-") || (text[i+1].matches("^[a-zA-Z0-9]*$") && Character.isLowerCase(text[i+1].charAt(0)))) {	// 다음 글자가 소문자, 공백, 숫자가 아니라면! 
+											if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {	
 												contentBuilder.append(text[i+1]);
 												i++;
 											} else {
@@ -873,7 +873,7 @@ public class RmsreptDAO {
 									if(Math.floor(curlen) >= maxlen ) { 
 										contentBuilder.append(text[i]);
 										if(i < content.length() -1) {
-											if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-") || (text[i+1].matches("^[a-zA-Z0-9]*$") && Character.isLowerCase(text[i+1].charAt(0)))) {	// 다음 글자가 소문자, 공백, 숫자가 아니라면! 
+											if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {	
 												contentBuilder.append(text[i+1]);
 												i++;
 											} else {

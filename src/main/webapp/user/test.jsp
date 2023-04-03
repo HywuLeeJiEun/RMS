@@ -100,9 +100,9 @@
 				}
 				if(Math.floor(curlen) >  maxlen && Math.floor(curlen)-3 <= maxlen) { //글자가 튀어나가지 않도록 함! 
 					contentBuilder.append(text[i]);
-					//다음 문자가 특수문자(특정)나 공백인 경우, 또는 소문자인 경우
+					//다음 문자가 특수문자(특정)나 공백인 경우
 					if(i < content.length() -1) {
-						if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-") || (text[i+1].matches("^[a-zA-Z0-9]*$") && Character.isLowerCase(text[i+1].charAt(0)))) {	// 다음 글자가 소문자, 공백, 숫자가 아니라면! 
+						if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {	
 							contentBuilder.append(text[i+1]);
 							i++;
 						} else {
@@ -201,7 +201,7 @@
 					//System.out.println(Math.floor(curlen)+text[i]);
 					contentBuilder.append(text[i]);
 					if(i < content.length() -1) {
-						if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-") || (text[i+1].matches("^[a-zA-Z0-9]*$") && Character.isLowerCase(text[i+1].charAt(0)))) {	// 다음 글자가 소문자, 공백, 숫자가 아니라면! 
+						if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {	
 							contentBuilder.append(text[i+1]);
 							i++;
 						} else {
@@ -249,8 +249,8 @@
 	
 	//test text 
 	
-	String a = "- [E-Approval] CP 전자결재를 통한 Vendor Print 관리 체계 개선";
-			//a += "(with 엠로프로젝트팀)";
+	String a = "  수증 전송시 ‘Vendor Print 등록’ 양식 생성을 위한 RTS 정";
+			//a += "(with 엠로프로젝트팀)"; 수증 전송시 ‘Vendor Print 등록’ 양식 생성을 위한 RTS 정보 전송
 	String[] text = a.split(""); 
 	float textlen = 0;
 	for(int i=0; i < a.length(); i++) {								

@@ -155,7 +155,7 @@
 											if(Math.floor(curlen) >  maxlen && Math.floor(curlen)-3 <= maxlen) { //글자가 튀어나가지 않도록 함! 
 												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
-													if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-") || (text[i+1].matches("^[a-zA-Z0-9]*$") && Character.isLowerCase(text[i+1].charAt(0)))) {	// 다음 글자가 소문자, 공백, 숫자가 아니라면! 
+													if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {	
 														contentBuilder.append(text[i+1]);
 														i++;
 													} else {
@@ -254,7 +254,7 @@
 												//System.out.println(Math.floor(curlen)+text[i]);
 												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
-													if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-") || (text[i+1].matches("^[a-zA-Z0-9]*$") && Character.isLowerCase(text[i+1].charAt(0)))) {	// 다음 글자가 소문자, 공백, 숫자가 아니라면! 
+													if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {	
 														contentBuilder.append(text[i+1]);
 														i++;
 													} else {
