@@ -17,7 +17,7 @@
 	RmsuserDAO userDAO = new RmsuserDAO(); //사용자 정보
 	RmsreptDAO rms = new RmsreptDAO(); //주간보고 목록
 
-	String rms_dl = "2023-03-27";
+	String rms_dl = "2023-04-03";
 	String id = null;
 	if(session.getAttribute("id") != null){
 		id = (String)session.getAttribute("id");
