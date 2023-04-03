@@ -17,7 +17,7 @@
 	RmsuserDAO userDAO = new RmsuserDAO(); //사용자 정보
 	RmsreptDAO rms = new RmsreptDAO(); //주간보고 목록
 
-	String rms_dl = "2023-04-03";
+	String rms_dl = "2023-03-27";
 	String id = null;
 	if(session.getAttribute("id") != null){
 		id = (String)session.getAttribute("id");
@@ -100,6 +100,11 @@
 				}
 				if(Math.floor(curlen) >  maxlen && Math.floor(curlen)-3 <= maxlen) { //글자가 튀어나가지 않도록 함! 
 					contentBuilder.append(text[i]);
+					//다음 문자가 특수문자(특정)나 공백인 경우, 또는 소문자인 경우
+					if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-") || (text[i+1].matches("^[a-zA-Z0-9]*$") && Character.isLowerCase(text[i+1].charAt(0)))) {	// 다음 글자가 소문자, 공백, 숫자가 아니라면! 
+						contentBuilder.append(text[i+1]);
+						i++;
+					}
 					if(i < content.length() -1) {
 						contentBuilder.append(System.lineSeparator());
 						contentBuilder.append("  ");
@@ -194,6 +199,10 @@
 				if(Math.floor(curlen) > maxlen && Math.floor(curlen)-3 <= maxlen) { 
 					//System.out.println(Math.floor(curlen)+text[i]);
 					contentBuilder.append(text[i]);
+					if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-") || (text[i+1].matches("^[a-zA-Z0-9]*$") && Character.isLowerCase(text[i+1].charAt(0)))) {	// 다음 글자가 소문자, 공백, 숫자가 아니라면! 
+						contentBuilder.append(text[i+1]);
+						i++;
+					}
 					if(i < content.length() -1) {
 						contentBuilder.append(System.lineSeparator());
 						contentBuilder.append("  ");

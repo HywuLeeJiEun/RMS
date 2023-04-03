@@ -774,6 +774,10 @@ public class RmsreptDAO {
 									}
 									if(Math.floor(curlen) >= maxlen ) { 
 										contentBuilder.append(text[i]);
+										if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-") || (text[i+1].matches("^[a-zA-Z0-9]*$") && Character.isLowerCase(text[i+1].charAt(0)))) {	// 다음 글자가 소문자, 공백, 숫자가 아니라면! 
+											contentBuilder.append(text[i+1]);
+											i++;
+										}
 										if(i < content.length() -1) {
 											contentBuilder.append(System.lineSeparator());
 											contentBuilder.append("  ");
@@ -867,6 +871,10 @@ public class RmsreptDAO {
 									}
 									if(Math.floor(curlen) >= maxlen ) { 
 										contentBuilder.append(text[i]);
+										if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-") || (text[i+1].matches("^[a-zA-Z0-9]*$") && Character.isLowerCase(text[i+1].charAt(0)))) {	// 다음 글자가 소문자, 공백, 숫자가 아니라면! 
+											contentBuilder.append(text[i+1]);
+											i++;
+										}
 										if(i < content.length() -1) {
 											contentBuilder.append(System.lineSeparator());
 											contentBuilder.append("  ");
