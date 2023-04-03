@@ -33,12 +33,16 @@
 
 	// 이미 rms_vation이 저장되어 있다면,
 	if(!vacaDAO.getVacaym(vaca_ym).isEmpty()) {
-		PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('이미 저장된 휴가계획서가 있습니다.')");
+		//PrintWriter script = response.getWriter();
+			//script.println("<script>");
+			//script.println("alert('이미 저장된 휴가계획서가 있습니다.')");
 			//script.println("history.back();");
-			script.println("</script>");
-	} else {
+			//script.println("</script>");
+			
+		//저장된 것을 모두 지우고, 새로 저장
+		vacaDAO.delVation(vaca_ym);
+		
+	} 
 	
 	String filepath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
 	//String filepath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\2023-02\\202302.xlsx";
@@ -205,7 +209,7 @@
  						String day = vacation[0].replace(".0","");
 							   day = day.replaceAll("[^0-9]", ""); //숫자만 남김
 						if(day != null && !day.isEmpty()) {
-							//DB에 저장 (dl[0]-dl[1](rms_ym) / username / day / 부가정보(userinfo))
+							//DB에 저장 (dl[0]-dl[1](rms_ym) / username / day / 부가정보(userinfo) )
 							int result = vacaDAO.writeVation(vaca_ym, userid, day, userinfo);	
 							
 							if(result == -1) {
@@ -229,7 +233,7 @@
  			}
  			
  		} 
-	}
+	
 	
 	request.setAttribute("rms_dl", rms_dl);
 	RequestDispatcher dispatcher = request.getRequestDispatcher("vacationAction.jsp");

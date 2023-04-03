@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.collections.bag.SynchronizedSortedBag"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFAutoShape"%>
 <%@page import="java.awt.Rectangle"%>
 <%@page import="java.awt.geom.Rectangle2D"%>
@@ -65,7 +66,7 @@
 	XSLFSlide vslide = vppt.getSlides().get(0);
 	
 	//vshape에서 데이터 가져오기
-		for(XSLFShape vshape : vslide.getShapes()) {
+		/* for(XSLFShape vshape : vslide.getShapes()) {
 			vshape.getAnchor();
 			if(vshape instanceof XSLFAutoShape) {
 				XSLFAutoShape t = (XSLFAutoShape) vshape;
@@ -94,11 +95,13 @@
 				}
 					
 			}
-		}
-	
+		} */
+	System.out.println(vaca.size());
 	for(int v=0; v < vaca.size(); v++) {
 	//2번째 슬라이드 수정
 			//검색할 날짜 구하기
+			System.out.print(vaca.get(v).getVaca_day()+"  ");
+			System.out.println(vaca.get(v).getUser_id());
 			String d = vaca.get(v).getVaca_day();
 			String first = d.substring(0,1).trim();
 			String sec = "";
@@ -170,8 +173,6 @@
 							XSLFTextRun run = t.getCell(i,j).appendText("\n "+info+" "+name, false);
 							run.setFontSize(9.0);
 							run.setFontFamily("맑은 고딕");
-							//t.getCell(i, j).appendText("\n ● 박선미", false);
-							//System.out.println(n);
 							break;
 						}
 					}
@@ -179,23 +180,6 @@
 			}
 		}
 	}
-	
-	//slide textbox 추가하기 (휴가 형태(3개), 하단 부가설명) & 별첨 수정하기
-	//TextBox txt = new TextBox();
-	/* XSLFTextBox txt = slide.createTextBox();
-	XSLFTextRun run = txt.setText(" ◑ 반 차 \n ● 1day");
-	run.setFontSize(9.3);
-	run.setFontColor(Color.BLUE);
-	txt.setAnchor(new Rectangle(500, 200, 100, 100)); //x,y, 크기(x,y)
-	
-	XSLFTextBox txt2 = slide.createTextBox();
-	XSLFTextRun run2 = txt2.setText(" 예비군/민방위 훈련  교육, 내부회의");
-	run2.setFontSize(9.3);
-	run2.setFontColor(Color.BLUE);
-	txt2.setAnchor(new Rectangle(500, 200, 100, 100)); //x,y, 크기(x,y) */
-	
-
-	
 		
 	FileOutputStream pout = new FileOutputStream(filePath);
 	xppt.write(pout);
