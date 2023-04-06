@@ -169,21 +169,22 @@ public class RmsreptDAO {
 		}
 		 return -1;
 	}
+
 	
 	
 	//RMSEDPS sign 변경하기
-		public int updateERPtest(String test, String before_dl) {
-			String sql = " update rmsedps set user_id=? where rms_dl = ?";
-			 try {
-				PreparedStatement pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, test); 
-				pstmt.setString(2, before_dl); 
-				return pstmt.executeUpdate();
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			 return -1;
+	public int updateERPtest(String test, String before_dl) {
+		String sql = " update rmsedps set user_id=? where rms_dl = ?";
+		 try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, test); 
+			pstmt.setString(2, before_dl); 
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
+		 return -1;
+	}
 	
 	
 	//RMSREPT 가장 최근에 작성된 rms_dl 찾기

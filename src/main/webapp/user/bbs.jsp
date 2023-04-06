@@ -180,7 +180,7 @@
 									//java
 								rms.WritePptx(list.get(i).getRms_dl(), id);
 							}
-						} else if((dldate.after(today) || dldate.equals(today)) && list.get(i).getRms_sign().equals("미승인")) {
+						} else if(dldate.after(today) && list.get(i).getRms_sign().equals("미승인")) {
 							//sign = list.get(i).getSign();
 							sign="미제출";
 						}else { // 미승인, 마감 상태일 경우엔 하단 진행.
