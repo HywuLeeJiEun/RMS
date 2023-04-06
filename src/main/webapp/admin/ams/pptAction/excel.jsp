@@ -33,15 +33,11 @@
 
 	// 이미 rms_vation이 저장되어 있다면,
 	if(!vacaDAO.getVacaym(vaca_ym).isEmpty()) {
-		PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('이미 저장된 휴가계획서가 있습니다.')");
-			//script.println("history.back();");
-			script.println("</script>");
-	} else {
+		vacaDAO.delVation(vaca_ym);
+	} 
 	
-	String filepath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
-	//String filepath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\2023-02\\202302.xlsx";
+	String filepath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
+	//String filepath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\2023-02\\202302.xlsx";
     FileInputStream file = new FileInputStream(filepath);
     XSSFWorkbook workbook = new XSSFWorkbook(file);
 
@@ -229,7 +225,7 @@
  			}
  			
  		} 
-	}
+	
 	
 	request.setAttribute("rms_dl", rms_dl);
 	RequestDispatcher dispatcher = request.getRequestDispatcher("vacationAction.jsp");

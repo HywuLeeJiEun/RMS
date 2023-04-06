@@ -155,8 +155,13 @@
 											if(Math.floor(curlen) >  maxlen && Math.floor(curlen)-3 <= maxlen) { //글자가 튀어나가지 않도록 함! 
 												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
+													if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {
+														contentBuilder.append(text[i+1]);
+														i++;
+													} else {
 													contentBuilder.append(System.lineSeparator());
 													contentBuilder.append("  ");
+													}
 												} 
 												curlen = 0;
 												curlen += 2; //공백 2개 넣기
@@ -249,9 +254,14 @@
 												//System.out.println(Math.floor(curlen)+text[i]);
 												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
+													if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {
+														contentBuilder.append(text[i+1]);
+														i++;
+													} else {
 													contentBuilder.append(System.lineSeparator());
 													contentBuilder.append("  ");
-												} 							
+													}
+												} 				
 												curlen = 0;
 												curlen += 2; //공백 2개 넣기
 												curlen += addlen; 

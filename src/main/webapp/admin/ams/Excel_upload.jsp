@@ -35,7 +35,7 @@
 		
 		request.setCharacterEncoding("utf-8");
 		//저장될 위치 (rms_dl을 받아와 데이터 삽입)
-		String location = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1];
+		String location = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1];
 		//폴더가 없다면, 생성
 		File folder = new File(location);
 		if(!folder.exists()) {

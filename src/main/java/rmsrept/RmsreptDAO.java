@@ -738,7 +738,7 @@ public class RmsreptDAO {
 								//content 가공하기
 								content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
 								//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
-								int maxlen = 84;
+								int maxlen = 85;
 								float curlen = 0;
 								float addlen = 0;
 								StringBuilder contentBuilder = new StringBuilder();
@@ -763,14 +763,10 @@ public class RmsreptDAO {
 										curlen += 1.6;
 										addlen = (float) 1.6;
 									} else {
-										if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/")) { 
+										if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("\"") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/") || text[i].contains("(") || text[i].contains(")") || text[i].contains("-")) {
 											//공백
 											curlen += 1;
 											addlen = 1;
-										} else if (text[i].contains("-")) {										//특수문자
-											//특정 특수문자
-											curlen += 1.2;
-											addlen = (float) 1.2;
 										} else {
 											//기타 특수문자
 											curlen += 2;
@@ -780,9 +776,14 @@ public class RmsreptDAO {
 									if(Math.floor(curlen) >= maxlen ) { 
 										contentBuilder.append(text[i]);
 										if(i < content.length() -1) {
+											if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) { 
+												contentBuilder.append(text[i+1]);
+												i++;
+											} else {
 											contentBuilder.append(System.lineSeparator());
 											contentBuilder.append("  ");
-										} 	
+											}
+										} 
 										curlen = 0;
 										curlen += 2; //공백 2개 넣기
 										curlen += addlen; 
@@ -835,7 +836,7 @@ public class RmsreptDAO {
 								//content 가공하기
 								content = content.replaceAll(System.lineSeparator(),""); //줄바꿈 제거
 								//바이트로 자르기 (70 - 3과 1) (130 - 4와 2)
-								int maxlen = 84;
+								int maxlen = 85;
 								float curlen = 0;
 								float addlen = 0;
 								StringBuilder contentBuilder = new StringBuilder();
@@ -860,14 +861,10 @@ public class RmsreptDAO {
 										curlen += 1.6;
 										addlen = (float) 1.6;
 									} else {
-										if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'")  || text[i].contains("[") || text[i].contains("]") || text[i].contains("/")) { 
+										if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("\"") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/") || text[i].contains("(") || text[i].contains(")") || text[i].contains("-")) {
 											//공백
 											curlen += 1;
 											addlen = 1;
-										} else if (text[i].contains("-")) {										//특수문자
-											//특정 특수문자
-											curlen += 1.2;
-											addlen = (float) 1.2;
 										} else {
 											//기타 특수문자
 											curlen += 2;
@@ -877,8 +874,13 @@ public class RmsreptDAO {
 									if(Math.floor(curlen) >= maxlen ) { 
 										contentBuilder.append(text[i]);
 										if(i < content.length() -1) {
+											if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {
+												contentBuilder.append(text[i+1]);
+												i++;
+											} else {
 											contentBuilder.append(System.lineSeparator());
 											contentBuilder.append("  ");
+											}
 										} 
 										curlen = 0;
 										curlen += 2; //공백 2개 넣기

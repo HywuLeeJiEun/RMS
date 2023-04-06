@@ -145,7 +145,7 @@
 							<!-- 업무 내용 -->
 							<td style=" border: 1px solid">
 							<% for(int i=0; i < chk.length; i++) { %>
-								<textarea required name="content<%= i %>" wrap="hard" maxlength="500" id="content<%= i %>" style="resize: none; width:100%;"><%= request.getParameter("content"+chk[i]) %></textarea>
+								<textarea required name="content<%= i %>" wrap="hard" maxlength="500" id="content<%= i %>" style="resize: none; width:100%;"><%= request.getParameter("content"+chk[i]).replaceAll(System.getProperty("line.separator"), "") %></textarea>
 							<% } %>
 							</td>
 							<!-- 완료일 -->
@@ -195,7 +195,7 @@
 							<!-- 업무 내용 -->
 							<td style=" border: 1px solid">
 							<% for(int i=0; i < nchk.length; i++) { %>
-								<textarea required name="ncontent<%= i %>" wrap="hard" maxlength="500" id="ncontent<%= i %>" style="resize: none; width:100%;"><%= request.getParameter("ncontent"+nchk[i]) %></textarea>
+								<textarea required name="ncontent<%= i %>" wrap="hard" maxlength="500" id="ncontent<%= i %>" style="resize: none; width:100%;"><%= request.getParameter("ncontent"+nchk[i]).replaceAll(System.getProperty("line.separator"), "") %></textarea>
 							<% } %>
 							</td>
 							<!-- 완료예정 -->
