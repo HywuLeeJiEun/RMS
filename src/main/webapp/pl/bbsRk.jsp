@@ -104,9 +104,28 @@
 			 rms_dl = request.getParameter("rms_dl");
 		 }
 
+		// 제출일을 측정해, 제출일이 넘거나 / 같은 경우 마감상태로 모두 변경한다.
+		// 현재 시간, 날짜를 구해 이전 데이터는 수정하지 못하도록 함!
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		String dl = rms_dl;
+		Date time = new Date();
+		String timenow = dateFormat.format(time);
+
+		Date dldate = dateFormat.parse(dl);
+		Date today = dateFormat.parse(timenow);
 		 
 		//pl 리스트 확인
 		ArrayList<String> plist = userDAO.getpluser(pl); //pl 관련 유저의 아이디만 출력
+		
+		//제출일과 같은 날이거나, 넘은 경우
+		if(!dldate.after(today) || dldate.equals(today)) {
+			//rms_dl에 해당하는 ㅁ도ㅡㄴ 데이터를 자동 승인한다.
+			for(int i=0; i < plist.size(); i++) {
+				int sign_result = rms.updateSign(plist.get(i), "마감", rms_dl);
+			}
+		}
+		
 		//pl에 해당하는 user_id 도출(pllist)
 		String[] pllist = plist.toArray(new String[plist.size()]); //해당 pllist를 바꿔야함! (제출한 사람만)
 		//해당 user_id를 통해 제출된 rms를 조회하기
@@ -314,16 +333,6 @@
 						
 						for(int i = 0; i < rmslist.size(); i++){
 							
-							// 현재 시간, 날짜를 구해 이전 데이터는 수정하지 못하도록 함!
-							SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-							
-							String dl = rmslist.get(i).getRms_dl();
-							Date time = new Date();
-							String timenow = dateFormat.format(time);
-
-							Date dldate = dateFormat.parse(dl);
-							Date today = dateFormat.parse(timenow);
-							
 							String name_list = userDAO.getName(rmslist.get(i).getUser_id());
 					%>
 						<!-- 게시글 제목을 누르면 해당 글을 볼 수 있도록 링크를 걸어둔다 -->
@@ -352,20 +361,7 @@
 			<% }  %>
 			<% if(pl.equals("WEB")) {%>
 			<a href="/RMS/pl/pptx/ppt.jsp?rms_dl=<%=rmslist.get(0).getRms_dl()%>&pluser=<%= pl %>" style="width:50px; margin-bottom:200px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력(WEB)" id="pptx" type="button"> 출력</a>
-			<% }  %>
-			<% 	
-			// 현재 시간, 날짜를 구해 이전 데이터는 수정하지 못하도록 함!
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			
-			String dl = mon;
-			Date time = new Date();
-			String timenow = dateFormat.format(time);
-
-			Date dldate = dateFormat.parse(dl);
-			Date today = dateFormat.parse(timenow);
-			
-			%>
-			
+			<% }  %>			
 			<% if(alsum == 0) { %>
 			<a href="/RMS/pl/bbsRkwrite.jsp?rms_dl=<%=rms_dl%>" style="width:50px; margin-right:20px" class="btn btn-info pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="요약본(Summary) 작성" id="summary"> 작성</a>
 			<% } %>
