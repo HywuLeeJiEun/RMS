@@ -100,17 +100,44 @@
     
     // 이름 모두 읽어오기 (cell은 2로 고정!)
     for(rowindex=7;rowindex<rows;rowindex++){
-	    //4행(0부터 시작함 유의!)에서 월 데이터를 찾는다.
+	    //행을 차례대로 내린다.
 	    XSSFRow nrow = sheet.getRow(rowindex);
 	    	//셀을 돌려 월이 같은지 확인
-    	XSSFCell cell = nrow.getCell(1);
-    	String value = cell.getStringCellValue()+"";
+	    try {
+	    	XSSFCell cell = nrow.getCell(1);
+	    	String value = "";
+	    	if(cell == null) {
+	    		continue;
+	    	} else {
+	    		 //String만 읽어들이기
+		            switch (cell.getCellType()){
+		            case FORMULA:
+		                value="";
+		                break;
+		            case NUMERIC:
+		                value="";
+		                break;
+		            case STRING:
+		                value=cell.getStringCellValue()+"";
+		                break;
+		            case BLANK:
+		                value="";
+		                break;
+		            case ERROR:
+		                value="";
+		                break;
+		    	}
+	    	}
+	    	
 	    	if(!value.isEmpty() && value.length() < 5) {
 	    		//System.out.println("찾음");
 	    		System.out.println(value);
 	    		name += value+"&";
 	    		num_name += rowindex+"&";
 	    	}
+	    } catch (NullPointerException e) {
+	    	
+	    }
    }
    List<String> user_name = new ArrayList<String>(Arrays.asList(name.split("&")));
    List<String> user_id = new ArrayList<String>();

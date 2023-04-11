@@ -1,3 +1,4 @@
+<%@page import="org.apache.poi.xslf.usermodel.SlideLayout"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFBackground"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.Calendar"%>
@@ -68,10 +69,10 @@
 		//주간보고 CRM
 	String file9 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\5.CRM.pptx";
 		//별첨- ERP
-	//String file10 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\6.erp.pptx";
+	String file10 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\6.erp.pptx";
 		//별첨- 휴가계획
 	String file11 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\10.calendar"+dl[1]+".pptx";
-	String[] inputFiles = {file1, file2, file3, file4, file5, file6, file7, file8, file9, file11};
+	String[] inputFiles = {file1, file2, file3, file4, file5, file6, file7, file8, file9, file10, file11};
 	
 	//ppt 사이즈 새로 정하기
 	int width = 800;
@@ -99,10 +100,12 @@
 		toSlide.setFollowMasterGraphics(false);
 		toSlide.setFollowMasterObjects(false);
 		
+		//slide를 복사할 대상
 		XSLFSlideLayout fromLayout = fromSlide.getSlideLayout();
 		XSLFSlideMaster fromMaster = fromSlide.getSlideMaster();
 		XSLFBackground fromBackground = fromSlide.getBackground();
 		
+		//slide를 붙여넣기할 대상 (받는 대상)
 		XSLFSlideLayout toLayout = toSlide.getSlideLayout();
 		XSLFSlideMaster toMaster = toSlide.getSlideMaster();
 		XSLFBackground toBackground = toSlide.getBackground();
@@ -110,6 +113,13 @@
 		toLayout.importContent(fromLayout);
 		toMaster.importContent(fromMaster);
 		toBackground.setFillColor(fromBackground.getFillColor());
+		
+	}
+	
+	for(XSLFSlideMaster master : ppt.getSlideMasters()) {
+		for(XSLFSlideLayout layout : master.getSlideLayouts()) {
+			System.out.println(layout.getName() + "  " + layout.getType());
+		}
 	}
 	
 	

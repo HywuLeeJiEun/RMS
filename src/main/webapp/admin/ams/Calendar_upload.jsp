@@ -83,6 +83,13 @@
 			oldFile.renameTo(newFile); 
 		}
 	
+		//업로드시, 결과 파일(10.calanerㅁㅁ.pptx)이 있는 경우 제거 (다시 적용시키기 위함!)
+		filename = "10.calendar"+dl[1]+".pptx";
+		File createFile = new File(location,filename);
+		
+		if(createFile.exists()) { //파일이 존재할때,
+			createFile.delete();
+		}
 		
 		PrintWriter script = response.getWriter();
 		script.println("<script>");

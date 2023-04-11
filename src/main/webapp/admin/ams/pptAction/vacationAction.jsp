@@ -34,7 +34,7 @@
 	rmsvationDAO vacaDAO = new rmsvationDAO(); //휴가 정보
 	RmsuserDAO userDAO = new RmsuserDAO(); //사용자 정보
 
-	String rms_dl = (String) request.getAttribute("rms_dl");
+	String rms_dl =(String) request.getAttribute("rms_dl");
 	String[] dl = rms_dl.split("-");
 	String vaca_ym = dl[0]+"-"+dl[1];
 	int result = -1;
@@ -65,37 +65,7 @@
 	XMLSlideShow vppt = new XMLSlideShow(new FileInputStream(vfile));
 	XSLFSlide vslide = vppt.getSlides().get(0);
 	
-	//vshape에서 데이터 가져오기
-		/* for(XSLFShape vshape : vslide.getShapes()) {
-			vshape.getAnchor();
-			if(vshape instanceof XSLFAutoShape) {
-				XSLFAutoShape t = (XSLFAutoShape) vshape;
-				if(t.getShapeName().contains("Text")) {
-					System.out.println(t.getText());
-					//textbox 생성 후 데이터 삽입
-					XSLFTextBox txt = slide.createTextBox();
-					XSLFTextRun run = txt.setText("  ");
-					run.setBold(false);
-					if(t.getShapeName().contains("4")) {
-						run.setText(t.getText());
-						run.setFontColor(Color.black);
-						run.setFontSize(8.8);
-						txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
-					} else if(t.getShapeName().contains("1")){
-						run.setText(" ◑ 반 차 \n ● 1day");
-						run.setFontColor(Color.blue);
-						run.setFontSize(9.3);
-						txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
-					} else {
-						run.setText(t.getText());
-						run.setFontColor(Color.blue);
-						run.setFontSize(9.3);
-						txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
-					}
-				}
-					
-			}
-		} */
+	
 	for(int v=0; v < vaca.size(); v++) {
 	//2번째 슬라이드 수정
 			//검색할 날짜 구하기
