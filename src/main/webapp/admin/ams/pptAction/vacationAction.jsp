@@ -96,7 +96,6 @@
 					
 			}
 		} */
-	System.out.println(vaca.size());
 	for(int v=0; v < vaca.size(); v++) {
 	//2번째 슬라이드 수정
 			//검색할 날짜 구하기
@@ -120,20 +119,7 @@
 				info = "●";
 			}
 			
-		for(XSLFShape shape : slide.getShapes()) {
-			shape.getAnchor();
-			//별첨 수정하기
-			if(shape instanceof XSLFAutoShape) {
-				XSLFAutoShape t = (XSLFAutoShape) shape;
-				if(t.getShapeName().contains("Rect") && t.getShapeName().contains("6")){
-					XSLFTextRun run = t.setText("별첨-2. "+dl[0]+". "+dl[1]+"월 휴가계획서");
-					run.setFontSize(15.7);
-					run.setBold(true);
-					run.setFontColor(Color.black);
-					run.setFontFamily("맑은 고딕");
-				}
-			}
-			
+		for(XSLFShape shape : slide.getShapes()) {		
 			if(shape instanceof XSLFTable) {
 				XSLFTable t = (XSLFTable) shape;
 				// 각, 셀마다 접근하여 확인하여야 함.

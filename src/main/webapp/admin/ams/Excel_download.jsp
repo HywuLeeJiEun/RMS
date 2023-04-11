@@ -29,9 +29,13 @@
 		String rms_dl = request.getParameter("rms_dl");
 		String dl[] = rms_dl.split("-");
 		String fileName = request.getParameter("fileName");
-		String downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+fileName;
-				//request.getParameter("filePath");
-		
+		String downLoadFile = "";
+		// fileName 확인 후, 상세 경로 변경
+		if(fileName.contains(rms_dl)) {
+			downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\"+fileName;
+		} else  {
+			downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+fileName;
+		}
 		
 	  
 		File file = new File(downLoadFile);

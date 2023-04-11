@@ -74,8 +74,8 @@
 	String[] inputFiles = {file1, file2, file3, file4, file5, file6, file7, file8, file9, file11};
 	
 	//ppt 사이즈 새로 정하기
-	int width = 781;
-	int height = 595;
+	int width = 800;
+	int height = 545;
 	
 
 	//slide show 생성
