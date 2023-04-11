@@ -1,3 +1,5 @@
+<%@page import="org.apache.poi.hssf.record.BlankRecord"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFRelation"%>
 <%@page import="org.apache.poi.xslf.usermodel.SlideLayout"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFBackground"%>
 <%@page import="java.util.Locale"%>
@@ -116,11 +118,15 @@
 		
 	}
 	
-	for(XSLFSlideMaster master : ppt.getSlideMasters()) {
+	// title 부분 slide master 해제하기 (그래픽 해제하기)
+	ppt.getSlides().get(0).setFollowMasterGraphics(false);
+	
+	//slide master - slide layout 이름 가져오기
+	/* for(XSLFSlideMaster master : ppt.getSlideMasters()) {
 		for(XSLFSlideLayout layout : master.getSlideLayouts()) {
 			System.out.println(layout.getName() + "  " + layout.getType());
 		}
-	}
+	} */
 	
 	
 	String fileName = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+month+"월"+getWeek+"주차_주간보고_AMS.pptx";
