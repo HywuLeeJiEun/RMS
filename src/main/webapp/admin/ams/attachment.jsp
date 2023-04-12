@@ -256,7 +256,7 @@
 			<hr>
 		 	<form action="Excel_upload.jsp?rms_dl=<%= rms_dl %>" method="post" enctype="multipart/form-data">
 			 	<fieldset>
-					<legend>Excel</legend>
+					<legend>휴가 계획서</legend>
 					<p><label for="formFileSm" class="form-label">파일 선택(xlsx)</label> 
 					<input class="form-control form-control-sm" type="file" name="file" accept=".xlsx" required></p>
 					<p><input class="btn btn-primary pull-left" type="submit" value="upload"></p>	 	
