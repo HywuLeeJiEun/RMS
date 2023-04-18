@@ -113,7 +113,7 @@
 	
 	int cfexists = -1;
 	String cfilename = "없음";
-	String cfilePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\calendar"+dl[1]+".pptx";
+	String cfilePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\calendar"+dl[1]+".pptx";
 	File f = new File(cfilePath);
 	if(f.exists()) {
 		if(!f.isDirectory()) {
@@ -126,7 +126,7 @@
 	//파일이 있는지 확인, (Excel)
 	int efexists = -1;
 	String efilename = "없음";
-	String efilePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
+	String efilePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
 	f = new File(efilePath);
 	if(f.exists()) {
 		if(!f.isDirectory()) {
@@ -141,7 +141,7 @@
 	int web = -1;
 	int summary = -1;
 	
-	String dir = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2];
+	String dir = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2];
 	File chkf = new File(dir);
 	String[] filelist = chkf.list();
 	if(chkf.exists()) {
@@ -256,7 +256,7 @@
 			<hr>
 		 	<form action="Excel_upload.jsp?rms_dl=<%= rms_dl %>" method="post" enctype="multipart/form-data">
 			 	<fieldset>
-					<legend>Excel</legend>
+					<legend>휴가 계획서</legend>
 					<p><label for="formFileSm" class="form-label">파일 선택(xlsx)</label> 
 					<input class="form-control form-control-sm" type="file" name="file" accept=".xlsx" required></p>
 					<p><input class="btn btn-primary pull-left" type="submit" value="upload"></p>	 	

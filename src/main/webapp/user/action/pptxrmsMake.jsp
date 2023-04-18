@@ -139,8 +139,8 @@
 												}
 											}else if(text[i].matches("^[0-9]+$")){
 												//숫자
-												curlen += 1.6;
-												addlen = (float) 1.6;
+												curlen += 1.5;
+												addlen = (float) 1.5;
 											} else {
 												if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("\"") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/") || text[i].contains("(") || text[i].contains(")") || text[i].contains("-")) {
 													//공백
@@ -148,20 +148,15 @@
 													addlen = 1;
 												} else {
 													//기타 특수문자
-													curlen += 2;
-													addlen = 2;
+													curlen += 1.5;
+													addlen = (float) 1.5;
 												}
 											}
-											if(Math.floor(curlen) >  maxlen && Math.floor(curlen)-3 <= maxlen) { //글자가 튀어나가지 않도록 함! 
+											if(Math.floor(curlen) >  maxlen) { //글자가 튀어나가지 않도록 함! 
 												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
-													if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {	
-														contentBuilder.append(text[i+1]);
-														i++;
-													} else {
 														contentBuilder.append(System.lineSeparator());
 														contentBuilder.append("  ");
-													}
 												} 
 												curlen = 0;
 												curlen += 2; //공백 2개 넣기
@@ -237,8 +232,8 @@
 												}
 											}else if(text[i].matches("^[0-9]+$")){
 												//숫자
-												curlen += 1.6;
-												addlen = (float) 1.6;
+												curlen += 1.5;
+												addlen = (float) 1.5;
 											} else {
 												if(text[i].contains(" ") || text[i].contains(",") || text[i].contains("'") || text[i].contains("\"") || text[i].contains("[") || text[i].contains("]") || text[i].contains("/") || text[i].contains("(") || text[i].contains(")") || text[i].contains("-") ) {
 													//공백
@@ -246,21 +241,16 @@
 													addlen = 1;
 												}  else {
 													//기타 특수문자
-													curlen += 2;
-													addlen = 2;
+													curlen += 1.5;
+													addlen = (float) 1.5;
 												}
 											}
-											if(Math.floor(curlen) > maxlen && Math.floor(curlen)-3 <= maxlen) { 
+											if(Math.floor(curlen) > maxlen) { 
 												//System.out.println(Math.floor(curlen)+text[i]);
 												contentBuilder.append(text[i]);
 												if(i < content.length() -1) {
-													if(text[i+1].contains(" ") || text[i+1].contains(",") || text[i+1].contains("'") || text[i+1].contains("\"") || text[i+1].contains("[") || text[i+1].contains("]") || text[i+1].contains("/") || text[i+1].contains("(") || text[i+1].contains(")") || text[i+1].contains("-")) {	
-														contentBuilder.append(text[i+1]);
-														i++;
-													} else {
 														contentBuilder.append(System.lineSeparator());
 														contentBuilder.append("  ");
-													}
 												} 		
 												curlen = 0;
 												curlen += 2; //공백 2개 넣기
