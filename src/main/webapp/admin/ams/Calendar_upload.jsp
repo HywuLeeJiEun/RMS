@@ -74,15 +74,15 @@
 		File oldFile = new File(location,filesystemName);
 		File newFile = new File(location,filename);
 		
-		if(newFile.exists()) { 
+		if(newFile.exists()) {
+			if(!filename.equals(filesystemName)) {
 				newFile.delete();
 				oldFile.renameTo(newFile); 
+			}
 		} else {
-			File f = new File(location+"\\"+filename);
-			f.delete();
 			oldFile.renameTo(newFile); 
 		}
-	
+		
 		//업로드시, 결과 파일(10.calanerㅁㅁ.pptx)이 있는 경우 제거 (다시 적용시키기 위함!)
 		filename = "10.calendar"+dl[1]+".pptx";
 		File createFile = new File(location,filename);

@@ -69,8 +69,8 @@
 	for(int v=0; v < vaca.size(); v++) {
 	//2번째 슬라이드 수정
 			//검색할 날짜 구하기
-			System.out.print(vaca.get(v).getVaca_day()+"  ");
-			System.out.println(vaca.get(v).getUser_id());
+			//System.out.print(vaca.get(v).getVaca_day()+"  ");
+			//System.out.println(vaca.get(v).getUser_id());
 			String d = vaca.get(v).getVaca_day();
 			String first = d.substring(0,1).trim();
 			String sec = "";

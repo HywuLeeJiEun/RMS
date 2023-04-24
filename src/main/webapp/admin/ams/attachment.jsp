@@ -75,19 +75,7 @@
 		 rms_dl = request.getParameter("rms_dl");
 	 }
 	
-	// 사용자 정보 담기
-	ArrayList<rmsuser> ulist = userDAO.getUser(id);
-	String password = ulist.get(0).getUser_pwd();
-	String name = ulist.get(0).getUser_name();
-	String rank = ulist.get(0).getUser_rk();
-	//이메일  로직 처리
-	String Staticemail = ulist.get(0).getUser_em();
-	String[] email;
-	email = Staticemail.split("@");
-	String pl = ulist.get(0).getUser_fd();
-	String rk = ulist.get(0).getUser_rk();
-	//사용자의 AU(Authority) 권한 가져오기 (일반/PL/관리자)
-	String au = ulist.get(0).getUser_au();
+
 	
 	String str = "주간보고 작성을 위한<br>";
 	str += "데이터를 수집합니다.";

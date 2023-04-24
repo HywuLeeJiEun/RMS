@@ -93,7 +93,7 @@
     	if(value.contains(mon)) {
     		//System.out.println("찾음");
     		cellnumber = i;
-    		System.out.println(i);
+    		//System.out.println(i);
     		break;
     	}
     }
@@ -131,7 +131,7 @@
 	    	
 	    	if(!value.isEmpty() && value.length() < 5) {
 	    		//System.out.println("찾음");
-	    		System.out.println(value);
+	    		//System.out.println(value);
 	    		name += value+"&";
 	    		num_name += rowindex+"&";
 	    	}
