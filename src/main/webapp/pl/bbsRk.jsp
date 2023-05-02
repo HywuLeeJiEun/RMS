@@ -124,6 +124,11 @@
 			//rms_dl에 해당하는 모든 데이터를 자동 승인함!
 			for(int i=0; i < plist.size(); i++) {
 				int sign_result = rms.updateSign(plist.get(i), "마감", rms_dl);
+				//또한, 마감된 사용자의 rept를 pptx로 생성함!
+				int rmsData = rms.getPptxRms(rms_dl, plist.get(i));
+				if(rmsData == 0) {
+					rms.WritePptx(rms_dl, plist.get(i));
+				}
 			}
 		}
 		 
