@@ -75,6 +75,11 @@
 		 rms_dl = request.getParameter("rms_dl");
 	 }
 	
+	 // 생성된 summary가 있는지, 해당 summary의 승인 상태 확인
+	 String sum_sign = "미승인";
+	 if(sumDAO.getSumDL(rms_dl).size() > 0) {
+		 sum_sign = sumDAO.getSumDL(rms_dl).get(0).getSum_sign();
+	 }
 
 	
 	String str = "주간보고 작성을 위한<br>";
@@ -323,6 +328,7 @@ var rms_dl ='<%= rms_dl %>';
 var erp = <%= erp %>;
 var web = <%= web %>;
 var summary = <%= summary %>;
+var sum_sign = '<%= sum_sign %>';
 	function amspptx() {
 		var fn = '<%= cfilename %>';
 		var efn = '<%= efilename %>';
@@ -335,7 +341,11 @@ var summary = <%= summary %>;
 		}else if (web == -1){
 			alert("지정된 WEB 파일이 없습니다. \nWEB > 조회 밎 출력에서 출력해주시기 바랍니다.");
 		}else if (summary == -1){
-			alert("지정된 Summary 파일이 없습니다. \nSummary > 조회 밎 출력에서 출력해주시기 바랍니다.");
+			if(sum_sign == '미승인') {
+				alert("지정된 Summary 파일이 없습니다. \nSummary > 조회 밎 출력에서 출력해주시기 바랍니다.");
+			} else {
+				location.href="/RMS/admin/pptx/make_pptAdmin.jsp?rms_dl="+rms_dl;
+			}
 		}else {
 			//출력하는 page로 이동.
 			location.href="/RMS/admin/ams/pptAction/AllAction.jsp?rms_dl="+rms_dl;

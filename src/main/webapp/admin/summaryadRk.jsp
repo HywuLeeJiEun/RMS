@@ -208,7 +208,8 @@
 						<% }else if((dldate.after(today) || dldate.equals(today))  && getSign.equals("승인")){ //승인 상태라면 %>
 							완료
 						<% }else{ //summary - 마감 상태는 아직 존재하지 않음!
-							sumDAO.sumSign(dl); %>
+							sumDAO.sumSign(dl);
+						%>
 							마감 
 						<% } %>
 						</td>

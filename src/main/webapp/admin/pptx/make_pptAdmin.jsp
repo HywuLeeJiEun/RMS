@@ -249,35 +249,7 @@
 	     ex.printStackTrace();
 	
 	}
- 	/* String fileName = "요약본_sample.pptx";
- 	//저장 환경
-	// 1) 개인 pc 환경
-	String downLoadFile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
-	// 2) local pc 환경
-	//String downLoadFile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\" + fileName;
-	
-	File file = new File(downLoadFile);
-	FileInputStream in = new FileInputStream(downLoadFile);
-	
-	fileName = new String(fileName.getBytes("utf-8"), "8859_1");
-	
-	response.setContentType("application/octet-stream");
-	response.setHeader("Content-Disposition", "attachment; filename=" + "summary"+rms_dl+".pptx");
-	
-	out.clear();
-	out = pageContext.pushBody();
-	
-	OutputStream os = response.getOutputStream();
-	
-	int length;
-	byte[] b = new byte[(int)file.length()];
-	
-	while ((length = in.read(b)) >0) {
-		os.write(b,0,length);
-	}
 
-	os.flush();  */
-	
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
 	//script.println("alert('summary pptx 제작 완료!')");

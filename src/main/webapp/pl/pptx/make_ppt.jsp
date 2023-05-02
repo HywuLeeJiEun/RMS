@@ -111,36 +111,6 @@
 	
 	}
 	
-	/* String fileName = null;
-	if(pluser.equals("WEB")) {
-		fileName = "web"+rms_dl+".pptx";
-	} else if(pluser.equals("ERP")) {
-		fileName = "erp"+rms_dl+".pptx";
-	}
-	//String downLoadFile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\"+fileName;
-	String downLoadFile = newfile;
-	
-	File file = new File(downLoadFile);
-	FileInputStream in = new FileInputStream(downLoadFile);
-	
-	fileName = new String(fileName.getBytes("utf-8"), "8859_1");
-	
-	response.setContentType("application/octet-stream");
-	response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-	
-	out.clear();
-	out = pageContext.pushBody();
-	
-	OutputStream os = response.getOutputStream();
-	
-	int length;
-	byte[] b = new byte[(int)file.length()];
-	
-	while ((length = in.read(b)) >0) {
-		os.write(b,0,length);
-	}
-	
-	os.flush();   */
 	
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
