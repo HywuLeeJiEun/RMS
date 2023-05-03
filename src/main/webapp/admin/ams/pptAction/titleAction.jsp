@@ -24,7 +24,7 @@
 </head>
 <body>
 <%
-	//title은 주차마다 변경되기 때문에 C:\Users\gkdla\git\RMS\src\main\webapp\WEB-INF\Files\년도-월\일\ 폴더 내부에 저장
+	//title은 주차마다 변경되기 때문에 C:\Users\S-OIL\git\RMS\src\main\webapp\WEB-INF\Files\년도-월\일\ 폴더 내부에 저장
 	String rms_dl = (String) request.getAttribute("rms_dl");
 	String[] dl = rms_dl.split("-");
 

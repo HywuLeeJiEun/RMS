@@ -665,7 +665,9 @@ public class RmsreptDAO {
 	}
 	
 	
-	public void WritePptx(String rms_dl, String id) {
+	
+		
+  	public void WritePptx(String rms_dl, String id) {
 		//메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
 		RmsuserDAO userDAO = new RmsuserDAO(); //사용자 정보
 		RmsreptDAO rms = new RmsreptDAO(); //주간보고 목록
@@ -913,6 +915,4 @@ public class RmsreptDAO {
 	
 
 	}
-	
-
 }

@@ -75,10 +75,8 @@
 		File newFile = new File(location,filename);
 		
 		if(newFile.exists()) {
-			if(!filename.equals(filesystemName)) {
 				newFile.delete();
 				oldFile.renameTo(newFile); 
-			}
 		} else {
 			oldFile.renameTo(newFile); 
 		}

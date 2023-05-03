@@ -44,8 +44,8 @@
 		
 	} 
 	
-	String filepath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
-	//String filepath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\2023-02\\202302.xlsx";
+	String filepath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
+	//String filepath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\2023-02\\202302.xlsx";
     FileInputStream file = new FileInputStream(filepath);
     XSSFWorkbook workbook = new XSSFWorkbook(file);
 
@@ -93,7 +93,7 @@
     	if(value.contains(mon)) {
     		//System.out.println("찾음");
     		cellnumber = i;
-    		//System.out.println(i);
+    		System.out.println(i);
     		break;
     	}
     }
@@ -131,7 +131,7 @@
 	    	
 	    	if(!value.isEmpty() && value.length() < 5) {
 	    		//System.out.println("찾음");
-	    		//System.out.println(value);
+	    		System.out.println(value);
 	    		name += value+"&";
 	    		num_name += rowindex+"&";
 	    	}
