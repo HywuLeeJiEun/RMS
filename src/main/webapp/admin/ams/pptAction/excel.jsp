@@ -33,11 +33,19 @@
 
 	// 이미 rms_vation이 저장되어 있다면,
 	if(!vacaDAO.getVacaym(vaca_ym).isEmpty()) {
+		//PrintWriter script = response.getWriter();
+			//script.println("<script>");
+			//script.println("alert('이미 저장된 휴가계획서가 있습니다.')");
+			//script.println("history.back();");
+			//script.println("</script>");
+			
+		//저장된 것을 모두 지우고, 새로 저장
 		vacaDAO.delVation(vaca_ym);
+		
 	} 
 	
-	String filepath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
-	//String filepath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\2023-02\\202302.xlsx";
+	String filepath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
+	//String filepath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\2023-02\\202302.xlsx";
     FileInputStream file = new FileInputStream(filepath);
     XSSFWorkbook workbook = new XSSFWorkbook(file);
 
@@ -92,17 +100,44 @@
     
     // 이름 모두 읽어오기 (cell은 2로 고정!)
     for(rowindex=7;rowindex<rows;rowindex++){
-	    //4행(0부터 시작함 유의!)에서 월 데이터를 찾는다.
+	    //행을 차례대로 내린다.
 	    XSSFRow nrow = sheet.getRow(rowindex);
 	    	//셀을 돌려 월이 같은지 확인
-    	XSSFCell cell = nrow.getCell(1);
-    	String value = cell.getStringCellValue()+"";
+	    try {
+	    	XSSFCell cell = nrow.getCell(1);
+	    	String value = "";
+	    	if(cell == null) {
+	    		continue;
+	    	} else {
+	    		 //String만 읽어들이기
+		            switch (cell.getCellType()){
+		            case FORMULA:
+		                value="";
+		                break;
+		            case NUMERIC:
+		                value="";
+		                break;
+		            case STRING:
+		                value=cell.getStringCellValue()+"";
+		                break;
+		            case BLANK:
+		                value="";
+		                break;
+		            case ERROR:
+		                value="";
+		                break;
+		    	}
+	    	}
+	    	
 	    	if(!value.isEmpty() && value.length() < 5) {
 	    		//System.out.println("찾음");
 	    		System.out.println(value);
 	    		name += value+"&";
 	    		num_name += rowindex+"&";
 	    	}
+	    } catch (NullPointerException e) {
+	    	
+	    }
    }
    List<String> user_name = new ArrayList<String>(Arrays.asList(name.split("&")));
    List<String> user_id = new ArrayList<String>();
@@ -201,7 +236,7 @@
  						String day = vacation[0].replace(".0","");
 							   day = day.replaceAll("[^0-9]", ""); //숫자만 남김
 						if(day != null && !day.isEmpty()) {
-							//DB에 저장 (dl[0]-dl[1](rms_ym) / username / day / 부가정보(userinfo))
+							//DB에 저장 (dl[0]-dl[1](rms_ym) / username / day / 부가정보(userinfo) )
 							int result = vacaDAO.writeVation(vaca_ym, userid, day, userinfo);	
 							
 							if(result == -1) {

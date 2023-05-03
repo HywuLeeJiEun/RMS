@@ -1,3 +1,7 @@
+<%@page import="org.apache.poi.xslf.usermodel.XSLFTextShape"%>
+<%@page import="org.apache.poi.hssf.record.BlankRecord"%>
+<%@page import="org.apache.poi.xslf.usermodel.XSLFRelation"%>
+<%@page import="org.apache.poi.xslf.usermodel.SlideLayout"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFBackground"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.Calendar"%>
@@ -50,32 +54,32 @@
 	
 	//원본파일 경로
 		//title  (주마다)
-	String file1 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\title"+rms_dl+".pptx";
+	String file1 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\title"+rms_dl+".pptx";
 		//calendar (달마다)
-	String file2 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\calendar"+dl[1]+".pptx";
+	String file2 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\calendar"+dl[1]+".pptx";
 		//index
-	String file3 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\2.index.pptx";
+	String file3 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\2.index.pptx";
 		//summary(erp/web)
-	String file4 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\summary"+rms_dl+".pptx";
+	String file4 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\summary"+rms_dl+".pptx";
 		//summary
-	String file5 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\3.summary.pptx";
+	String file5 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\3.summary.pptx";
 		//주간보고 CP
-	String file6 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\4.CP.pptx";
+	String file6 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\4.CP.pptx";
 		//주간보고 ERP
-	String file7 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\erp"+rms_dl+".pptx";
+	String file7 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\erp"+rms_dl+".pptx";
 		//주간보고 WEB
-	String file8 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\web"+rms_dl+".pptx";
+	String file8 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\web"+rms_dl+".pptx";
 		//주간보고 CRM
-	String file9 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\5.CRM.pptx";
+	String file9 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\5.CRM.pptx";
 		//별첨- ERP
-	//String file10 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\6.erp.pptx";
+	//String file10 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\6.erp.pptx";
 		//별첨- 휴가계획
-	String file11 = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\10.calendar"+dl[1]+".pptx";
+	String file11 = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\10.calendar"+dl[1]+".pptx";
 	String[] inputFiles = {file1, file2, file3, file4, file5, file6, file7, file8, file9, file11};
 	
 	//ppt 사이즈 새로 정하기
-	int width = 781;
-	int height = 595;
+	int width = 800;
+	int height = 545;
 	
 
 	//slide show 생성
@@ -87,22 +91,24 @@
 		FileInputStream input = new FileInputStream(files);
 		XMLSlideShow xmlslideShow = new XMLSlideShow(input);
 		for(XSLFSlide srcSlide : xmlslideShow.getSlides()) { //ppt 슬라이드를 가져옴.
-				ppt.createSlide().importContent(srcSlide);
+			ppt.createSlide().importContent(srcSlide);
 		}
 	}  
 	
 	//slide 마스터 복사
 	XMLSlideShow fromppt = new XMLSlideShow(new FileInputStream(file2));
 	for(XSLFSlide fromSlide : fromppt.getSlides()) {
-		XSLFSlide toSlide = ppt.createSlide();
+		XSLFSlide toSlide = ppt.getSlides().get(0);
 		//copy Slide
 		toSlide.setFollowMasterGraphics(false);
 		toSlide.setFollowMasterObjects(false);
 		
+		//slide를 복사할 대상
 		XSLFSlideLayout fromLayout = fromSlide.getSlideLayout();
 		XSLFSlideMaster fromMaster = fromSlide.getSlideMaster();
 		XSLFBackground fromBackground = fromSlide.getBackground();
 		
+		//slide를 붙여넣기할 대상 (받는 대상)
 		XSLFSlideLayout toLayout = toSlide.getSlideLayout();
 		XSLFSlideMaster toMaster = toSlide.getSlideMaster();
 		XSLFBackground toBackground = toSlide.getBackground();
@@ -110,14 +116,24 @@
 		toLayout.importContent(fromLayout);
 		toMaster.importContent(fromMaster);
 		toBackground.setFillColor(fromBackground.getFillColor());
+		
 	}
 	
+	// title 부분 slide master 해제하기 (그래픽 해제하기)
+	ppt.getSlides().get(0).setFollowMasterGraphics(false);
 	
-	String fileName = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+month+"월"+getWeek+"주차_주간보고_AMS.pptx";
+	//slide master - slide layout 이름 가져오기
+	/* for(XSLFSlideMaster master : ppt.getSlideMasters()) {
+		for(XSLFSlideLayout layout : master.getSlideLayouts()) {
+			System.out.println(layout.getName() + "  " + layout.getType());
+		}
+	} */
+	
+	
+	String fileName = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+month+"월"+getWeek+"주차_주간보고_AMS.pptx";
 	FileOutputStream ppt_out = new FileOutputStream(fileName);
 	ppt.write(ppt_out);
-	ppt_out.close();
-	ppt.close();
+	
 	
 	//파일 저장하기
 	File dFile = new File(fileName);
@@ -143,6 +159,10 @@
 	os.flush();
 	os.close();
 	in.close();   
+	
+	ppt_out.close();
+	ppt.close();
+	
 %>
 
 </body>

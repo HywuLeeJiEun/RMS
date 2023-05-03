@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.collections.bag.SynchronizedSortedBag"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFAutoShape"%>
 <%@page import="java.awt.Rectangle"%>
 <%@page import="java.awt.geom.Rectangle2D"%>
@@ -33,7 +34,7 @@
 	rmsvationDAO vacaDAO = new rmsvationDAO(); //휴가 정보
 	RmsuserDAO userDAO = new RmsuserDAO(); //사용자 정보
 
-	String rms_dl = (String) request.getAttribute("rms_dl");
+	String rms_dl =(String) request.getAttribute("rms_dl");
 	String[] dl = rms_dl.split("-");
 	String vaca_ym = dl[0]+"-"+dl[1];
 	int result = -1;
@@ -64,41 +65,12 @@
 	XMLSlideShow vppt = new XMLSlideShow(new FileInputStream(vfile));
 	XSLFSlide vslide = vppt.getSlides().get(0);
 	
-	//vshape에서 데이터 가져오기
-		for(XSLFShape vshape : vslide.getShapes()) {
-			vshape.getAnchor();
-			if(vshape instanceof XSLFAutoShape) {
-				XSLFAutoShape t = (XSLFAutoShape) vshape;
-				if(t.getShapeName().contains("Text")) {
-					System.out.println(t.getText());
-					//textbox 생성 후 데이터 삽입
-					XSLFTextBox txt = slide.createTextBox();
-					XSLFTextRun run = txt.setText("  ");
-					run.setBold(false);
-					if(t.getShapeName().contains("4")) {
-						run.setText(t.getText());
-						run.setFontColor(Color.black);
-						run.setFontSize(8.8);
-						txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
-					} else if(t.getShapeName().contains("1")){
-						run.setText(" ◑ 반 차 \n ● 1day");
-						run.setFontColor(Color.blue);
-						run.setFontSize(9.3);
-						txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
-					} else {
-						run.setText(t.getText());
-						run.setFontColor(Color.blue);
-						run.setFontSize(9.3);
-						txt.setAnchor(t.getAnchor()); //x,y, 크기(x,y)
-					}
-				}
-					
-			}
-		}
 	
 	for(int v=0; v < vaca.size(); v++) {
 	//2번째 슬라이드 수정
 			//검색할 날짜 구하기
+			//System.out.print(vaca.get(v).getVaca_day()+"  ");
+			//System.out.println(vaca.get(v).getUser_id());
 			String d = vaca.get(v).getVaca_day();
 			String first = d.substring(0,1).trim();
 			String sec = "";
@@ -117,20 +89,7 @@
 				info = "●";
 			}
 			
-		for(XSLFShape shape : slide.getShapes()) {
-			shape.getAnchor();
-			//별첨 수정하기
-			if(shape instanceof XSLFAutoShape) {
-				XSLFAutoShape t = (XSLFAutoShape) shape;
-				if(t.getShapeName().contains("Rect") && t.getShapeName().contains("6")){
-					XSLFTextRun run = t.setText("별첨-2. "+dl[0]+". "+dl[1]+"월 휴가계획서");
-					run.setFontSize(15.7);
-					run.setBold(true);
-					run.setFontColor(Color.black);
-					run.setFontFamily("맑은 고딕");
-				}
-			}
-			
+		for(XSLFShape shape : slide.getShapes()) {		
 			if(shape instanceof XSLFTable) {
 				XSLFTable t = (XSLFTable) shape;
 				// 각, 셀마다 접근하여 확인하여야 함.
@@ -170,8 +129,6 @@
 							XSLFTextRun run = t.getCell(i,j).appendText("\n "+info+" "+name, false);
 							run.setFontSize(9.0);
 							run.setFontFamily("맑은 고딕");
-							//t.getCell(i, j).appendText("\n ● 박선미", false);
-							//System.out.println(n);
 							break;
 						}
 					}
@@ -179,23 +136,6 @@
 			}
 		}
 	}
-	
-	//slide textbox 추가하기 (휴가 형태(3개), 하단 부가설명) & 별첨 수정하기
-	//TextBox txt = new TextBox();
-	/* XSLFTextBox txt = slide.createTextBox();
-	XSLFTextRun run = txt.setText(" ◑ 반 차 \n ● 1day");
-	run.setFontSize(9.3);
-	run.setFontColor(Color.BLUE);
-	txt.setAnchor(new Rectangle(500, 200, 100, 100)); //x,y, 크기(x,y)
-	
-	XSLFTextBox txt2 = slide.createTextBox();
-	XSLFTextRun run2 = txt2.setText(" 예비군/민방위 훈련  교육, 내부회의");
-	run2.setFontSize(9.3);
-	run2.setFontColor(Color.BLUE);
-	txt2.setAnchor(new Rectangle(500, 200, 100, 100)); //x,y, 크기(x,y) */
-	
-
-	
 		
 	FileOutputStream pout = new FileOutputStream(filePath);
 	xppt.write(pout);

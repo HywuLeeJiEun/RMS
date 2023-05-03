@@ -51,12 +51,14 @@
 	/* *****8 월요일, 금요일 날짜 구하기 ***** (tuesday / monday - 월요일, 금요일) */
 	String tuesday = "";
 	String monday ="";
-	
-	calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-	tuesday = sdf.format(calendar.getTime()).replaceAll("-", ".");
-	calendar.add(Calendar.DATE,+6);
+	// 월요일(rms_dl)을 기준으로 화요일을 구하고, 6일을 뒤로하여 화요일을 구합니다.
 	calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	monday = sdf.format(calendar.getTime()).replaceAll("-", ".");
+	calendar.add(Calendar.DATE,-6);
+	calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+	tuesday = sdf.format(calendar.getTime()).replaceAll("-", ".");
+	
+	
 	
 	
 	

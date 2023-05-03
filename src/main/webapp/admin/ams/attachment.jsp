@@ -75,19 +75,12 @@
 		 rms_dl = request.getParameter("rms_dl");
 	 }
 	
-	// 사용자 정보 담기
-	ArrayList<rmsuser> ulist = userDAO.getUser(id);
-	String password = ulist.get(0).getUser_pwd();
-	String name = ulist.get(0).getUser_name();
-	String rank = ulist.get(0).getUser_rk();
-	//이메일  로직 처리
-	String Staticemail = ulist.get(0).getUser_em();
-	String[] email;
-	email = Staticemail.split("@");
-	String pl = ulist.get(0).getUser_fd();
-	String rk = ulist.get(0).getUser_rk();
-	//사용자의 AU(Authority) 권한 가져오기 (일반/PL/관리자)
-	String au = ulist.get(0).getUser_au();
+	 // 생성된 summary가 있는지, 해당 summary의 승인 상태 확인
+	 String sum_sign = "미승인";
+	 if(sumDAO.getSumDL(rms_dl).size() > 0) {
+		 sum_sign = sumDAO.getSumDL(rms_dl).get(0).getSum_sign();
+	 }
+
 	
 	String str = "주간보고 작성을 위한<br>";
 	str += "데이터를 수집합니다.";
@@ -256,7 +249,7 @@
 			<hr>
 		 	<form action="Excel_upload.jsp?rms_dl=<%= rms_dl %>" method="post" enctype="multipart/form-data">
 			 	<fieldset>
-					<legend>Excel</legend>
+					<legend>휴가 계획서</legend>
 					<p><label for="formFileSm" class="form-label">파일 선택(xlsx)</label> 
 					<input class="form-control form-control-sm" type="file" name="file" accept=".xlsx" required></p>
 					<p><input class="btn btn-primary pull-left" type="submit" value="upload"></p>	 	
@@ -335,6 +328,7 @@ var rms_dl ='<%= rms_dl %>';
 var erp = <%= erp %>;
 var web = <%= web %>;
 var summary = <%= summary %>;
+var sum_sign = '<%= sum_sign %>';
 	function amspptx() {
 		var fn = '<%= cfilename %>';
 		var efn = '<%= efilename %>';
@@ -347,7 +341,11 @@ var summary = <%= summary %>;
 		}else if (web == -1){
 			alert("지정된 WEB 파일이 없습니다. \nWEB > 조회 밎 출력에서 출력해주시기 바랍니다.");
 		}else if (summary == -1){
-			alert("지정된 Summary 파일이 없습니다. \nSummary > 조회 밎 출력에서 출력해주시기 바랍니다.");
+			if(sum_sign == '미승인') {
+				alert("지정된 Summary 파일이 없습니다. \nSummary > 조회 밎 출력에서 출력해주시기 바랍니다.");
+			} else {
+				location.href="/RMS/admin/pptx/make_pptAdmin.jsp?rms_dl="+rms_dl;
+			}
 		}else {
 			//출력하는 page로 이동.
 			location.href="/RMS/admin/ams/pptAction/AllAction.jsp?rms_dl="+rms_dl;

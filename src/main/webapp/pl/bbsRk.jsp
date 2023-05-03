@@ -104,7 +104,7 @@
 			 rms_dl = request.getParameter("rms_dl");
 		 }
 
-		// 제출일을 측정해, 제출일이 넘거나 / 같은 경우 마감상태로 모두 변경한다.
+		// 제출일을 측정해, 제출일이 넘거나 - 같은 경우 마감상태로 모두 변경함 
 		// 현재 시간, 날짜를 구해 이전 데이터는 수정하지 못하도록 함!
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -114,17 +114,24 @@
 
 		Date dldate = dateFormat.parse(dl);
 		Date today = dateFormat.parse(timenow);
-		 
+		
+		
 		//pl 리스트 확인
 		ArrayList<String> plist = userDAO.getpluser(pl); //pl 관련 유저의 아이디만 출력
-		
-		//제출일과 같은 날이거나, 넘은 경우
+				
+		 	//제출일과 같은 날이거나 넘은 경우,
 		if(!dldate.after(today) || dldate.equals(today)) {
-			//rms_dl에 해당하는 ㅁ도ㅡㄴ 데이터를 자동 승인한다.
+			//rms_dl에 해당하는 모든 데이터를 자동 승인함!
 			for(int i=0; i < plist.size(); i++) {
 				int sign_result = rms.updateSign(plist.get(i), "마감", rms_dl);
+				// 또한, 마감된 사용자의 rept를 pptx로 생성함!
+				int rmsData = rms.getPptxRms(rms_dl, plist.get(i));
+				if(rmsData == 0) { //작성된 기록이 없다!	
+				rms.WritePptx(rms_dl, plist.get(i));
+				}
 			}
 		}
+		 
 		
 		//pl에 해당하는 user_id 도출(pllist)
 		String[] pllist = plist.toArray(new String[plist.size()]); //해당 pllist를 바꿔야함! (제출한 사람만)
@@ -361,7 +368,7 @@
 			<% }  %>
 			<% if(pl.equals("WEB")) {%>
 			<a href="/RMS/pl/pptx/ppt.jsp?rms_dl=<%=rmslist.get(0).getRms_dl()%>&pluser=<%= pl %>" style="width:50px; margin-bottom:200px" class="btn btn-success pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="pptx 출력(WEB)" id="pptx" type="button"> 출력</a>
-			<% }  %>			
+			<% }  %>	
 			<% if(alsum == 0) { %>
 			<a href="/RMS/pl/bbsRkwrite.jsp?rms_dl=<%=rms_dl%>" style="width:50px; margin-right:20px" class="btn btn-info pull-right form-control" data-toggle="tooltip" data-placement="bottom" title="요약본(Summary) 작성" id="summary"> 작성</a>
 			<% } %>
