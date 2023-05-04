@@ -12,6 +12,7 @@
 </head>
 <body>
 	<%
+		//JSP (가독성 ↓ 유지보수 어려움) -> Spring Framework, React, Vue.js ... 웹 프레임워크 사용
 		/* ********* 세션(session)을 통한 클라이언트 정보 관리 ********* */
 		// 현재 세션 상태를 체크
 		String id = null;

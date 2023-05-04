@@ -41,31 +41,28 @@
 		
 		
 		// 로그인 결과에 따른 반환값 설정 (1 - 성공, 0 - 틀림, -1 - 존재하지 않음. -2 - DB에러)
+		PrintWriter script = response.getWriter();
 		if(result == 1){
 			// 로그인에 성공하면 세션을 부여한다. 
 			session.setAttribute("id", user_id);
 			//session.setMaxInactiveInterval(60 * 60);  //1순위
 			//session 순위 - https://dejavuhyo.github.io/posts/session-timeout-setting-and-application-priority/
-			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("location.href='/RMS/user/bbs.jsp'");
 			script.println("</script>");
 		}else if(result == 0){
-			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('비밀번호가 다릅니다. 확인해주십시오.')");
 			script.println("history.back()");
 			script.println("</script>");
 			
 		}else if(result == -1){
-			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('아이디가 존재하지 않습니다.')");
 			script.println("history.back()");
 			script.println("</script>");
 			
 		}else if(result == -2){
-			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('데이터베이스 오류입니다.')");
 			script.println("history.back()");
