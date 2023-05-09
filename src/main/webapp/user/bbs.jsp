@@ -79,13 +79,26 @@
 		//다음 페이지가 있는지 확인!
 		ArrayList<rmsrept> aflist = rms.getrms(id, pageNumber+1);
 		
-		
+		//유저가 작성한(승인/마감된) 주간보고의 rms_dl을 받아옴.
+		ArrayList<rmsrept> rmslist = rms.getuserAllRms_dl(id);
+		//String rmsfull = String.join("&",rmslist.toString());
+		String rmsfull = "";
+		if(rmslist.size() > 0) {
+			for(int i=0; i < rmslist.size(); i++) {
+				if(i < rmslist.size() - 1) {
+					rmsfull += rmslist.get(i).getRms_dl() + "&"; 
+				} else {
+					rmsfull += rmslist.get(i).getRms_dl();
+				}
+			}
+		}
+	
 	%>
 	    
 	<!-- nav바 불러오기 -->
     <jsp:include page="../Nav.jsp"></jsp:include>
 	
-		
+	
 	<!-- ***********검색바 추가 ************* -->
 	<div class="container">
 		<div class="row">
@@ -115,6 +128,70 @@
 		</div>
 	</div>
 	<br>
+	
+	
+	<!-- 모달 영역! (날짜 선택 모달) - 출력시 활성화 -->
+	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#RmsdlModal" id="rmsData" style="display:none"> get rms_dl </button>
+	<div class="modal fade" id="RmsdlModal" role="dialog">
+		   <div class="modal-dialog">
+		    <div class="modal-content">
+		     <div class="modal-header">
+		      <!-- <button type="button" class="close" data-dismiss="modal">×</button> -->
+		      <!-- <h3 class="modal-title" align="center">제출일 선택</h3> -->
+		     </div>
+		     <!-- 모달에 포함될 내용 -->
+		     <form method="post" action="/RMS/pl/bbsRkwrite.jsp" id="modalform">
+		     <div class="modal-body">
+		     		<div class="row">
+		     			<div class="col-md-12" style="visibility:hidden">
+		     				<a type="button" class="close" >취소</a>
+		     				<a type="button" class="close" >취소</a>
+		     			</div>
+		     			<div class="col-md-3" style="visibility:hidden">
+		     			</div>
+		     			<div class="col-md-6 form-outline">
+		     				<label class="col-form-label" data-toggle="tooltip" data-placement="top" title="pptx로 출력하고자 하는 제출일의 범위를 선택합니다.">제출일 선택</label>
+		     				<i class="glyphicon glyphicon-info-sign"  style="left:5px;"></i>
+		     				<select class="form-control" style="width:200px" id="rms_dl1" onchange="enable2()">
+								<option value="rms_dl" selected="selected">[선택]</option>
+							<% for(int i=0; i < rmslist.size(); i++) { %>
+									<option><%= rmslist.get(i).getRms_dl() %></option>
+							<% } %>
+							</select>
+							~
+							<select class="form-control" style="width:200px" id="rms_dl2" disabled>
+								<option value="rms_dl" selected="selected">[선택]</option>
+							</select>
+							<br>
+		     				<h5 class="col-form-label">선택된 날짜를 기준으로 출력합니다.</h5>
+		     				<h6 class="col-form-label"><strong>하단 범위를 선택하지 않고 넘기는 경우, <br>해당 제출일에 대한 pptx만 생성됩니다.</strong></h6>
+		     				<input type="password" maxlength="20" required class="form-control" style="width:100%; display:none" id="rms_md" name="rms_md" value="-1">
+		     			</div>
+		     			<div class="col-md-3">
+		     				<label class="col-form-label"> &nbsp; </label>
+		     				<!-- <button type="submit" class="btn btn-primary pull-left form-control" >확인</button> -->
+						</div>
+						<div class="col-md-12" style="visibility:hidden">
+		     				<a type="button" class="close" ></a>
+		     				<a type="button" class="close" ></a>
+		     			</div>
+		     			</div>
+		     			<div class="modal-footer">
+					     <div class="col-md-3" style="visibility:hidden">
+		     			</div>
+		     			<div class="col-md-6">
+					     	<button type="button" class="btn btn-success pull-right form-control" style="width:30%" onClick="userPptxAction()" >출력</button>
+				     	</div>
+				     	 <div class="col-md-3" style="visibility:hidden">
+			   			</div>	
+		    </div>
+   			</div>
+		    </form>
+		   </div>
+	  </div>
+	</div>
+	
+	
 	
 	<!-- 게시판 메인 페이지 영역 시작 -->
 	<div class="container">
@@ -237,6 +314,7 @@
 			
 			<!-- 글쓰기 버튼 생성 -->
 			<a href="/RMS/user/bbsUpdate.jsp" class="btn btn-info pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="주간보고 작성">작성</a>
+			<button class="btn btn-success pull-right" onclick="rmsModalAction()" style="margin-right:20px" data-toggle="tooltip" data-html="true" data-placement="bottom" title="승인 및 마감된 주간보고를 출력합니다.">출력</button>
 			<!-- </div> -->
 		</div>
 	</div>
@@ -251,12 +329,77 @@
 	<script src="../modalFunction.js"></script>
 	
 	<script>
+	// rms modal 띄우기 (출력 버튼을 클릭시, modal이 나오도록 설정)
+	function rmsModalAction() {
+			$("#rmsData").hide();
+			$("#rmsData").trigger('click');
+		
+		$('#RmsdlModal').on('hidden.bs.modal', function (){
+			/*  */
+		})
+	};
+	
+	//상단 제출일 선택 후, 하단 제출일을 선택할 수 있도록 구성
+	function enable2() {
+		var selectA = document.getElementById("rms_dl1");
+	    var selectB = document.getElementById("rms_dl2");
+	    
+	    if (selectA.value == "rms_dl") {
+	      selectB.disabled = true;
+	      
+	    } else {
+	      selectB.disabled = false;
+	    	 
+	      //첫번째 rms_dl([선택])을 제외하고 모두 날림!
+	      $('#rms_dl2').children('option:not(:first)').remove();
+	      
+	   	  // 선택한 a 데이터를 기준으로, selectB의 옵션을 변경합니다.
+	   	  //1) list 데이터 채우기
+	   	  var rmsfull = '<%= rmsfull %>';
+	   	  var rmslist = rmsfull.split('&'); 
+	   	  var dateList = new Array();
+	   	  for(var i=0; i < rmslist.length; i++) {
+	   		  if(rmslist[i] > selectA.value) {
+	   			  // 날짜가 더 크다면,
+	   			  //selectB.add(rmslist[i]);
+	   			  $('#rms_dl2').append('<option value="'+rmslist[i]+'">'+rmslist[i]+'</option>');
+	   		  }
+	   	  }
+	    }
+	}
+	
+	
+	function userPptxAction() {
+		var selectA = document.getElementById("rms_dl1");
+	    var selectB = document.getElementById("rms_dl2");
+	    
+	    var result = 0;
+	    
+	    if(selectA.value == 'rms_dl') {
+	    	//첫 제출일이 선택되지 않았을 때!
+	    	alert("기준 제출일을 선택하여 주십시오.");
+	    } else if (selectB.value == 'rms_dl'){
+	    	//하위 제출일이 안된 경우, 
+	    	if(confirm("범위 제출일을 선택하지 않으셨습니다. 이대로 진행하시겠습니까?")) {
+	    		result = 1;
+	    	}
+	    } else {
+	    	//기준 / 하위 제출일을 모두 선택하여 제출한 경우
+	    	result = 1;
+	    }
+	    
+	    if(result == 1) {
+	    	location.href='/RMS/user/action/userPptxAction.jsp?rms_dl1='+selectA.value+'&rms_dl2='+selectB.value;
+	    }
+	}
+	
+	</script>
+	
+	<script>
 		function ChangeValue() {
 			var value_str = document.getElementById('searchField');
 			
 		}
-		
-	
 	</script>
 	
     <!-- 보고 개수에 따라 버튼 노출 (list.size()) -->

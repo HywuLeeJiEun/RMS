@@ -44,7 +44,7 @@
 	
 	// 파일이 있는지 확인
 		//수정 후 파일은 name 앞에 10. 포함!
-	String filePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\10.calendar"+dl[1]+".pptx";
+	String filePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\10.calendar"+dl[1]+".pptx";
 	File f = new File(filePath);
 	if(f.exists()) { //파일이 존재한다면,
 		if(!f.isDirectory()) { // 디렉토리가 아니라면,
@@ -53,10 +53,10 @@
 	} else {
 	
 	//public에 있는 vacation pptx를 가지고옴 (토대가 됨)
-	String vfile =  "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\10.vacation.pptx";
+	String vfile =  "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\public\\10.vacation.pptx";
 
 	//휴가 계획을 담당하는 ppt Action (년도-월/ 에 위치. 달에 1번 필요함!)
-	String file = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\calendar"+dl[1]+".pptx";
+	String file = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\calendar"+dl[1]+".pptx";
 	
 	//슬라이드 마스터 가지고 오기
 	XMLSlideShow xppt = new XMLSlideShow(new FileInputStream(file));

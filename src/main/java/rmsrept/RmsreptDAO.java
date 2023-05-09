@@ -518,6 +518,26 @@ public class RmsreptDAO {
 	   }
 	
 	
+	// RMSREPT - 승인 또는 마감됨 보고 목록을 불러옴. (목록보기) (sign)  //distinct, 승인 or 마감 (bbs.jsp)
+		public ArrayList<rmsrept> getuserAllRms_dl(String user_id){//특정한 리스트를 받아서 반환
+		      ArrayList<rmsrept> list = new ArrayList<rmsrept>();
+		      String SQL =" select distinct rms_dl from (select * from rmsrept where rms_sign='승인' or rms_sign='마감') as rms where user_id = ? order by rms_dl";
+		      try {
+		            PreparedStatement pstmt=conn.prepareStatement(SQL);
+		            pstmt.setString(1,  user_id);
+					rs=pstmt.executeQuery();//select
+		         while(rs.next()) {
+		        	 rmsrept rms = new rmsrept();
+		        	 rms.setRms_dl(rs.getString(1));
+		            list.add(rms);
+		         }         
+		      } catch(Exception e) {
+		         e.printStackTrace();
+		      }
+		      return list;
+		   }
+	
+	
 	// PPTXRMS - 데이터가 저장되었는지 확인한다
 	public int getPptxRms(String rms_dl, String user_id) {
 		String sql = "select rms_dl from pptxrms where rms_dl=? and user_id=?";

@@ -106,7 +106,7 @@
 	
 	int cfexists = -1;
 	String cfilename = "없음";
-	String cfilePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\calendar"+dl[1]+".pptx";
+	String cfilePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\calendar"+dl[1]+".pptx";
 	File f = new File(cfilePath);
 	if(f.exists()) {
 		if(!f.isDirectory()) {
@@ -119,7 +119,7 @@
 	//파일이 있는지 확인, (Excel)
 	int efexists = -1;
 	String efilename = "없음";
-	String efilePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
+	String efilePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[0]+dl[1]+".xlsx";
 	f = new File(efilePath);
 	if(f.exists()) {
 		if(!f.isDirectory()) {
@@ -134,7 +134,7 @@
 	int web = -1;
 	int summary = -1;
 	
-	String dir = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2];
+	String dir = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2];
 	File chkf = new File(dir);
 	String[] filelist = chkf.list();
 	if(chkf.exists()) {

@@ -245,7 +245,7 @@ public class RmssummDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list; //데이터베이스 오류
+		return list;
 	}
 	
 	
