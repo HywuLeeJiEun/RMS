@@ -395,7 +395,7 @@
 						<a onclick="return confirm('해당 게시글을 삭제하시겠습니까?')"
 									href="/RMS/user/action/deleteAction.jsp?rms_dl=<%= rms_dl %>" class="btn btn-danger pull-right" style="margin-bottom:100px; margin-right:20px">삭제</a>
 						<!-- 수정 버튼 생성 -->
-						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-success pull-right" onclick="saveData()"> 수정 </button>									
+						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-info pull-right" onclick="saveData()"> 수정 </button>									
 						<button type="Submit" id="save_sub" style="margin-bottom:50px; display:none" class="btn btn-primary pull-right"> 저장 </button>	
 				<%
 							} else if (nlist.get(0).getRms_sign().equals("승인") && signdate.after(today)) {
