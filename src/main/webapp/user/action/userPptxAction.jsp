@@ -180,12 +180,12 @@
 		String templatePath = null;
 		String newfile = null;
 		// 1) 개인 pc 환경
-		templatePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_Personal.jrxml";
+		templatePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_Personal.jrxml";
 		// 2) local pc 환경
-		//templatePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_EW.jrxml";
+		//templatePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\RMS_EW.jrxml";
 		
 		
-		String local = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\personal";
+		String local = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\personal";
 		//폴더가 없다면, 생성
 		File folder = new File(local); //외부 폴더가 있는지 부터 확인,
 		if(!folder.exists()) {
@@ -204,8 +204,8 @@
 		 
 		
 		 // (2)파라메타 생성	  
-		 //String logo = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
-		 //String logo = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
+		 //String logo = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
+		 //String logo = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\s-oil.JPG";
 		 Map<String,Object> paramMap = new HashMap<String,Object>();
 		
 		 paramMap.put("sql", SQL);
@@ -244,7 +244,7 @@
 		}
 		
 		String fileName = "주간보고"+localfile+".pptx";
-		//String downLoadFile = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\"+fileName;
+		//String downLoadFile = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\"+fileName;
 		String downLoadFile = newfile;
 		
 		File file = new File(downLoadFile);

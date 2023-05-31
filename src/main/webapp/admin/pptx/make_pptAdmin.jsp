@@ -71,9 +71,9 @@
 	ArrayList<rmssumm> wnlist = sumDAO.getSumDiv("WEB", rms_dl, "N");
 	
 	//1)개인 pc 환경
-	String templatePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\SummaryAD.jrxml";
+	String templatePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\SummaryAD.jrxml";
 	//2)local pc환경
-	//String templatePath = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\SummaryAD.jrxml";
+	//String templatePath = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\SummaryAD.jrxml";
 	Connection conn = null;
 	
 	try {
@@ -84,9 +84,9 @@
 	
 	 // (2)파라메타 생성	  
 	 // 1) 개인 pc 환경
-	 //String logo = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\gkdla.JPG";
+	 //String logo = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\gkdla.JPG";
 	 // 2) local pc 환경
-	 //String logo = "C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\gkdla.JPG";
+	 //String logo = "C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\reports\\gkdla.JPG";
 	 Map<String,Object> paramMap = new HashMap<String,Object>();
 	
 	 paramMap.put("deadLine",rms_dl);	  
@@ -237,10 +237,10 @@
 	 //pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("D:\\git\\RMS\\BBS\\src\\main\\webapp\\WEB-INF\\Files\\주간보고_sample.pptx")));
 	 // 저장하기
 	 // 1) 개인 pc 환경
-	 //pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\요약본_sample.pptx")));
-	 pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\summary"+rms_dl+".pptx")));
+	 //pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\요약본_sample.pptx")));
+	 pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\"+dl[0]+"-"+dl[1]+"\\"+dl[2]+"\\summary"+rms_dl+".pptx")));
 	 // 2) local pc 환경
-	 //pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("C:\\Users\\gkdla\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\요약본_sample.pptx")));
+	 //pptxExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File("C:\\Users\\S-OIL\\git\\RMS\\src\\main\\webapp\\WEB-INF\\Files\\요약본_sample.pptx")));
 	  
 	 
 	 pptxExporter.exportReport();

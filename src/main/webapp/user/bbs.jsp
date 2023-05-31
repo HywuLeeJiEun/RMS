@@ -140,7 +140,7 @@
 		      <!-- <h3 class="modal-title" align="center">제출일 선택</h3> -->
 		     </div>
 		     <!-- 모달에 포함될 내용 -->
-		     <form method="post" action="/RMS/pl/bbsRkwrite.jsp" id="modalform">
+		     <form method="post" action="/RMS/pl/bbsRkwrite.jsp" id="rmsdlmodalform">
 		     <div class="modal-body">
 		     		<div class="row">
 		     			<div class="col-md-12" style="visibility:hidden">
@@ -390,6 +390,8 @@
 	    
 	    if(result == 1) {
 	    	location.href='/RMS/user/action/userPptxAction.jsp?rms_dl1='+selectA.value+'&rms_dl2='+selectB.value;
+	    	
+	    	$('#RmsdlModal').modal('hide');
 	    }
 	}
 	

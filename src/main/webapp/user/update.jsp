@@ -197,7 +197,7 @@
 									주간보고 명세서 <input type="text" required class="form-control" placeholder="주간보고 명세서" name="bbsTitle" maxlength="50" value="<%= tlist.get(0).getRms_title() %>"></td>
 									<td colspan="1"></td>
 									<% if(nlist.get(0).getRms_sign().equals("미승인")) { %>
-									<td colspan="3">  주간보고 제출일 <input type="date" max="9999-12-31" style="width:80%; margin-left:20px" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" value="<%= tlist.get(0).getRms_dl() %>"><textarea name="before_dl" style="display:none"><%= tlist.get(0).getRms_dl() %></textarea></td>
+									<td colspan="3">  주간보고 제출일 <input type="date" max="9999-12-31" style="width:80%; margin-left:20px" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" id="rms_dl" value="<%= tlist.get(0).getRms_dl() %>"><textarea name="before_dl" style="display:none"><%= tlist.get(0).getRms_dl() %></textarea></td>
 									<% }else { %>
 									<td colspan="2">  주간보고 제출일 <input type="date" max="9999-12-31" required class="form-control" placeholder="주간보고 날짜(월 일)" name="rms_dl" value="<%= tlist.get(0).getRms_dl() %>" readonly><textarea name="rms_sign" style="display:none"><%= tlist.get(0).getRms_sign() %></textarea></td>
 									<% } %>
@@ -395,7 +395,7 @@
 						<a onclick="return confirm('해당 게시글을 삭제하시겠습니까?')"
 									href="/RMS/user/action/deleteAction.jsp?rms_dl=<%= rms_dl %>" class="btn btn-danger pull-right" style="margin-bottom:100px; margin-right:20px">삭제</a>
 						<!-- 수정 버튼 생성 -->
-						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-success pull-right" onclick="saveData()"> 수정 </button>									
+						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-info pull-right" onclick="saveData()"> 수정 </button>									
 						<button type="Submit" id="save_sub" style="margin-bottom:50px; display:none" class="btn btn-primary pull-right"> 저장 </button>	
 				<%
 							} else if (nlist.get(0).getRms_sign().equals("승인") && signdate.after(today)) {
@@ -795,5 +795,22 @@
 	            form.submit(); 
 		}
 	}
+	</script>
+	
+	<script>
+	// 주간보고 제출일 - 월요알이 아닌 경우, 데이터 선택이 불가하도록 변경
+	const rms_dl = document.getElementById("rms_dl");
+	
+	rms_dl.addEventListener("change", function(){
+		const selDate = new Date(this.value);
+		const selDay = selDate.getDay(); // 선택된 날짜의 요일을 구한다. (0: 일요일, 1: 월요일 ..)
+		
+		if(selDay !== 1) {
+			// 월요일이 아닌 경우,
+			this.value = '<%= tlist.get(0).getRms_dl() %>'; //선택한 날짜를 초기화하여 선택을 제한한다.
+			alert("제출일은 매주 월요일입니다. \n날짜를 확인하시어 올바른 날짜로 선택하여 주시길 바랍니다."); // 선택 제한 안내 메세지
+		}
+	});
+	
 	</script>
 </body>

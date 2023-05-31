@@ -586,4 +586,21 @@
 		}
 	}
 	</script>
+	
+	<script>
+	// 주간보고 제출일 - 월요알이 아닌 경우, 데이터 선택이 불가하도록 변경
+	const rms_dl = document.getElementById("bbsDeadline");
+	
+	rms_dl.addEventListener("change", function(){
+		const selDate = new Date(this.value);
+		const selDay = selDate.getDay(); // 선택된 날짜의 요일을 구한다. (0: 일요일, 1: 월요일 ..)
+		
+		if(selDay !== 1) {
+			// 월요일이 아닌 경우,
+			this.value = ""; //선택한 날짜를 초기화하여 선택을 제한한다.
+			alert("제출일은 매주 월요일입니다. \n날짜를 확인하시어 올바른 날짜로 선택하여 주시길 바랍니다."); // 선택 제한 안내 메세지
+		}
+	});
+	
+	</script>
 </body>
