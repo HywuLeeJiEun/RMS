@@ -1,3 +1,5 @@
+<%@page import="org.springframework.cglib.core.Local"%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="org.apache.poi.xslf.usermodel.SlideLayout"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFSlideLayout"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFSlideMaster"%>
@@ -44,8 +46,10 @@
 	int mon = Integer.parseInt(dates[1]);
 		//달이 1개월보다 크다면, (이후부터 4주차를 계속 제거)
 	if(mon > 1) { 
-		getWeek = getWeek - (mon-1) * 4 ;
+		getWeek = (getWeek - (mon-1) * 4) -1;
 	}
+
+
 		
 	
 	/* *****8 월요일, 금요일 날짜 구하기 ***** (tuesday / monday - 월요일, 금요일) */

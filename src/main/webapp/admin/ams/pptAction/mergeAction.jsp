@@ -1,3 +1,5 @@
+<%@page import="java.time.temporal.WeekFields"%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="org.apache.poi.hssf.record.BlankRecord"%>
 <%@page import="org.apache.poi.xslf.usermodel.XSLFRelation"%>
 <%@page import="org.apache.poi.xslf.usermodel.SlideLayout"%>
@@ -35,7 +37,7 @@
 	//int thisWeek = getWeekOfYear(sdf.format(new Date()));
 	String Date = rms_dl;
 	
-    Calendar calendar = Calendar.getInstance();
+	Calendar calendar = Calendar.getInstance();
     String[] dates = Date.split("-");
     int year = Integer.parseInt(dates[0]);
     int month = Integer.parseInt(dates[1]);
@@ -46,10 +48,10 @@
 	int mon = Integer.parseInt(dates[1]);
 		//달이 1개월보다 크다면, (이후부터 4주차를 계속 제거)
 	if(mon > 1) { 
-		getWeek = getWeek - (mon-1) * 4 ;
+		getWeek = (getWeek - (mon-1) * 4) -1;
 	}
-		
-		
+
+    
 	
 	//원본파일 경로
 		//title  (주마다)
