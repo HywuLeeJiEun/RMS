@@ -230,8 +230,8 @@
 									<tr>
 										 <td>
 										 	<div style="float:left">
-											 <select name="jobs<%= i %>" id="jobs<%= i %>" style="height:45px; width:120px; text-align-last:center;">
-													 <option <%= tlist.get(i).getRms_job().equals("[시스템]")?"selected":"" %>> [시스템] </option>
+											 <select required name="jobs<%= i %>" id="jobs<%= i %>" style="height:45px; width:120px; text-align-last:center;">
+													 <option <%= tlist.get(i).getRms_job().equals("[시스템]")?"selected":"" %> value=""> [시스템] </option>
 													 <%
 													 for(int count=0; count < works.size(); count++) {
 														 String wo = works.get(count).replaceAll("/", "");
@@ -390,7 +390,7 @@
 							if(nlist.get(0).getRms_sign().equals("미승인")) {
 				%>
 						<!-- 승인 -->
-						<a class="btn btn-success pull-right" href="/RMS/user/action/signOnAction.jsp?rms_dl=<%= tlist.get(0).getRms_dl() %>" onclick="return confirm('제출하시겠습니까?\n제출시, 수정/삭제가 불가합니다.');"> 제출 </a>
+						<a class="btn btn-success pull-right" onclick="if(confirm('제출하시겠습니까?\n제출시, 수정/삭제가 불가합니다.')){signData();};"> 제출 </a>
 						<!-- 삭제 -->
 						<a onclick="return confirm('해당 게시글을 삭제하시겠습니까?')"
 									href="/RMS/user/action/deleteAction.jsp?rms_dl=<%= rms_dl %>" class="btn btn-danger pull-right" style="margin-bottom:100px; margin-right:20px">삭제</a>
@@ -705,6 +705,35 @@
 	       	 }
 			}
 		} 
+    }
+	
+	function signData() {
+		if(trCnt == 0) {
+			alert("금주 업무 실적에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
+		} else if (trNCnt == 0) {
+			alert("차주 업무 계획에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
+		} else {
+
+		var innerHtml = "";
+		innerHtml += '<tr style="display:none">';
+		innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="trNCnt" name="trNCnt" readonly>'+trNCnt+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="trACnt" name="trACnt" readonly>'+trACnt+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="con" name="con" readonly>'+con+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="ncon" name="ncon" readonly>'+ncon+'</textarea></td>';
+		innerHtml += '<td><textarea class="textarea" id="acon" name="acon" readonly>'+acon+'</textarea></td>';
+		innerHtml += '</tr>';
+        $('#bbsNTable > tbody> tr:last').append(innerHtml);
+        
+ 		$("#save_sub").trigger("click");
+        
+        var form = document.getElementById("main");
+        	if(form.checkValidity()) {
+	        	form.action = "/RMS/user/action/updateAction.jsp?rms_dl=<%= tlist.get(0).getRms_dl() %>&rms_sign=승인";
+	            form.mathod = "post";
+	            form.submit(); 
+       	 }
+		}
     }
 	</script>
 	

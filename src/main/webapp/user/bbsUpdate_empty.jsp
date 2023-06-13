@@ -170,8 +170,8 @@
 									<tr>
 										 <td>
 										 	<div style="float:left">
-											 <select name="jobs0" id="jobs0" style="height:45px; width:120px; text-align-last:center;">
-													 <option> [시스템] </option>
+											 <select required name="jobs0" id="jobs0" style="height:45px; width:120px; text-align-last:center;">
+													 <option value=""> [시스템] </option>
 													 <%
 													 for(int count=0; count < works.size(); count++) {
 														 String wo = works.get(count).replaceAll("/", "");

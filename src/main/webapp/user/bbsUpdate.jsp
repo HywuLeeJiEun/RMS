@@ -187,8 +187,8 @@
 									<tr>
 										 <td>
 										 	<div style="float:left">
-											 <select name="jobs<%= i %>" id="jobs<%= i %>" style="height:45px; width:120px; text-align-last:center;">
-													 <option <%= tlist.get(i).getRms_job().equals("[시스템]")?"selected":"" %>> [시스템] </option>
+											 <select required name="jobs<%= i %>" id="jobs<%= i %>" style="height:45px; width:120px; text-align-last:center;">
+													 <option <%= tlist.get(i).getRms_job().equals("[시스템]")?"selected":"" %> value=""> [시스템] </option>
 													 <%
 													 for(int count=0; count < works.size(); count++) {
 														 String wo = works.get(count).replaceAll("/", "");
