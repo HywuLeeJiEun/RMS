@@ -43,3 +43,72 @@ Modal 실행 및 보조를 위한 자바스크립트
 			location.reload();
 		}
 	}
+	
+	
+	// Table sort 정렬
+	function sortTable(n) {
+		var table, rows, switching, o, x, y, shouldSwitch, dir, switchcount = 0;
+		table = document.getElementById("bbsTable");
+		switching = true;
+		dir = "asc"; //오름차순
+		
+		// column 개수
+		var col = $("#bbsTable").find('tr')[0].cells.length;
+		
+		// 으름차순 / 내림차순 표시
+		if($("#"+n).val() == "△") {
+			$("#"+n).attr('type','text');
+			$("#"+n).val("▽");
+			for(var i=0; i < col; i ++) {
+				if(i != n) {
+					$("#"+i).val("");
+					$("#"+i).attr('type','hidden');
+				}
+			}
+		} else {
+			$("#"+n).attr('type','text');
+			$("#"+n).val("△");
+			for(var i=0; i < col; i ++) {
+				if(i != n) {
+					$("#"+i).val("");
+					$("#"+i).attr('type','hidden');
+				}
+			}
+		}
+		
+		
+		while (switching) {
+			switching = false;
+			rows = table.getElementsByTagName("tr");
+			
+			for(o=1; o < (rows.length -1); o++) {
+				shouldSwitch = false;
+				x = rows[o].getElementsByTagName("td")[n];
+				y = rows[o + 1].getElementsByTagName("td")[n];
+				
+				if(dir == "asc") {
+					if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+						shouldSwitch=true;
+						break;
+					}
+				} else if(dir == "desc") {
+					if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+						shouldSwitch = true;
+						break;
+					}
+				}
+			}
+			
+			if(shouldSwitch) {
+				rows[o].parentNode.insertBefore(rows[o + 1], rows[o]);
+				switching = true;
+				switchcount ++;
+			} else {
+				if(switchcount == 0 && dir == "asc") {
+					dir = "desc";
+					switching = true;
+				}
+			}
+
+		}
+	}

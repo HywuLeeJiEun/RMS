@@ -326,12 +326,12 @@
 				<thead>
 					<tr>
 						<!-- <th style="background-color: #eeeeee; text-align: center;">번호</th> -->
-						<th style="background-color: #eeeeee; text-align: center;">제출일</th>
-						<th style="background-color: #eeeeee; text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목</th>
-						<th style="background-color: #eeeeee; text-align: center;">작성자</th>
-						<th style="background-color: #eeeeee; text-align: center;">작성일(수정일)</th>
-						<th style="background-color: #eeeeee; text-align: center;">담당</th>
-						<th style="background-color: #eeeeee; text-align: center;">상태</th>
+						<th style="background-color: #eeeeee; text-align: center;"onclick="sortTable(0)">제출일<input type="hidden" readonly id="0" style="border:none; width:18px; background-color:transparent;" value=""></input></th>
+						<th style="background-color: #eeeeee; text-align: center;"onclick="sortTable(1)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제목<input type="hidden" readonly id="1" style="border:none; width:18px; background-color:transparent;" value=""></input></th>
+						<th style="background-color: #eeeeee; text-align: center;"onclick="sortTable(2)">작성자<input type="hidden" readonly id="2" style="border:none; width:18px; background-color:transparent;" value=""></input></th>
+						<th style="background-color: #eeeeee; text-align: center;"onclick="sortTable(3)">작성일(수정일)<input type="text" readonly id="3" style="border:none; width:18px; background-color:transparent;" value="▽"></input></th>
+						<th style="background-color: #eeeeee; text-align: center;"onclick="sortTable(4)">담당<input type="hidden" readonly id="4" style="border:none; width:18px; background-color:transparent;" value=""></input></th>
+						<th style="background-color: #eeeeee; text-align: center;"onclick="sortTable(5)">상태<input type="hidden" readonly id="5" style="border:none; width:18px; background-color:transparent;" value=""></input></th>
 					</tr>
 				</thead>
 				<tbody>

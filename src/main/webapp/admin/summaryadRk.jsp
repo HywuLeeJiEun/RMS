@@ -109,13 +109,13 @@
 			<table id="bbsTable" class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr>
-						<th style="background-color: #eeeeee; text-align: center;">제출일</th>
-						<th style="background-color: #eeeeee; text-align: center; text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;요약본 상세정보</th>
+						<th style="background-color: #eeeeee; text-align: center;"onclick="sortTable(0)">제출일<input type="text" readonly id="0" style="border:none; width:18px; background-color:transparent;" value="▽"></input></th>
+						<th style="background-color: #eeeeee; text-align: center; text-align: left"onclick="sortTable(1)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;요약본 상세정보<input type="hidden" readonly id="1" style="border:none; width:18px; background-color:transparent;" value=""></input></th>
 						<!-- <th style="background-color: #eeeeee; text-align: center;">작성자</th> -->
-						<th style="background-color: #eeeeee; text-align: center;">작성일(수정일)</th>
-						<th style="background-color: #eeeeee; text-align: center;">수정자</th>
-						<th style="background-color: #eeeeee; text-align: center;">상태</th>
-						<th style="background-color: #eeeeee; text-align: center;" data-toggle="tooltip" data-html="true" data-placement="right" title="승인 후, <br>pptx로 출력할 수 있습니다.">승인</th>
+						<th style="background-color: #eeeeee; text-align: center;"onclick="sortTable(2)">작성일(수정일)<input type="hidden" readonly id="2" style="border:none; width:18px; background-color:transparent;" value=""></input></th>
+						<th style="background-color: #eeeeee; text-align: center;"onclick="sortTable(3)">수정자<input type="hidden" readonly id="3" style="border:none; width:18px; background-color:transparent;" value=""></input></th>
+						<th style="background-color: #eeeeee; text-align: center;"onclick="sortTable(4)">상태<input type="hidden" readonly id="4" style="border:none; width:18px; background-color:transparent;" value=""></input></th>
+						<th style="background-color: #eeeeee; text-align: center;" data-toggle="tooltip" data-html="true" data-placement="right" title="승인 후, <br>pptx로 출력할 수 있습니다."onclick="sortTable(5)">승인<input type="hidden" readonly id="5" style="border:none; width:18px; background-color:transparent;" value=""></input></th>
 					</tr>
 				</thead>
 				<tbody>
