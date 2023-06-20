@@ -246,38 +246,23 @@
 							//1. rms(pptxrms)에 저장되어 있는지 확인! (승인 -> 마감이 되는 경우 유의)
 							int rmsData = rms.getPptxRms(list.get(i).getRms_dl(), id);
 							if(rmsData == 0) { //작성된 기록이 없다!	
-								//pptxrmsMake 관련 불러오기
-									//forward
-								//pageContext.forward("/RMS/user/action/pptxrmsMake.jsp");
-								//RequestDispatcher dispatcher = request.getRequestDispatcher("/RMS/user/action/pptxrmsMake.jsp");
-								//dispatcher.forward(request, response);
-									//redirect
-								//response.sendRedirect("/RMS/user/action/pptxrmsMake.jsp");
 									//java
 								rms.WritePptx(list.get(i).getRms_dl(), id);
 							}
 						} else if(dldate.after(today) && list.get(i).getRms_sign().equals("미승인")) {
 							//sign = list.get(i).getSign();
 							sign="미제출";
-						}else { // 미승인, 마감 상태일 경우엔 하단 진행.
-							// 데이터베이스에 마감처리 진행
-							int a = rms.updateSign(id, "마감",list.get(i).getRms_dl());
-							if(a != -1) {
-								sign="마감";
-							} else {
-								sign="error"; //DB 마감 수정이 정상적으로 이뤄지지 않음!
+						}else { // 기간이 지난 경우,
+							//미승인, 마감 상태일 경우엔 하단 진행.
+							if(!list.get(i).getRms_sign().equals("마감")) {
+								// 데이터베이스에 마감처리 진행
+								int a = rms.updateSignAll("마감",list.get(i).getRms_dl());
 							}
+							sign="마감";
 							//rms에 통합 저장 진행
 							//1. rms(pptxrms)에 저장되어 있는지 확인! (승인 -> 마감이 되는 경우 유의)
 							int rmsData = rms.getPptxRms(list.get(i).getRms_dl(), id);
 							if(rmsData == 0) { //작성된 기록이 없다!
-								//pptxrmsMake 관련 불러오기
-									//forward
-								//pageContext.forward("/RMS/user/action/pptxrmsMake.jsp");
-								//RequestDispatcher dispatcher = request.getRequestDispatcher("/RMS/user/action/pptxrmsMake.jsp");
-								//dispatcher.forward(request, response);
-									//redirect
-								//response.sendRedirect("/RMS/user/action/pptxrmsMake.jsp");
 									//java
 								rms.WritePptx(list.get(i).getRms_dl(), id);
 							}

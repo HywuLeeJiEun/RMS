@@ -42,7 +42,7 @@
 		
 		// 로그인 결과에 따른 반환값 설정 (1 - 성공, 0 - 틀림, -1 - 존재하지 않음. -2 - DB에러)
 		PrintWriter script = response.getWriter();
-		if(result == 1){
+		if(result == 1){	
 			// 로그인에 성공하면 세션을 부여한다. 
 			session.setAttribute("id", user_id);
 			//session.setMaxInactiveInterval(60 * 60);  //1순위

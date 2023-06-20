@@ -119,11 +119,11 @@
 		//pl 리스트 확인
 		ArrayList<String> plist = userDAO.getpluser(pl); //pl 관련 유저의 아이디만 출력
 				
-		 	//제출일과 같은 날이거나 넘은 경우,
+		int sign_result = rms.updateSignAll("마감", rms_dl);
+		//제출일과 같은 날이거나 넘은 경우,
 		if(!dldate.after(today) || dldate.equals(today)) {
 			//rms_dl에 해당하는 모든 데이터를 자동 승인함!
 			for(int i=0; i < plist.size(); i++) {
-				int sign_result = rms.updateSign(plist.get(i), "마감", rms_dl);
 				//또한, 마감된 사용자의 rept를 pptx로 생성함!
 				int rmsData = rms.getPptxRms(rms_dl, plist.get(i));
 				if(rmsData == 0) {
