@@ -34,9 +34,17 @@
 		
 		// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
 		String id = null;
-		if(session.getAttribute("id") != null){
+		if((String) request.getSession().getServletContext().getContext("/RMS").getAttribute("id") != null) {
+			id = (String) request.getSession().getServletContext().getContext("/RMS").getAttribute("id");
+			session.setAttribute("id", id);
+		} else if ((String) request.getSession().getServletContext().getContext("/RMS").getAttribute("id") == null){
+			// 로그아웃을 한 상태
+			id = null;
+			session.invalidate();
+		} else if(session.getAttribute("id") != null){
 			id = (String)session.getAttribute("id");
 		}
+		
 		int pageNumber = 1; //기본은 1 페이지를 할당
 		// 만약 파라미터로 넘어온 오브젝트 타입 'pageNumber'가 존재한다면
 		// 'int'타입으로 캐스팅을 해주고 그 값을 'pageNumber'변수에 저장한다

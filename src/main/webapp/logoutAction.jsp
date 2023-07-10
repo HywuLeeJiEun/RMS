@@ -11,6 +11,7 @@
 	<%
 		// 부여된 세션을 삭제함.
 		session.invalidate();
+		request.getSession().getServletContext().getContext("/RMS").setAttribute("id", null);
 	%>
 	<script>
 		alert("로그아웃 되었습니다.");

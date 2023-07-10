@@ -19,10 +19,10 @@
 	
 	// 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
 	String id = null;
-	if(session.getAttribute("id") != null){
+	if(session.getAttribute("id") != null){ 
 		id = (String)session.getAttribute("id");
 	}
-	
+
 	// ********** 담당자를 가져오기 위한 메소드 *********** 
 	String workSet;
 	ArrayList<String> code = userDAO.getCode(id); //코드 리스트 출력(rmsmgrs에 접근하여, task_num을 가져옴.)
