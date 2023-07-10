@@ -80,7 +80,10 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/RMS/user/bbs.jsp">Report Management System</a>
+			<select style="border:none; background-color:#e7e7e7;" class="navbar-brand" onchange="top.location.href=this.options[this.selectedIndex].value;">
+				<option value="/RMS/user/bbs.jsp">Report Management System</option>
+				<option value="/FMS/user/fbbs.jsp">Incident Management System</option>
+			</select>
 		</div>
 		
 		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->

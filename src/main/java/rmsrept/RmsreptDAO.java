@@ -169,6 +169,21 @@ public class RmsreptDAO {
 		}
 		 return -1;
 	}
+	
+	
+	//RMSREPT sign 변경하기 (All) (날짜가 작은 경우, 모두 마감처리)
+		public int updateSignAll(String rms_sign, String rms_dl) {
+			String sql = " update rmsrept set rms_sign=? where rms_dl = ?";
+			 try {
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, rms_sign); 
+				pstmt.setString(2, rms_dl); 
+				return pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			 return -1;
+		}
 
 	
 	

@@ -125,11 +125,14 @@
 						}
 						
 						if(n == 1) {
+							// '이지은' 사원 데이터 제거 ()
+							if(!name.equals("이지은")) {
 							//조건에 맞는 열이라면,
 							XSLFTextRun run = t.getCell(i,j).appendText("\n "+info+" "+name, false);
 							run.setFontSize(9.0);
 							run.setFontFamily("맑은 고딕");
 							break;
+							}
 						}
 					}
 				}
