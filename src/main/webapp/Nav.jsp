@@ -82,7 +82,7 @@
 			</button>
 			<select style="border:none; background-color:#e7e7e7;" class="navbar-brand" onchange="top.location.href=this.options[this.selectedIndex].value;">
 				<option value="/RMS/user/bbs.jsp">Report Management System</option>
-				<option value="/FMS/user/fbbs.jsp">Incident Management System</option>
+				<option value="/FMS/user/fbbs.jsp?user_id=<%= id %>">Incident Management System</option>
 			</select>
 		</div>
 		
