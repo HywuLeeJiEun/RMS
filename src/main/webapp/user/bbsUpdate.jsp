@@ -20,6 +20,8 @@
 <meta charset="UTF-8">
 <!-- 루트 폴더에 부트스트랩을 참조하는 링크 -->
 <link rel="stylesheet" href="../css/css/bootstrap.css">
+<link rel="stylesheet" href="../css/css/datepicker.css">
+<link rel="stylesheet" href="../css/css/timepicker.css">
 <!-- // 폰트어썸 이미지 사용하기 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <title>RMS</title>
@@ -148,7 +150,7 @@
 									<td colspan="2"> 
 									주간보고 명세서 <input type="text" required class="form-control" placeholder="주간보고 명세서" name="bbsTitle" maxlength="50" value="<%= tlist.get(0).getRms_title() %>"></td>
 									<td colspan="1"></td>
-									<td colspan="3">  주간보고 제출일 <input type="date" max="9999-12-31" style="width:80%; margin-left:20px" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" id="rms_dl" value="<%= date %>"></td>
+									<td colspan="3">  주간보고 제출일 <input type="datepicker" max="9999-12-31" style="width:80%; margin-left:45px" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" id="rms_dl" value="<%= date %>"></td>
 							</tr>
 									<tr class="ui-state-default ui-state-disabled">
 										<th colspan="6" style="background-color: #D4D2FF;">금주 업무 실적
@@ -204,8 +206,8 @@
 											 <textarea class="textarea con" wrap="hard" id="bbsContent<%= i %>" maxlength="500" required style="height:45px;width:290px; border:none; resize:none " placeholder="업무내용" name="bbsContent<%= i %>"><%= tlist.get(i).getRms_con() %></textarea>
 											 </div>
 										 </td>
-										 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart<%= i %>" class="form-control" placeholder="접수일" name="bbsStart<%= i %>" value="<%= tlist.get(i).getRms_str() %>"></td>
-										 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget<%= i %>" value="<%= tlist.get(i).getRms_tar() %>"></td>		
+										 <td><input type="datepicker" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart<%= i %>" class="form-control" placeholder="접수일" name="bbsStart<%= i %>" value="<%= tlist.get(i).getRms_str() %>"></td>
+										 <td><input type="datepicker" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget<%= i %>" value="<%= tlist.get(i).getRms_tar() %>"></td>		
 										 <td><textarea class="textarea end" id="bbsEnd<%= i %>" style="height:45px; width:70px; border:none; resize:none; text-align:center"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>"><%= end %></textarea></td>
 										 <td><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button></td>
 										 <td><button type="button" id="paste<%= i %>" class="btn btn-default paste" style="margin-bottom:5px; margin-top:5px; display:block;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>
@@ -267,8 +269,8 @@
 									 <textarea class="textarea ncon" wrap="hard" id="bbsNContent<%= i %>" maxlength="500" required style="height:45px;width:290px; border:none; resize:none " placeholder="업무내용" name="bbsNContent<%= i %>"><%= nlist.get(i).getRms_con() %></textarea>
 									 </div>
 								 </td>
-								 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsNStart<%= i %>" class="form-control" placeholder="접수일" name="bbsNStart<%= i %>" value="<%= nlist.get(i).getRms_str() %>" ></td>
-								 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsNTarget<%= i %>" value="<%= nlist.get(i).getRms_tar() %>"></td>		
+								 <td><input type="datepicker" max="9999-12-31" required style="height:45px; width:auto;" id="bbsNStart<%= i %>" class="form-control" placeholder="접수일" name="bbsNStart<%= i %>" value="<%= nlist.get(i).getRms_str() %>" ></td>
+								 <td><input type="datepicker" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsNTarget<%= i %>" value="<%= nlist.get(i).getRms_tar() %>"></td>		
 							 	<td><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delNRow" name="delNRow" class="btn btn-danger"> 삭제 </button></td>
 							 	<td><button type="button" id="npaste<%= i %>" class="btn btn-default npaste" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>
 							 		<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="nchkpos" value="<%= i %>"></td>
@@ -317,16 +319,69 @@
 
 	<!-- 현재 날짜에 대한 데이터 -->
 	<textarea class="textarea" id="now" style="display:none " name="now"><%= now %></textarea>
+	<input id="datepicker">
 	
 	<!-- 부트스트랩 참조 영역 -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 	<!-- auto size를 위한 라이브러리 -->
 	<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 	<script src="../css/js/bootstrap.js"></script>
+	<script src="../css/js/timepicker.js"></script>
 	<script src="../modalFunction.js"></script>
 	<script src="/RMS/user/action/sortableAction.js"></script>
 	
+	<script>
+	//input type="datepicker" 
+	$('input[type="datepicker"]').datepicker({
+		// timepicker 설정
+		timeFormat:'HH:mm:ss',
+		controlType:'select',
+		oneLine:true
+	});
+	 $('input[type="datepicker"]').css('width', '120px');
+	$(document).ready(function () {
+		$.datepicker.regional['ko'] = {
+	        closeText: '', 
+	        prevText: '',
+	        nextText: '',
+	        showOn: 'both',
+	        buttonText: "달력",
+	        currentText: 'Today',
+	        monthNames: ['1월(JAN)','2월(FEB)','3월(MAR)','4월(APR)','5월(MAY)','6월(JUN)',
+	        '7월(JUL)','8월(AUG)','9월(SEP)','10월(OCT)','11월(NOV)','12월(DEC)'],
+	        monthNamesShort: ['1월','2월','3월','4월','5월','6월',
+	        '7월','8월','9월','10월','11월','12월'],
+	        dayNames: ['일','월','화','수','목','금','토'],
+	        dayNamesShort: ['일','월','화','수','목','금','토'],
+	        dayNamesMin: ['일','월','화','수','목','금','토'],
+	        weekHeader: 'Wk',
+	        dateFormat: 'yy-mm-dd',
+	        firstDay: 0,
+	        isRTL: false,
+	        showMonthAfterYear: true,
+	        yearSuffix: '',
+	        changeMonth: true,
+	        changeYear: true,
+	        showButtonPanel: true,
+	        yearRange: 'c-99:c+99',
+	    };
+	    $.datepicker.setDefaults($.datepicker.regional['ko']);
+
+	    $('#sdate').datepicker();
+	    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
+	    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
+	        $("#edate").datepicker( "option", "minDate", selectedDate );
+	    });
+
+	    $('#edate').datepicker();
+	    $('#edate').datepicker("option", "minDate", $("#sdate").val());
+	    $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
+	        $("#sdate").datepicker( "option", "maxDate", selectedDate );
+	    });
+	});
+	</script>
 	
 	<script>
 	var work = "";
@@ -382,8 +437,8 @@
 	            innerHtml += ' <div style="float:left">';
 	            innerHtml += ' <textarea wrap="hard" class="textarea con" maxlength="500" id="bbsContent'+c+'" required style="height:45px;width:290px; border:none; resize:none" placeholder="업무내용" name="bbsContent'+c+'"></textarea>';
 	            innerHtml += '  </div> </td>';
-	            innerHtml += '  <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart'+c+'" class="form-control" placeholder="접수일" name="bbsStart'+c+'"  value="'+now+'"></td>';
-	            innerHtml += ' <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget'+c+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일" name="bbsTarget'+c+'" ></td>';
+	            innerHtml += '  <td><input type="datepicker" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart'+c+'" class="form-control" placeholder="접수일" name="bbsStart'+c+'"  value="'+now+'"></td>';
+	            innerHtml += ' <td><input type="datepicker" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget'+c+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일" name="bbsTarget'+c+'" ></td>';
 	            innerHtml += '  <td><textarea class="textarea end" id="bbsEnd'+c+'" style="height:45px; resize:none; width:70px; border:none; text-align:center"  data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." maxlength="5" placeholder="MM/dd" name="bbsEnd'+c+'" ></textarea></td>'; 
 	            innerHtml += '    <td>';
 	            innerHtml += '<button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button>';
@@ -452,8 +507,8 @@
 	            innerHtml += ' <div style="float:left">';
 	            innerHtml += ' <textarea wrap="hard" class="textarea ncon" maxlength="500" id="bbsNContent'+n+'" required style="height:45px;width:290px; resize:none; border:none; " placeholder="업무내용" name="bbsNContent'+n+'"></textarea>';
 	            innerHtml += '  </div> </td>';
-	            innerHtml += '  <td><input type="date" required max="9999-12-31" style="height:45px; width:auto;" id="bbsNStart'+n+'" class="form-control" placeholder="접수일" name="bbsNStart'+n+'" value="'+now+'"></td>';
-	            innerHtml += ' <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget'+n+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일"  name="bbsNTarget'+n+'" ></td>';
+	            innerHtml += '  <td><input type="datepicker" required max="9999-12-31" style="height:45px; width:auto;" id="bbsNStart'+n+'" class="form-control" placeholder="접수일" name="bbsNStart'+n+'" value="'+now+'"></td>';
+	            innerHtml += ' <td><input type="datepicker" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget'+n+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일"  name="bbsNTarget'+n+'" ></td>';
 	            innerHtml += '<td><button type="button" style="margin-bottom:5px; margin-top:5px" id="delRow" name="delNRow" class="btn btn-danger"> 삭제 </button></td>';
 	            innerHtml += '<td><button type="button" id="npaste'+n+'" class="btn btn-default npaste" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>';
 	            innerHtml += '<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="nchkpos" value="'+n+'"></td>';
@@ -517,7 +572,7 @@
 		innerHtml += '<tr>';
 		innerHtml += '<td style="text-align:center; border: 1px solid;">';
 		//innerHtml += '<textarea class="textarea acon" maxlength="10" required id="erp_date'+a+'"  style=" width:180px; border:none; resize:none" placeholder="YYYY-MM-DD" name="erp_date'+a+'"></textarea></td>';
-		innerHtml += '<input type="date" class="acon" max="9999-12-31" required name="erp_date'+a+'" value="'+now+'"></td>'; 
+		innerHtml += '<input type="datepicker" class="acon" max="9999-12-31" required name="erp_date'+a+'" value="'+now+'"></td>'; 
 		innerHtml += '<td style="text-align:center; border: 1px solid; font-size:10px"> ';
 		innerHtml += '<textarea class="textarea" maxlength="10" required id="erp_user'+a+'"  style=" width:130px; border:none; resize:none" placeholder="사용자명" name="erp_user'+a+'"></textarea></td>';
 		innerHtml += '<td style="text-align:center; border: 1px solid; font-size:10px">  ';
