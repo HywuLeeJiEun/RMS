@@ -410,20 +410,19 @@ public class RmsreptDAO {
 	
 	
 	//RMSREPT 데이터 조회하기 (USER_FD를 통해 찾아낸 USER_ID) bbsRk.jsp => rms_sign = 승인 or 마감  << full 조회 (limit XX) >>
-	public ArrayList<rmsrept> getRmsRkfull(String rms_dl, String[] plist){//특정한 리스트를 받아서 반환
+	public ArrayList<rmsrept> getRmsRkfull(String rms_dl, String user_fd){//특정한 리스트를 받아서 반환
 	      ArrayList<rmsrept> list = new ArrayList<rmsrept>();
-	      String SQL ="select distinct r.user_id, rms_dl, rms_title, rms_sign, rms_time from (select * from rmsrept where rms_dl=? and (";
-	      		for(int i=0; i<plist.length; i++) {
-	      			if(i < plist.length-1) {
-	      				SQL += "user_id='"+plist[i].trim()+"' or ";
-	      			}else {
-	      				SQL += "user_id='"+plist[i].trim()+"'";
-	      			}
-	      		}
-	      		SQL += ")) r inner join rmsuser u on r.user_id = u.user_id where rms_sign='승인' or rms_sign='마감' order by u.user_name";
+	      String SQL ="select distinct r.user_id, r.rms_dl, r.rms_title, r.rms_sign, r.rms_time from  ";
+	      		//USER_FD에서 해당 업무인지 확인
+	      		SQL += "( select  R.user_id, R.rms_dl, R.rms_title, R.rms_sign, R.rms_time, U.user_name  from rmsrept R  ";
+	      		SQL += "inner join rmsuser U ";
+	      		SQL += "on R.user_id = U.user_id ";
+	      		SQL += "where R.rms_dl = ?  and U.user_fd = ?) r ";
+	      		SQL += "where r.rms_sign='승인' or r.rms_sign='마감' order by r.user_name";
 	      try {
 	            PreparedStatement pstmt=conn.prepareStatement(SQL);
 	            pstmt.setString(1, rms_dl);
+	            pstmt.setString(2, user_fd);
 				rs=pstmt.executeQuery();//select
 	         while(rs.next()) {
 	        	 rmsrept rms = new rmsrept();
@@ -442,21 +441,20 @@ public class RmsreptDAO {
 	
 	
 	//RMSREPT 데이터 조회하기 (USER_FD를 통해 찾아낸 USER_ID) bbsRk.jsp => rms_sign = 승인 or 마감  << full 조회 (limit XX) >>
-	public ArrayList<rmsrept> getRmsRkAll(String rms_dl, String[] plist, String rms_div){//특정한 리스트를 받아서 반환
+	public ArrayList<rmsrept> getRmsRkAll(String rms_dl, String user_fd, String rms_div){//특정한 리스트를 받아서 반환
 	      ArrayList<rmsrept> list = new ArrayList<rmsrept>();
-	      String SQL ="select r.user_id, rms_dl, rms_title, rms_job, rms_con, rms_str, rms_tar, rms_end, rms_div, rms_sign, rms_time from (select * from rmsrept where rms_dl=? and (";
-	      		for(int i=0; i<plist.length; i++) {
-	      			if(i < plist.length-1) {
-	      				SQL += "user_id='"+plist[i].trim()+"' or ";
-	      			}else {
-	      				SQL += "user_id='"+plist[i].trim()+"'";
-	      			}
-	      		}
-	      		SQL += ")) r inner join rmsuser u on r.user_id = u.user_id where (rms_sign='승인' or rms_sign='마감') and rms_div = ? order by u.user_name, r.rms_job";
+	      String SQL ="select r.user_id, r.rms_dl, r.rms_title, r.rms_job, r.rms_con, r.rms_str, r.rms_tar, r.rms_end, r.rms_div, r.rms_sign, r.rms_time from ";
+		      	// USER_FD에서 해당 업무인지 확인
+	    		SQL += "( select  R.user_id, R.rms_dl, R.rms_title, R.rms_job, R.rms_con, R.rms_str, R.rms_tar, R.rms_end, R.rms_div, R.rms_sign, R.rms_time, U.user_name  from rmsrept R ";
+	    		SQL += "inner join rmsuser U ";
+	    		SQL += "on R.user_id = U.user_id ";
+	    		SQL += "where R.rms_dl = ?  and U.user_fd = ?) r ";
+	      		SQL += "where (rms_sign='승인' or rms_sign='마감') and rms_div = ? order by r.user_name, r.rms_job";
 	      try {
 	            PreparedStatement pstmt=conn.prepareStatement(SQL);
 	            pstmt.setString(1, rms_dl);
-	            pstmt.setString(2, rms_div);
+	            pstmt.setString(2, user_fd);
+	            pstmt.setString(3, rms_div);
 				rs=pstmt.executeQuery();//select
 	         while(rs.next()) {
 	        	 rmsrept rms = new rmsrept();
@@ -481,22 +479,21 @@ public class RmsreptDAO {
 	
 	
 	//RMSREPT 데이터 조회하기 (USER_FD를 통해 찾아낸 USER_ID) bbsRk.jsp => rms_sign = 승인 or 마감
-	public ArrayList<rmsrept> getRmsRk(String rms_dl, String[] plist, int pageNumber, int maxNumber){//특정한 리스트를 받아서 반환
+	public ArrayList<rmsrept> getRmsRk(String rms_dl, String user_fd, int pageNumber, int maxNumber){//특정한 리스트를 받아서 반환
 	      ArrayList<rmsrept> list = new ArrayList<rmsrept>();
-	      String SQL ="select distinct r.user_id, rms_dl, rms_title, rms_sign, rms_time from (select * from rmsrept where rms_dl=? and (";
-	      		for(int i=0; i<plist.length; i++) {
-	      			if(i < plist.length-1) {
-	      				SQL += "user_id='"+plist[i].trim()+"' or ";
-	      			}else {
-	      				SQL += "user_id='"+plist[i].trim()+"'";
-	      			}
-	      		}
-	      		SQL += ")) r left join rmsuser u on r.user_id = u.user_id where rms_sign='승인' or rms_sign='마감' order by u.user_name limit ?,? ";
+	      String SQL ="select distinct r.user_id, r.rms_dl, r.rms_title, r.rms_sign, r.rms_time from  ";
+		   		// USER_FD에서 해당 업무인지 확인
+	    		SQL += "( select  R.user_id, R.rms_dl, R.rms_title, R.rms_sign, R.rms_time, U.user_name  from rmsrept R ";
+	    		SQL += " inner join rmsuser U ";
+	    		SQL += " on R.user_id = U.user_id ";
+	    		SQL += " where R.rms_dl = ?  and U.user_fd = ?) r ";
+	      		SQL += "where rms_sign='승인' or rms_sign='마감' order by r.user_name limit ?,? ";
 	      try {
 	            PreparedStatement pstmt=conn.prepareStatement(SQL);
 	            pstmt.setString(1, rms_dl);
-	            pstmt.setInt(2, (pageNumber-1)*10);
-	            pstmt.setInt(3, maxNumber);
+	            pstmt.setString(2, user_fd);
+	            pstmt.setInt(3, (pageNumber-1)*10);
+	            pstmt.setInt(4, maxNumber);
 				rs=pstmt.executeQuery();//select
 	         while(rs.next()) {
 	        	 rmsrept rms = new rmsrept();

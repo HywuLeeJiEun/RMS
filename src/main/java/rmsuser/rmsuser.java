@@ -8,6 +8,7 @@ public class rmsuser {
 	private String user_em; //사용자 이메일 (비어있을 수도 있음!)
 	private String user_au; //사용자 권한(일반/PL/관리자)
 	private String user_fd; //사용자 담당 분야(WEB/ERP) (비어있는 경우, 담당 분야가 없음!)
+	private String user_yn; //사용자 사용 여부(off borading 또는 관리자)
 	public String getUser_id() {
 		return user_id;
 	}
@@ -49,6 +50,12 @@ public class rmsuser {
 	}
 	public void setUser_fd(String user_fd) {
 		this.user_fd = user_fd;
+	}
+	public String getUser_yn() {
+		return user_yn;
+	}
+	public void setUser_yn(String user_yn) {
+		this.user_yn = user_yn;
 	}
 	
 	

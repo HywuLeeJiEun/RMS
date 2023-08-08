@@ -89,6 +89,7 @@ public class RmsuserDAO {
 				user.setUser_em(rs.getString(5));
 				user.setUser_au(rs.getString(6));
 				user.setUser_fd(rs.getString(7));
+				user.setUser_yn(rs.getString(8));
 				list.add(user);
 			}
 		}catch (Exception e) {
@@ -303,10 +304,10 @@ public class RmsuserDAO {
 	}
 	
 	
-	//RMSUSER USER_FD(Field) 사용자 담당 분야별로 검색하여 user_id 도출
+	//RMSUSER USER_FD(Field) 사용자 담당 분야별로 검색하여 user_id 도출 (user_yn을 통해 사용 여부 확인)
 	public ArrayList<String> getpluser(String user_fd){
 		//String sql =  "select * from pluser where work=?";
-		String sql =  "select user_id from rmsuser where user_fd=? order by user_name";
+		String sql =  "select user_id from rmsuser where user_fd=? and user_yn='Y' order by user_name";
 				ArrayList<String> list = new ArrayList<String>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);

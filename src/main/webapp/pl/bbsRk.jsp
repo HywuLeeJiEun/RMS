@@ -137,18 +137,23 @@
 		//pl에 해당하는 user_id 도출(pllist)
 		String[] pllist = plist.toArray(new String[plist.size()]); //해당 pllist를 바꿔야함! (제출한 사람만)
 		//해당 user_id를 통해 제출된 rms를 조회하기
-		ArrayList<rmsrept> flist = rms.getRmsRkfull(rms_dl, pllist);
+		ArrayList<rmsrept> flist = rms.getRmsRkfull(rms_dl, pl);
 
 		// 미제출자 인원 계산 ()
 		int psize = plist.size(); //pl 담당 유저의 아이디
 		int lsize = flist.size(); //해당 pl을 담당하는 user들의 제출 rms
 		int noSub =  psize - lsize;
 		
+		// 이전 기간의 사용자의 경우, noSub 표시됨 (음수표시)
+		if(noSub < 0) { 
+			noSub = 0;
+		}
+		
 		//기존 데이터 불러오기 (pageNumber를 통해 데이터를 10개까지 조회)
-		ArrayList<rmsrept> rmslist = rms.getRmsRk(rms_dl, pllist, pageNumber, psize);
+		ArrayList<rmsrept> rmslist = rms.getRmsRk(rms_dl, pl, pageNumber, psize);
 		
 		//다음 데이터가 있는지 조회
-		ArrayList<rmsrept> afrmslist = rms.getRmsRk(rms_dl, pllist, pageNumber+1, psize);
+		ArrayList<rmsrept> afrmslist = rms.getRmsRk(rms_dl, pl, pageNumber+1, psize);
 		
 		if(!au.equals("PL")) { //PL 권한이 없다면,
 			PrintWriter script = response.getWriter();
