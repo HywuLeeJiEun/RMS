@@ -42,13 +42,15 @@
     int day = Integer.parseInt(dates[2]);
     calendar.set(year, month - 1, day);
     int getWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+    //System.out.println(getWeek);
 	//월주차로 만들기
 	int mon = Integer.parseInt(dates[1]);
 		//달이 1개월보다 크다면, (이후부터 4주차를 계속 제거)
 	if(mon > 1) { 
-		getWeek = (getWeek - (mon-1) * 4) -1;
+		//getWeek = (getWeek - (mon-1) * 4) -1;
+		getWeek = (getWeek - mon * 4) +2;
 	}
-
+	//System.out.println("Date : "+dates[1] +" getWeek : "+getWeek);
 
 		
 	

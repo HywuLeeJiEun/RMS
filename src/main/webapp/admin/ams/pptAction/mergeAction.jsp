@@ -48,7 +48,8 @@
 	int mon = Integer.parseInt(dates[1]);
 		//달이 1개월보다 크다면, (이후부터 4주차를 계속 제거)
 	if(mon > 1) { 
-		getWeek = (getWeek - (mon-1) * 4) -1;
+		//getWeek = (getWeek - (mon-1) * 4) -1;
+		getWeek = (getWeek - mon * 4) +2;
 	}
 
     
