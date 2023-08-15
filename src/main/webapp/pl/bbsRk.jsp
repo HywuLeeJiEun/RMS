@@ -149,11 +149,9 @@
 			noSub = 0;
 		}
 		
-		//기존 데이터 불러오기 (pageNumber를 통해 데이터를 10개까지 조회)
-		ArrayList<rmsrept> rmslist = rms.getRmsRk(rms_dl, pl, pageNumber, psize);
+		//기존 데이터 불러오기 (주간보고 파트에 해당하는 사용자 작성 목록)
+		ArrayList<rmsrept> rmslist = rms.getRmsRk(rms_dl, pl);
 		
-		//다음 데이터가 있는지 조회
-		ArrayList<rmsrept> afrmslist = rms.getRmsRk(rms_dl, pl, pageNumber+1, psize);
 		
 		if(!au.equals("PL")) { //PL 권한이 없다면,
 			PrintWriter script = response.getWriter();
@@ -219,7 +217,7 @@
 		 //ArrayList<rmssumm> alsum = sum.getSumDiv(pl, rms_dl, "T"); 
 		 int alsum = sum.getSumDiv(pl, rms_dl, "T").size(); 
 	%>
-   
+
     <!-- nav바 불러오기 -->
     <jsp:include page="../Nav.jsp"></jsp:include>
 		

@@ -479,7 +479,7 @@ public class RmsreptDAO {
 	
 	
 	//RMSREPT 데이터 조회하기 (USER_FD를 통해 찾아낸 USER_ID) bbsRk.jsp => rms_sign = 승인 or 마감
-	public ArrayList<rmsrept> getRmsRk(String rms_dl, String user_fd, int pageNumber, int maxNumber){//특정한 리스트를 받아서 반환
+	public ArrayList<rmsrept> getRmsRk(String rms_dl, String user_fd){//특정한 리스트를 받아서 반환
 	      ArrayList<rmsrept> list = new ArrayList<rmsrept>();
 	      String SQL ="select distinct r.user_id, r.rms_dl, r.rms_title, r.rms_sign, r.rms_time from  ";
 		   		// USER_FD에서 해당 업무인지 확인
@@ -487,13 +487,11 @@ public class RmsreptDAO {
 	    		SQL += " inner join rmsuser U ";
 	    		SQL += " on R.user_id = U.user_id ";
 	    		SQL += " where R.rms_dl = ?  and U.user_fd = ?) r ";
-	      		SQL += "where rms_sign='승인' or rms_sign='마감' order by r.user_name limit ?,? ";
+	      		SQL += "where rms_sign='승인' or rms_sign='마감' order by r.user_name";
 	      try {
 	            PreparedStatement pstmt=conn.prepareStatement(SQL);
 	            pstmt.setString(1, rms_dl);
 	            pstmt.setString(2, user_fd);
-	            pstmt.setInt(3, (pageNumber-1)*10);
-	            pstmt.setInt(4, maxNumber);
 				rs=pstmt.executeQuery();//select
 	         while(rs.next()) {
 	        	 rmsrept rms = new rmsrept();

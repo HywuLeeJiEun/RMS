@@ -165,13 +165,13 @@
 		}
 		
 		//해당 user_id를 통해 제출된 rms를 조회하기
-		ArrayList<rmsrept> flist = rms.getRmsRkfull(rms_dl, pllist);
+		ArrayList<rmsrept> flist = rms.getRmsRkfull(rms_dl, pl);
 		
 		//금주업무, 차주업무 나누기
 		//금주
-		ArrayList<rmsrept> tlist = rms.getRmsRkAll(rms_dl, pllist, "T");
+		ArrayList<rmsrept> tlist = rms.getRmsRkAll(rms_dl, pl, "T");
 		//차주
-		ArrayList<rmsrept> nlist = rms.getRmsRkAll(rms_dl, pllist, "N");
+		ArrayList<rmsrept> nlist = rms.getRmsRkAll(rms_dl, pl, "N");
  	
 		//제출자 SubUser
 		String SubUser = "";
