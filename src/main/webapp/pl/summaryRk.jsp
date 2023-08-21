@@ -74,30 +74,6 @@
 		String au = ulist.get(0).getUser_au();
 		
 		
-		//(월요일) 제출 날짜 확인
-		String mon = "";
-		String day ="";
-		
-		Calendar cal = Calendar.getInstance(); 
-		Calendar cal2 = Calendar.getInstance(); //오늘 날짜 구하기
-		SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
-		
-		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		//cal.add(Calendar.DATE, 7); //일주일 더하기
-		
-		 // 비교하기 cal.compareTo(cal2) => 월요일이 작을 경우 -1, 같은 날짜 0, 월요일이 더 큰 경우 1 
-		 if(cal.compareTo(cal2) == -1) {
-			 //월요일이 해당 날짜보다 작다.
-			 cal.add(Calendar.DATE, 7);
-			 
-			 mon = dateFmt.format(cal.getTime());
-			day = dateFmt.format(cal2.getTime());
-		 } else { // 월요일이 해당 날짜보다 크거나, 같다 
-			 mon = dateFmt.format(cal.getTime());
-			day = dateFmt.format(cal2.getTime());
-		 }
-		 
-		 String rms_dl = mon;
 		//String bbsDeadline = "2023-01-16";
 
 		//현재 사용자의 담당 업무 보기
@@ -159,17 +135,11 @@
 				<tbody>
 					<%
 						for(int i = 0; i < sumlist.size(); i++){
-							
 							// 현재 시간, 날짜를 구해 이전 데이터는 수정하지 못하도록 함!
 							SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 							
 							//bbsDeadline 찾아오기
 							String dl = sumlist.get(i).getRms_dl();
-							Date time = new Date();
-							String timenow = dateFormat.format(time);
-
-							Date dldate = dateFormat.parse(dl);
-							Date today = dateFormat.parse(timenow);
 					%>
 						<!-- 게시글 제목을 누르면 해당 글을 볼 수 있도록 링크를 걸어둔다 -->
 					<tr>
@@ -186,17 +156,7 @@
 						<td><%= userDAO.getName(sumlist.get(i).getSum_updu()) %></td>
 						<!-- 승인/미승인/마감 표시 -->
 						<td data-toggle="tooltip" data-html="true" data-placement="right" title="관리자의 승인 이후, <br>상태가 변경됩니다.">
-						<%
-						String sign = null;
-						if(dldate.after(today) || dldate.equals(today)) { //현재 날짜가 마감일을 아직 넘지 않으면,
-							sign = sumlist.get(i).getSum_sign();
-						} else {
-							sign="마감";
-							// 데이터베이스에 마감처리 진행
-							int a = sumDAO.sumSign(sumlist.get(i).getRms_dl());
-						}
-						%>
-						<%= sign %>
+						<%= sumlist.get(i).getSum_sign() %>
 						</td>
 					</tr>
 					<%

@@ -139,16 +139,8 @@
 							//WEB
 							ArrayList<rmssumm> wlist = sumDAO.getSumDiv("WEB", dllist.get(i), "T");
 							
-							// 현재 시간, 날짜를 구해 이전 데이터는 수정하지 못하도록 함!
-							SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-							
 							//bbsDeadline 찾아오기
 							String dl = dllist.get(i);
-							Date time = new Date();
-							String timenow = dateFormat.format(time);
-
-							Date dldate = dateFormat.parse(dl);
-							Date today = dateFormat.parse(timenow);
 							
 							//상세정보 타이틀 작성
 							String etitle = "";
@@ -202,12 +194,7 @@
 						<td><%= writer %></td>
 						<!-- 승인/미승인/마감 표시 -->
 						<td>	
-						<% if((dldate.after(today) || dldate.equals(today))  && getSign.equals("승인")){ //승인 상태라면 %>
-							완료
-						<% }else{ //summary - 마감 상태는 아직 존재하지 않음!
-							sumDAO.sumSign(dl); %>
-							마감 
-						<% } %>
+						<%= getSign %>
 						</td>
 						<td data-toggle="tooltip" data-html="true" data-placement="right" title="버튼을 통해,<br>pptx 출력">
 							<a class="btn btn-success" style="font-size:12px" href="/RMS/admin/pptx/pptAdmin.jsp?rms_dl=<%= dl %>"> 출력 </a>

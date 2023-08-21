@@ -386,7 +386,7 @@
 						<a href="/RMS/user/bbs.jsp" class="btn btn-primary pull-right" style="margin-bottom:100px; margin-left:20px">목록</a>
 				<%
 					if(id.equals(tlist.get(0).getUser_id())) {
-						if(dldate.after(today) || dldate.equals(today)){
+						// if(dldate.after(today) || dldate.equals(today)){ // 기간 외 수정 삭제가 필요한 경우를 위해 주석처리
 							if(nlist.get(0).getRms_sign().equals("미승인")) {
 				%>
 						<!-- 승인 -->
@@ -404,7 +404,7 @@
 								<button type="button" id="revert" style="margin-bottom:50px;" class="btn btn-danger pull-right" onclick="revertSign()" data-toggle="tooltip" data-html="true" data-placement="bottom" title="미제출로 변경합니다."> 변경 </button>	
 								<% 
 							}
-						} 
+						// } 
 					}				
 				%>
 					</div>					
