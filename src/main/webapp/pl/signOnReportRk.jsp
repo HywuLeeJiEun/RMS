@@ -191,11 +191,11 @@
 		
 		<div class="container">
 			<div class="row">
-				<form method="post"  action="/RMS/user/action/updateAction.jsp" id="main" name="main" onsubmit="return false">
+				<form method="post" action="/RMS/user/action/mainAction.jsp" id="main" name="main" onsubmit="return false">
 					<table class="table" id="bbsTable" style="text-align: center; border: 1px solid #dddddd; cellpadding:50px;" >
 						<thead>
 							<tr>
-								<th colspan="100%" style="background-color: #eeeeee; text-align: center;">주간보고 조회</th>
+								<th colspan="6" style="background-color: #eeeeee; text-align: center;">주간보고 작성</th>
 							</tr>
 						</thead>
 						<tbody id="tbody">
@@ -205,43 +205,76 @@
 									<td colspan="1"></td>
 									<td colspan="2">  주간보고 제출일 <input type="date" max="9999-12-31" required class="form-control" placeholder="주간보고 날짜(월 일)" name="bbsDeadline" value="<%= tlist.get(0).getRms_dl() %>" readonly><textarea name="rms_sign" style="display:none"><%= tlist.get(0).getRms_sign() %></textarea></td>
 							</tr>
-									<tr>
-										<th colspan="100%" style="background-color: #D4D2FF;" align="center">금주 업무 실적</th>
+									<tr class="ui-state-default ui-state-disabled">
+										<th colspan="6" style="background-color: #D4D2FF;">금주 업무 실적
+										<button type="button" style="width:55px; height:30px; display:none" id="post" class="btn btn-success pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="금주 내용을<br>차주 내용에 추가합니다.">추가</button>
+										<button type="button" style="width:50px; height:30px; background-color:transparent" id="post_start" class="btn pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="금주 내용을<br>차주 내용에 추가합니다." value="false"><span class="glyphicon glyphicon-triangle-bottom"></span></button></th>
+										
 									</tr>
-									<tr style="background-color: #FFC57B;">
-										<!-- <th width="6%">|  담당자</th> -->
-										<th width="50%" style="text-align:center"> &nbsp; 업무내용</th>
-										<th width="10%" style="text-align:center"> &nbsp; 접수일</th>
-										<th width="10%" style="text-align:center"> &nbsp; 완료목표일</th>
-										<th width="10%" style="text-align:center"> &nbsp;&nbsp; 진행율/<br>&nbsp;&nbsp;완료일</th>
+									<tr style="background-color: #FFC57B;" class="ui-state-default ui-state-disabled">
+										<!-- <th width="6%">|  담당자</th>  style="text-align:center" -->
+										<th style="text-align:center" width="50%"> &nbsp; 업무내용</th>
+										<th style="text-align:center" width="10%"> &nbsp; 접수일</th>
+										<th style="text-align:center" width="10%"> &nbsp; 완료목표일</th>
+										<th style="text-align:center" width="10%">&nbsp;&nbsp; 진행율/<br>&nbsp;&nbsp;&nbsp;완료일</th>
+										<th></th>
+										<th></th>
 									</tr>
 									
 									<tr align="center">
 										<td style="display:none"><textarea class="textarea" id="bbsManager" name="bbsManager" style="height:auto; width:100%; border:none; overflow:auto" placeholder="구분/담당자"   readonly><%= workSet %><%= name %></textarea></td> 
 									</tr>
 									<%
+									int endresult = 0;
+									int tlcon = tlist.size();
 									if(tlist.size() != 0){
-										for(int i=0; i<tlist.size(); i++) {
+										//15개 이상이라면, 15개까지만 추출
+										if(tlist.size() > 15) {
+											tlcon = 15;
+										}
+										for(int i=0; i< tlcon; i++) {
+											String end = tlist.get(i).getRms_end();
+											if(tlist.get(i).getRms_end().length() > 5) {
+												end = end.substring(0, 5);
+												endresult = -1;
+											}
 									%>
 									<tr>
 										 <td>
-										 <div style="float:left">
-											<input style="height:45px; width:110px; text-align:center;" name="jobs<%= i %>" readonly value="<%= tlist.get(i).getRms_job() %>">
-										 </div>
-										 <div style="float:left">
-											 <textarea class="textarea con" wrap="hard"  id="bbsContent<%= i %>" maxlength="500" required style="height:45px;width:290px; border:none; resize:none " placeholder="업무내용" name="bbsContent<%= i %>"><%= tlist.get(i).getRms_con() %></textarea>
-										 </div>
+										 	<div style="float:left">
+											 <select required name="jobs<%= i %>" id="jobs<%= i %>" style="height:45px; width:120px; text-align-last:center;">
+													 <option <%= tlist.get(i).getRms_job().equals("[시스템]")?"selected":"" %> value=""> [시스템] </option>
+													 <%
+													 for(int count=0; count < works.size(); count++) {
+														 String wo = works.get(count).replaceAll("/", "");
+													 %>
+													 	<option <%= tlist.get(i).getRms_job().equals(wo.trim())?"selected":"" %>> <%= wo %> </option>
+													 <%
+													 }
+													 %>
+													 <option <%= tlist.get(i).getRms_job().equals("기타")?"selected":"" %>> 기타 </option>
+												 </select>
+											 </div>
+											 <div style="float:left">
+											 <textarea class="textarea con" wrap="hard" id="bbsContent<%= i %>" maxlength="500" required style="height:45px;width:290px; border:none; resize:none " placeholder="업무내용" name="bbsContent<%= i %>"><%= tlist.get(i).getRms_con() %></textarea>
+											 </div>
 										 </td>
-										 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart<%= i %>" class="form-control" placeholder="접수일" name="bbsStart<%= i %>" value="<%= tlist.get(i).getRms_str() %>" ></td>
+										 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart<%= i %>" class="form-control" placeholder="접수일" name="bbsStart<%= i %>" value="<%= tlist.get(i).getRms_str() %>"></td>
 										 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsTarget<%= i %>" value="<%= tlist.get(i).getRms_tar() %>"></td>		
-										 <td><textarea class="textarea" id="bbsEnd<%= i %>" style="height:45px; width:100%; border:none; resize:none; text-align:center"  placeholder="진행율&#13;&#10;/완료일" maxlength="10" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>" ><%= tlist.get(i).getRms_end() %></textarea></td>
+										 <td><textarea class="textarea end" id="bbsEnd<%= i %>" style="height:45px; width:70px; border:none; resize:none; text-align:center"  placeholder="MM/dd" maxlength="5" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsEnd<%= i %>"><%= end %></textarea></td>
+										 <td><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button></td>
+										 <td><button type="button" id="paste<%= i %>" class="btn btn-default paste" style="margin-bottom:5px; margin-top:5px; display:block;" onclick="paste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>
+										 	 <input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="chkpos" value="<%= i %>"></td>
 									</tr>
 									<%
 										}
 									}
 									%>
 									</tbody>
-								</table>		
+								</table>
+									<div id="wrapper" style="width:100%; text-align: center;">
+										<button type="button" id="add" style="margin-bottom:15px; margin-right:30px" onclick="addRow()" class="btn btn-primary"> + </button>
+									</div>	 			
 
 
 				<!-- 차주 업무 계획  -->
@@ -249,22 +282,41 @@
 				<thead>
 				</thead>
 				<tbody id="tbody">
-							<tr>
-								<th colspan="100%" style="background-color: #D4D2FF;" align="center">차주 업무 계획</th>
+							<tr class="ui-state-default ui-state-disabled">
+								<th colspan="5" style="background-color: #D4D2FF;" align="center">차주 업무 계획
+								<button type="button" style="width:55px; height:30px; display:none" id="npost" class="btn btn-success pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="차주 내용을<br>금주 내용에 추가합니다.">추가</button>
+								<button type="button" style="width:50px; height:30px; background-color:transparent" id="npost_start" class="btn pull-right" data-toggle="tooltip" data-html="true" data-placement="bottom" title="차주 내용을<br>금주 내용에 추가합니다." value="false"> <span class="glyphicon glyphicon-triangle-top"></span> </button></th>
 							</tr>
-							<tr style="background-color: #FFC57B;">
-								<th width="50%" style="text-align:center"> &nbsp; 업무내용</th>
-								<th width="10%" style="text-align:center"> &nbsp; 접수일</th>
-								<th width="10%" style="text-align:center"> &nbsp; 완료목표일</th>
+							<tr style="background-color: #FFC57B;" class="ui-state-default ui-state-disabled">
+								<th style="text-align:center" width="60%">&nbsp; 업무내용</th>
+								<th style="text-align:center" width="10%">&nbsp; 접수일</th>
+								<th style="text-align:center" width="10%">&nbsp; 완료목표일</th>
+								<th style="text-align:center" width="20%"></th>
+								<th style="text-align:center" width="10%"></th>
 							</tr>
 							<%
+							int nlcon = nlist.size();
 							if(nlist.size() != 0){
-								for(int i=0; i<nlist.size(); i++) {
+								if(nlcon > 15) {
+									nlcon = 15;
+								}
+								for(int i=0; i<nlcon; i++) {
 							%>
 							<tr>
 								 <td>
 								 	<div style="float:left">
-									 <input style="height:45px; width:110px; text-align:center;" name="njobs<%= i %>" readonly value="<%= nlist.get(i).getRms_job() %>">
+									 <select name="njobs<%= i %>" id="njobs<%= i %>" style="height:45px; width:120px; text-align-last:center;">
+											 <option <%= nlist.get(i).getRms_job().equals("[시스템]")?"selected":"" %>> [시스템] </option>
+											 <%
+											 for(int count=0; count < works.size(); count++) {
+												 String nwo = works.get(count).replaceAll("/", "");
+											 %>
+											 	<option <%= nlist.get(i).getRms_job().equals(nwo.trim())?"selected":"" %>> <%= nwo %> </option>
+											 <%
+											 }
+											 %>
+											 <option <%= nlist.get(i).getRms_job().equals("기타")?"selected":"" %>> 기타 </option>
+										 </select>
 									 </div>
 									 <div style="float:left">
 									 <textarea class="textarea ncon" wrap="hard" id="bbsNContent<%= i %>" maxlength="500" required style="height:45px;width:290px; border:none; resize:none " placeholder="업무내용" name="bbsNContent<%= i %>"><%= nlist.get(i).getRms_con() %></textarea>
@@ -272,6 +324,9 @@
 								 </td>
 								 <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsNStart<%= i %>" class="form-control" placeholder="접수일" name="bbsNStart<%= i %>" value="<%= nlist.get(i).getRms_str() %>" ></td>
 								 <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget<%= i %>" class="form-control" placeholder="완료목표일" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." name="bbsNTarget<%= i %>" value="<%= nlist.get(i).getRms_tar() %>"></td>		
+							 	<td><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delNRow" name="delNRow" class="btn btn-danger"> 삭제 </button></td>
+							 	<td><button type="button" id="npaste<%= i %>" class="btn btn-default npaste" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>
+							 		<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="nchkpos" value="<%= i %>"></td>
 							</tr>
 							<%
 								}
@@ -279,11 +334,12 @@
 							%>
 							</tbody>
 						</table>
+						<div id="wrapper" style="width:100%; text-align: center;">
+								<button type="button" id="nadd" style="margin-bottom:5px; margin-top:5px; margin-right:35px; margin-bottom:50px;" onclick="addNRow()" class="btn btn-primary"> + </button>
+						</div>
+						
 						<!-- '계정 관리가 있을 경우, 생성' -->
-						<%
-							if(erp != null && erp.size() != 0){
-						%>
-						<table class="table" id="accountTable" style="text-align: center; cellpadding:50px;" >
+						<table class="table" id="accountTable" style="text-align: center; cellpadding:50px; display:none;" >
 							<tbody id="tbody">
 							<tr>
 								<th colspan="6" style="background-color: #ccffcc;" align="center">ERP 디버깅 권한 신청 처리 현황</th>
@@ -294,30 +350,14 @@
 								<th width="35%" style="text-align:center; border: 1px solid; font-size:10px">SText(변경값)</th>
 								<th width="15%" style="text-align:center; border: 1px solid; font-size:10px">ERP권한신청서번호</th>
 								<th width="15%" style="text-align:center; border: 1px solid; font-size:10px">구분(일반/긴급)</th>
+								<th width="15%" style="text-align:center; border: 1px solid; font-size:10px"></th>
 							</tr>
-							<%
-							if(erp != null && erp.size() != 0){
-								for(int i=0; i<erp.size(); i++) {
-							%>
-							<tr>
-								<td style="text-align:center; border: 1px solid; font-size:10px; background-color:white">
-								  <textarea class="textarea" id="erp_date0" maxlength="10" style=" width:180px; border:none; resize:none" placeholder="YYYY-MM-DD" name="erp_date<%=i%>"><%= erp.get(i).getErp_date() %></textarea></td>
-							  	<td style="text-align:center; border: 1px solid; font-size:10px; background-color:white">  
-								  <textarea class="textarea" id="erp_user0" maxlength="10" style=" width:130px; border:none; resize:none" placeholder="사용자명" name="erp_user<%=i%>"><%= erp.get(i).getErp_user() %></textarea></td>
-							  	<td style="text-align:center; border: 1px solid; font-size:10px; background-color:white">  
-								  <textarea class="textarea"  id="erp_stext0" maxlength="100" style=" width:300px; border:none; resize:none" placeholder="변경값" name="erp_stext<%=i%>"><%= erp.get(i).getErp_text() %></textarea></td>
-							  	<td style="text-align:center; border: 1px solid; font-size:10px; background-color:white">  
-								  <textarea class="textarea" id="erp_authority0" maxlength="10" style=" width:130px; border:none; resize:none" placeholder="ERP권한신청서번호" name="erp_authority<%=i%>"><%= erp.get(i).getErp_anum() %></textarea></td>
-							  	<td style="text-align:center; border: 1px solid; font-size:10px; background-color:white">  
-								  <textarea class="textarea" id="erp_division0" maxlength="2" style=" width:130px; border:none; resize:none " placeholder="구분(일반/긴급)" name="erp_division<%=i%>"><%= erp.get(i).getErp_div() %></textarea></td>
-							</tr>
-							<%
-								}
-							}
-							%>
+							
 							</tbody>
 						</table>
-						<% } %>
+						<div id="wrapper_account" style="width:100%; text-align: center; display:none">
+							<button type="button" style="margin-bottom:15px; margin-right:33px" onclick="addRowAccount()" class="btn btn-primary " data-toggle="tooltip" data-placement="bottom" title="ERP 디버깅 권한 신청 처리 작성"> + </button>
+						</div>
 						<!-- 계정 관리 끝 -->
 						<div id="wrapper" style="width:100%; text-align: center;">
 						
@@ -326,7 +366,7 @@
 						<% if(alsum == 0) { %>
 						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-success pull-right" onclick="saveData()"> 수정 </button>		
 						<% } %>
-					</div>					
+						</div>					
 				</form>
 			</div>
 		</div>
@@ -336,10 +376,12 @@
 	
 	<!-- 부트스트랩 참조 영역 -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 	<!-- auto size를 위한 라이브러리 -->
 	<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
 	<script src="../css/js/bootstrap.js"></script>
 	<script src="../modalFunction.js"></script>
+	<script src="/RMS/user/action/sortableAction.js"></script>
 	
 
 	<script>
@@ -376,6 +418,224 @@
 	});
 	</script>
 	
+	<script>
+	var work = "";
+	work = document.getElementById("work").value;
+	work = work.replaceAll("[","");
+	work = work.replaceAll("]","");
+	work = work.replaceAll(/\n/g,"");
+	work = work.replaceAll("/","");
+	work = work.split(',');
+	
+	var con = document.getElementsByClassName('con').length;
+	var trCnt = <%= tlcon %>;
+		function addRow() {
+			var strworks ="";
+	
+			for(var count=0; count < work.length; count++) {
+				if(work[count]!="") {
+					strworks += "<option>"+work[count]+ "</option>"
+				}
+			 	//console.log(work[count]);
+			} 
+				//var trCnt = $('#bbsTable tr').length;
+				//var trCnt = parseInt(document.getElementById("len").value) + parseInt($('#bbsTable tr').length) + 1 - parseInt($('#bbsTable tr').length);
+				
+				//console.log(trCnt); // 버튼을 처음 눌렀을 때, 7 / 기본 6 -> + 누를 시, 1씩 증가
+				if(trCnt < 15) {
+				
+				var now = document.getElementById("now").value;
+
+				//앞에 생성된 데이터의 숫자 가져오기
+				if(document.getElementsByClassName('con').length != 0) {
+				var	conName = document.getElementsByClassName('con');
+					con = conName[conName.length-1].getAttribute('name');
+					con = Number(con.replace('bbsContent',''));
+					con += 1;
+				}
+				var c = "";
+				if(document.getElementsByClassName('con').length != 0) {
+					c = con;
+				}else {
+					c = trCnt;
+				}
+	            var innerHtml = "";
+	            innerHtml += '<tr>';
+	            innerHtml += '    <td>';
+            	innerHtml += '<div style="float:left">';
+	            innerHtml += '     <select name="jobs'+c+'" id="jobs'+c+'" style="height:45px; width:120px; text-align-last:center;">';
+	            innerHtml += '			<option> [시스템] </option>';
+	            innerHtml += strworks; 
+	            innerHtml += '  <option> 기타 </option>';
+	            innerHtml += ' </select>';
+	            innerHtml += ' </div>';
+	            innerHtml += ' <div style="float:left">';
+	            innerHtml += ' <textarea wrap="hard" class="textarea con" maxlength="500" id="bbsContent'+c+'" required style="height:45px;width:290px; border:none; resize:none" placeholder="업무내용" name="bbsContent'+c+'"></textarea>';
+	            innerHtml += '  </div> </td>';
+	            innerHtml += '  <td><input type="date" max="9999-12-31" required style="height:45px; width:auto;" id="bbsStart'+c+'" class="form-control" placeholder="접수일" name="bbsStart'+c+'"  value="'+now+'"></td>';
+	            innerHtml += ' <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsTarget'+c+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일" name="bbsTarget'+c+'" ></td>';
+	            innerHtml += '  <td><textarea class="textarea end" id="bbsEnd'+c+'" style="height:45px; resize:none; width:70px; border:none; text-align:center"  data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." maxlength="5" placeholder="MM/dd" name="bbsEnd'+c+'" ></textarea></td>'; 
+	            innerHtml += '    <td>';
+	            innerHtml += '<button type="button" style="margin-bottom:5px; margin-top:5px;" id="delRow" name="delRow" class="btn btn-danger"> 삭제 </button>';
+	            innerHtml += '    </td>';
+	            innerHtml += '    <td>';
+	            innerHtml += '<button type="button" id="paste'+c+'" class="btn btn-default paste" style="margin-bottom:5px; margin-top:5px;" onclick="paste(this.id)"><span class="glyphicon glyphicon-arrow-down"></span></button>';
+	            innerHtml += '<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="chkpos" value="'+c+'">';
+	            innerHtml += '    </td>';
+	            innerHtml += '</tr>'; 
+	            trCnt += 1;
+	            $('#bbsTable > tbody:last').append(innerHtml);      
+				} else {
+					alert("주간 업무 개수는 최대 15개를 넘을 수 없습니다.");
+				}
+		};
+	</script>
+	
+	<script>
+	$(document).on("click","button[name=delRow]", function() {
+		var trHtml = $(this).parent().parent();
+		trHtml.remove();
+		trCnt --;
+	});
+	</script>
+	
+	
+	<script>
+	var ncon = document.getElementsByClassName('ncon').length;
+	var trNCnt = <%= nlcon %>;
+		function addNRow() {
+			var strworks ="";
+				
+			for(var count=0; count < work.length; count++) {
+				if(work[count]!="") {
+					strworks += "<option>"+work[count]+ "</option>"
+				}
+			} 
+				//var trNCnt = parseInt(document.getElementById("nlen").value) + parseInt($('#bbsNTable tr').length) + 1 - parseInt($('#bbsNTable tr').length);
+				
+				if(trNCnt < 15) {
+				//console.log(trNCnt); // 버튼을 처음 눌렀을 때, 7 / 기본 6 -> + 누를 시, 1씩 증가
+				if(document.getElementsByClassName('ncon').length != 0) {
+				var now = document.getElementById("now").value;
+				//앞에 생성된 데이터의 숫자 가져오기
+					var nconName = document.getElementsByClassName('ncon');
+					ncon = nconName[nconName.length-1].getAttribute('name');
+					ncon = Number(ncon.replace('bbsNContent',''));
+					ncon += 1;
+				}
+				var n = "";
+				if(document.getElementsByClassName('ncon').length != 0) {
+					n = ncon;
+				}else {
+					n = trNCnt;
+				}
+	            var innerHtml = "";
+	            innerHtml += '<tr>';
+	            innerHtml += '    <td>';
+            	innerHtml += '<div style="float:left">';
+	            innerHtml += '     <select name="njobs'+n+'" id="njobs'+n+'" style="height:45px; width:120px; text-align-last:center;">';
+	            innerHtml += '			<option> [시스템] </option>';
+	            innerHtml += strworks; 
+	            innerHtml += '  <option> 기타 </option>';
+	            innerHtml += ' </select>';
+	            innerHtml += ' </div>';
+	            innerHtml += ' <div style="float:left">';
+	            innerHtml += ' <textarea wrap="hard" class="textarea ncon" maxlength="500" id="bbsNContent'+n+'" required style="height:45px;width:290px; resize:none; border:none; " placeholder="업무내용" name="bbsNContent'+n+'"></textarea>';
+	            innerHtml += '  </div> </td>';
+	            innerHtml += '  <td><input type="date" required max="9999-12-31" style="height:45px; width:auto;" id="bbsNStart'+n+'" class="form-control" placeholder="접수일" name="bbsNStart'+n+'" value="'+now+'"></td>';
+	            innerHtml += ' <td><input type="date" max="9999-12-31" style="height:45px; width:auto;" id="bbsNTarget'+n+'" data-toggle="tooltip" data-placement="bottom" title="미입력시 [보류]로 표시됩니다." class="form-control" placeholder="완료목표일"  name="bbsNTarget'+n+'" ></td>';
+	            innerHtml += '<td><button type="button" style="margin-bottom:5px; margin-top:5px" id="delRow" name="delNRow" class="btn btn-danger"> 삭제 </button></td>';
+	            innerHtml += '<td><button type="button" id="npaste'+n+'" class="btn btn-default npaste" style="margin-bottom:5px; margin-top:5px;" onclick="npaste(this.id)" data-html="true" data-toggle="tooltip" data-placement="bottom" title="업무선택/접수일/완료목표일<br>복사하여 붙여넣습니다."><span class="glyphicon glyphicon-arrow-down"></span></button>';
+	            innerHtml += '<input type="checkbox" style="display:none; height:18px; width:18px; margin-top:15px" name="nchkpos" value="'+n+'"></td>';
+	            innerHtml += '</td>';
+	            innerHtml += '</tr>'; 
+	            trNCnt += 1;
+	            $('#bbsNTable > tbody:last').append(innerHtml);
+				} else {
+					alert("주간 업무 개수는 최대 15개를 넘을 수 없습니다.");
+				}
+
+		};
+	</script>
+	
+	<script>
+		$(document).on("click","button[name=delNRow]", function() {
+			var trHtml = $(this).parent().parent();
+			trHtml.remove();
+			trNCnt --;
+		});
+		</script>
+		
+	
+	
+	<textarea class="textarea" id="workSet" name="workSet" style="display:none;" readonly><%= workSet %></textarea>
+	<script>
+	$(document).ready(function() {
+		//'계정관리' 업무를 담당하고 있다면, 
+		var workSet = document.getElementById("workSet").value;
+		if(workSet.indexOf("계정관리") > -1) {
+			// accountTable 보이도록 설정
+			document.getElementById("wrapper_account").style.display="block";
+		}
+	});
+	</script>
+	
+	<script>
+	//줄개수(count)
+	var acon = 0;
+	var trACnt = 0;
+	//'계정관리' 업무를 추가함.
+	function addRowAccount() {
+		//처음 작업시, erp 디버깅 권한 신청 처리 현황을 보이게 함.
+		document.getElementById("accountTable").style.display="block";
+		
+		if(trACnt < 2) {//최대 5개까지 증진
+			if(document.getElementsByClassName('acon').length != 0) {
+				var aconName = document.getElementsByClassName('acon');
+				acon = aconName[aconName.length-1].getAttribute('name');
+				acon = Number(acon.replace('erp_date',''));
+				acon += 1;
+			}
+			var a = "";
+			if(document.getElementsByClassName('acon').length != 0) {
+				a = acon;
+			}else {
+				a = trACnt;
+			}
+		var innerHtml = "";
+		var now = document.getElementById("now").value;
+		innerHtml += '<tr>';
+		innerHtml += '<td style="text-align:center; border: 1px solid;">';
+		//innerHtml += '<textarea class="textarea acon" maxlength="10" required id="erp_date'+a+'"  style=" width:180px; border:none; resize:none" placeholder="YYYY-MM-DD" name="erp_date'+a+'"></textarea></td>';
+		innerHtml += '<input type="date" class="acon" max="9999-12-31" required name="erp_date'+a+'" value="'+now+'"></td>'; 
+		innerHtml += '<td style="text-align:center; border: 1px solid; font-size:10px"> ';
+		innerHtml += '<textarea class="textarea" maxlength="10" required id="erp_user'+a+'"  style=" width:130px; border:none; resize:none" placeholder="사용자명" name="erp_user'+a+'"></textarea></td>';
+		innerHtml += '<td style="text-align:center; border: 1px solid; font-size:10px">  ';
+		innerHtml += '<textarea class="textarea" maxlength="150" required id="erp_stext'+a+'"  style=" width:300px; border:none; resize:none" placeholder="변경값" name="erp_stext'+a+'"></textarea></td>';
+		innerHtml += '<td style="text-align:center; border: 1px solid; font-size:10px">  ';
+		innerHtml += '<textarea class="textarea" required maxlength="20" id="erp_authority'+a+'"  style=" width:130px; border:none; resize:none" placeholder="ERP권한신청서번호" name="erp_authority'+a+'"></textarea></td>';
+		innerHtml += '<td style="text-align:center; border: 1px solid;">  ';
+		//innerHtml += '<textarea class="textarea" required maxlength="2" id="erp_division'+a+'"  style=" width:130px; border:none; resize:none" placeholder="구분(일반/긴급)" name="erp_division'+a+'"></textarea></td>';
+		innerHtml += '<select name="erp_division'+a+'"><option>일반</option><option>긴급</option></select></td>';
+		innerHtml += '<td style="border: 1px solid;"><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delARow" name="delARow" class="btn btn-danger"> 삭제 </button>';
+        innerHtml += '    </td>';
+		innerHtml +='</tr>';
+		trACnt += 1;
+		$('#accountTable > tbody:last').append(innerHtml);
+		} else {
+			alert("계정관리 업무는 최대 2개까지 작성 가능합니다.");
+			}
+	};
+	</script>
+	
+	<script>
+		$(document).on("click","button[name=delARow]", function() {
+			var trHtml = $(this).parent().parent();
+			trHtml.remove();
+			trACnt --;
+		}); 
+	</script>
+
 	<script>
 	var trCnt = <%= con %>;
 	var trNCnt = <%= ncon %>;
