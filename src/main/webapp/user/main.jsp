@@ -198,8 +198,8 @@
 							<tr>
 								 <td>
 								 	<div style="float:left">
-									 <select name="njobs0" id="njobs0" style="height:45px; width:120px; text-align-last:center;">
-											 <option> [시스템] </option>
+									 <select required name="njobs0" id="njobs0" style="height:45px; width:120px; text-align-last:center;">
+											 <option value=""> [시스템] </option>
 											 <%
 											 for(int count=0; count < works.size(); count++) {
 												 String nwo = works.get(count).replaceAll("/", "");
@@ -313,8 +313,8 @@
 	            innerHtml += '<tr>';
 	            innerHtml += '    <td>';
             	innerHtml += '<div style="float:left">';
-	            innerHtml += '     <select name="jobs'+c+'" id="jobs'+c+'" style="height:45px; width:120px; text-align-last:center;">';
-	            innerHtml += '			<option> [시스템] </option>';
+	            innerHtml += '     <select required name="jobs'+c+'" id="jobs'+c+'" style="height:45px; width:120px; text-align-last:center;">';
+	            innerHtml += '			<option value=""> [시스템] </option>';
 	            innerHtml += strworks; 
 	            innerHtml += '  <option> 기타 </option>';
 	            innerHtml += ' </select>';
@@ -382,8 +382,8 @@
 	            innerHtml += '<tr>';
 	            innerHtml += '    <td>';
             	innerHtml += '<div style="float:left">';
-	            innerHtml += '     <select name="njobs'+n+'" id="njobs'+n+'" style="height:45px; width:120px; text-align-last:center;">';
-	            innerHtml += '			<option> [시스템] </option>';
+	            innerHtml += '     <select required name="njobs'+n+'" id="njobs'+n+'" style="height:45px; width:120px; text-align-last:center;">';
+	            innerHtml += '			<option value=""> [시스템] </option>';
 	            innerHtml += strworks; 
 	            innerHtml += '  <option> 기타 </option>';
 	            innerHtml += ' </select>';
