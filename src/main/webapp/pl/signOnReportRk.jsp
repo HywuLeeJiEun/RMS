@@ -56,9 +56,21 @@
 			pageNumber = request.getParameter("pageNumber");
 		}
 		
+		//기존 데이터 불러오기 (파라미터로 bbsDeadline 받기)
+		String rms_dl = request.getParameter("rms_dl");
+		//만약 user_id가 있다면!
+		String user_id = request.getParameter("user_id");
+		if(user_id == null || user_id.isEmpty()) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('유효하지 않은 글입니다')");
+			script.println("location.href='/RMS/user/bbs.jsp'");
+			script.println("</script");
+		}
+		
 		// ********** 담당자를 가져오기 위한 메소드 *********** 
 		String workSet;
-		ArrayList<String> code = userDAO.getCode(id); //코드 리스트 출력(rmsmgrs에 접근하여, task_num을 가져옴.)
+		ArrayList<String> code = userDAO.getCode(user_id); //코드 리스트 출력(rmsmgrs에 접근하여, task_num을 가져옴.)
 		List<String> works = new ArrayList<String>();
 		
 		if(code.size() == 0) {
@@ -98,13 +110,7 @@
 		//사용자의 AU(Authority) 권한 가져오기 (일반/PL/관리자)
 		String au = ulist.get(0).getUser_au();
 		
-		//기존 데이터 불러오기 (파라미터로 bbsDeadline 받기)
-		String rms_dl = request.getParameter("rms_dl");
-		//만약 user_id가 있다면!
-		String user_id = request.getParameter("user_id");
-		if(user_id == null || user_id.isEmpty()) {
-			user_id = id;
-		}
+		
 		// 만약 넘어온 데이터가 없다면
 		if(rms_dl == null || rms_dl.isEmpty()){
 			PrintWriter script = response.getWriter();
@@ -191,7 +197,7 @@
 		
 		<div class="container">
 			<div class="row">
-				<form method="post" action="/RMS/user/action/mainAction.jsp" id="main" name="main" onsubmit="return false">
+				<form method="post" action="/RMS/pl/action/SignOnupdateAction.jsp" id="main" name="main" onsubmit="return false">
 					<table class="table" id="bbsTable" style="text-align: center; border: 1px solid #dddddd; cellpadding:50px;" >
 						<thead>
 							<tr>
@@ -355,9 +361,7 @@
 							
 							</tbody>
 						</table>
-						<div id="wrapper_account" style="width:100%; text-align: center; display:none">
-							<button type="button" style="margin-bottom:15px; margin-right:33px" onclick="addRowAccount()" class="btn btn-primary " data-toggle="tooltip" data-placement="bottom" title="ERP 디버깅 권한 신청 처리 작성"> + </button>
-						</div>
+						<div id="wrapper_account" style="width:100%; text-align: center; display:none"></div>
 						<!-- 계정 관리 끝 -->
 						<div id="wrapper" style="width:100%; text-align: center;">
 						
@@ -366,6 +370,7 @@
 						<% if(alsum == 0) { %>
 						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-success pull-right" onclick="saveData()"> 수정 </button>		
 						<% } %>
+						<button type="Submit" id="save_sub" style="margin-bottom:50px; display:none" class="btn btn-primary pull-right"> 저장 </button>
 						</div>					
 				</form>
 			</div>
@@ -373,6 +378,8 @@
 
 	<!-- 현재 날짜에 대한 데이터 -->
 	<textarea class="textarea" id="now" style="display:none " name="now"><%= now %></textarea>
+	<textarea class="textarea" id="workSet" name="workSet" style="display:none;" readonly><%= workSet %></textarea>
+	
 	
 	<!-- 부트스트랩 참조 영역 -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -403,9 +410,6 @@
 		});
 		</script>
 	
-	<textarea class="textarea" id="workSet" name="workSet" style="display:none;" readonly><%= workSet %></textarea>
-	
-	<textarea class="textarea" id="workSet" name="workSet" style="display:none;" readonly><%= workSet %></textarea>
 	<script>
 	//'계정관리' 업무를 담당하고 있다면, 
 	$(document).ready(function() {
@@ -566,67 +570,7 @@
 		});
 		</script>
 		
-	
-	
-	<textarea class="textarea" id="workSet" name="workSet" style="display:none;" readonly><%= workSet %></textarea>
-	<script>
-	$(document).ready(function() {
-		//'계정관리' 업무를 담당하고 있다면, 
-		var workSet = document.getElementById("workSet").value;
-		if(workSet.indexOf("계정관리") > -1) {
-			// accountTable 보이도록 설정
-			document.getElementById("wrapper_account").style.display="block";
-		}
-	});
-	</script>
-	
-	<script>
-	//줄개수(count)
-	var acon = 0;
-	var trACnt = 0;
-	//'계정관리' 업무를 추가함.
-	function addRowAccount() {
-		//처음 작업시, erp 디버깅 권한 신청 처리 현황을 보이게 함.
-		document.getElementById("accountTable").style.display="block";
-		
-		if(trACnt < 2) {//최대 5개까지 증진
-			if(document.getElementsByClassName('acon').length != 0) {
-				var aconName = document.getElementsByClassName('acon');
-				acon = aconName[aconName.length-1].getAttribute('name');
-				acon = Number(acon.replace('erp_date',''));
-				acon += 1;
-			}
-			var a = "";
-			if(document.getElementsByClassName('acon').length != 0) {
-				a = acon;
-			}else {
-				a = trACnt;
-			}
-		var innerHtml = "";
-		var now = document.getElementById("now").value;
-		innerHtml += '<tr>';
-		innerHtml += '<td style="text-align:center; border: 1px solid;">';
-		//innerHtml += '<textarea class="textarea acon" maxlength="10" required id="erp_date'+a+'"  style=" width:180px; border:none; resize:none" placeholder="YYYY-MM-DD" name="erp_date'+a+'"></textarea></td>';
-		innerHtml += '<input type="date" class="acon" max="9999-12-31" required name="erp_date'+a+'" value="'+now+'"></td>'; 
-		innerHtml += '<td style="text-align:center; border: 1px solid; font-size:10px"> ';
-		innerHtml += '<textarea class="textarea" maxlength="10" required id="erp_user'+a+'"  style=" width:130px; border:none; resize:none" placeholder="사용자명" name="erp_user'+a+'"></textarea></td>';
-		innerHtml += '<td style="text-align:center; border: 1px solid; font-size:10px">  ';
-		innerHtml += '<textarea class="textarea" maxlength="150" required id="erp_stext'+a+'"  style=" width:300px; border:none; resize:none" placeholder="변경값" name="erp_stext'+a+'"></textarea></td>';
-		innerHtml += '<td style="text-align:center; border: 1px solid; font-size:10px">  ';
-		innerHtml += '<textarea class="textarea" required maxlength="20" id="erp_authority'+a+'"  style=" width:130px; border:none; resize:none" placeholder="ERP권한신청서번호" name="erp_authority'+a+'"></textarea></td>';
-		innerHtml += '<td style="text-align:center; border: 1px solid;">  ';
-		//innerHtml += '<textarea class="textarea" required maxlength="2" id="erp_division'+a+'"  style=" width:130px; border:none; resize:none" placeholder="구분(일반/긴급)" name="erp_division'+a+'"></textarea></td>';
-		innerHtml += '<select name="erp_division'+a+'"><option>일반</option><option>긴급</option></select></td>';
-		innerHtml += '<td style="border: 1px solid;"><button type="button" style="margin-bottom:5px; margin-top:5px;" id="delARow" name="delARow" class="btn btn-danger"> 삭제 </button>';
-        innerHtml += '    </td>';
-		innerHtml +='</tr>';
-		trACnt += 1;
-		$('#accountTable > tbody:last').append(innerHtml);
-		} else {
-			alert("계정관리 업무는 최대 2개까지 작성 가능합니다.");
-			}
-	};
-	</script>
+
 	
 	<script>
 		$(document).on("click","button[name=delARow]", function() {
@@ -658,7 +602,7 @@
 			innerHtml += '</tr>';
 	        $('#bbsNTable > tbody> tr:last').append(innerHtml);
 	        
-	 		$("#save_sub").trigger("click");
+	        $("#save_sub").trigger("click");
 	        
 	        var form = document.getElementById("main");
 	        	if(form.checkValidity()) {
