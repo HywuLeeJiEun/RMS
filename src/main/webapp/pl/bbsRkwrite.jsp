@@ -188,6 +188,10 @@
 		int lsize = flist.size(); //해당 pl을 담당하는 user들의 제출 rms
 		int noSub =  psize - lsize;
 		
+		if(noSub < 0) {
+			noSub = 0;
+		}
+		
 		//해당 인원 전원 불러오기 (이름으로 변경)
 		ArrayList<String> username = new ArrayList<String>();
 		for(int i=0; i<plist.size(); i++) {

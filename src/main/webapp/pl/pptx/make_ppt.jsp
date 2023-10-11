@@ -1,3 +1,4 @@
+<%@page import="rmssumm.RmssummDAO"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="net.sf.jasperreports.swing.JRViewer"%>
@@ -35,6 +36,7 @@
 <body>
 
 <%
+	RmssummDAO sumDAO = new RmssummDAO(); //요약본 목록 (v2.-)
 
 	String rms_dl = request.getParameter("rms_dl");
 	String[] dl = rms_dl.split("-");
@@ -109,6 +111,23 @@
 	} catch (Exception ex) {
 	     ex.printStackTrace();
 	
+	}
+	
+	
+	//만약, WEB&ERP 모두 작성되어 있다면,
+	String makeSumErp = "";
+	String makeSumWeb = "";
+	
+	if(pluser.equals("WEB")) {
+		makeSumErp = sumDAO.getDluse(rms_dl, "ERP");  // ERP가 있는지 확인
+		
+	}
+	if (pluser.equals("ERP")) {
+		makeSumWeb = sumDAO.getDluse(rms_dl, "WEB");  // WEB이 있는지 확인
+	}
+	if(makeSumErp != "" && makeSumWeb != "") {
+		System.out.println("summary 생성");
+		response.sendRedirect("/RMS/admin/pptx/make_pptAdmin.jsp?rms_dl="+rms_dl); // rms_dl에 대한 summary가 모두 작성된 건으로, 내용을 생성함!
 	}
 	
 	
