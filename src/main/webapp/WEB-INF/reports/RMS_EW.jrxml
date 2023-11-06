@@ -18,7 +18,7 @@
 	</parameter>
 	<parameter name="pluser" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select  p.*, np.RMS_CON as RMS_NCON, np.RMS_STR as RMS_NSTR, np.RMS_TAR as RMS_NTAR, u.USER_FD
+		<![CDATA[select  distinct p.*, np.RMS_CON as RMS_NCON, np.RMS_STR as RMS_NSTR, np.RMS_TAR as RMS_NTAR, u.USER_FD
 from  (select * from rms.pptxrms where rms_div="N") np,
 (select * from rms.pptxrms where rms_div="T") p
 left join  rms.rmsuser u 
