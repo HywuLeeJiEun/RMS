@@ -220,7 +220,8 @@
 
     <!-- nav바 불러오기 -->
     <jsp:include page="../Nav.jsp"></jsp:include>
-		
+	
+	
 	<div class="container area" style="cursor:pointer;" id="jb-title">
 		<table class="table table-striped" style="text-align: center; cellpadding:50px;" >
 			<thead>
