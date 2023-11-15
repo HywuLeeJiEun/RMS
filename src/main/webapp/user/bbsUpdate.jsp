@@ -547,42 +547,52 @@
 	</script>
 	
 	<script>
+	var status = false;
+	
 	function saveData() {
 		if(trCnt == 0) {
 			alert("금주 업무 실적에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
 		} else if (trNCnt == 0) {
 			alert("차주 업무 계획에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
 		} else {
-			//진행율/완료일이 6글자 이상이라면, (5글자 초과)
 			
-			var innerHtml = "";
-			innerHtml += '<tr style="display:none">';
-			innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
-			innerHtml += '<td><textarea class="textarea" id="trNCnt" name="trNCnt" readonly>'+trNCnt+'</textarea></td>';
-			innerHtml += '<td><textarea class="textarea" id="trACnt" name="trACnt" readonly>'+trACnt+'</textarea></td>';
-			innerHtml += '<td><textarea class="textarea" id="con" name="con" readonly>'+con+'</textarea></td>';
-			innerHtml += '<td><textarea class="textarea" id="ncon" name="ncon" readonly>'+ncon+'</textarea></td>';
-			innerHtml += '<td><textarea class="textarea" id="acon" name="acon" readonly>'+acon+'</textarea></td>';
-			innerHtml += '</tr>';
-	        $('#bbsNTable > tbody> tr:last').append(innerHtml);
-	        
-	        //document.getElementById('save_sub').click;
-	        $("#save_sub").trigger("click");
-	        
-	        //submit 에러를 막기 위해, submit 버튼을 제거하고, 자바 이벤트로 넘김!
-	        //$("#main").submit();
-	        var form = document.getElementById("main");
-	        //form.action = "/RMS/user/action/mainAction.jsp";
-	        //form.mathod = "post";
-	        //form.submit(); 
-	        
-	        //$("#main").bind("submit", manualValidate);
-	   
-	        if(form.checkValidity()) {
-	        	form.action = "/RMS/user/action/mainAction.jsp";
-	            form.mathod = "post";
-	            form.submit(); 
-	        }
+			if(status = true) {
+				// 재작성 금지
+			} else {
+			
+				// 작업 진행중임을 표시
+				status = true;
+				
+				//진행율/완료일이 6글자 이상이라면, (5글자 초과)
+				var innerHtml = "";
+				innerHtml += '<tr style="display:none">';
+				innerHtml += '<td><textarea class="textarea" id="trCnt" name="trCnt" readonly>'+trCnt+'</textarea></td>';
+				innerHtml += '<td><textarea class="textarea" id="trNCnt" name="trNCnt" readonly>'+trNCnt+'</textarea></td>';
+				innerHtml += '<td><textarea class="textarea" id="trACnt" name="trACnt" readonly>'+trACnt+'</textarea></td>';
+				innerHtml += '<td><textarea class="textarea" id="con" name="con" readonly>'+con+'</textarea></td>';
+				innerHtml += '<td><textarea class="textarea" id="ncon" name="ncon" readonly>'+ncon+'</textarea></td>';
+				innerHtml += '<td><textarea class="textarea" id="acon" name="acon" readonly>'+acon+'</textarea></td>';
+				innerHtml += '</tr>';
+		        $('#bbsNTable > tbody> tr:last').append(innerHtml);
+		        
+		        //document.getElementById('save_sub').click;
+		        $("#save_sub").trigger("click");
+		        
+		        //submit 에러를 막기 위해, submit 버튼을 제거하고, 자바 이벤트로 넘김!
+		        //$("#main").submit();
+		        var form = document.getElementById("main");
+		        //form.action = "/RMS/user/action/mainAction.jsp";
+		        //form.mathod = "post";
+		        //form.submit(); 
+		        
+		        //$("#main").bind("submit", manualValidate);
+		        
+		        if(form.checkValidity()) {
+		        	form.action = "/RMS/user/action/mainAction.jsp";
+		            form.mathod = "post";
+		            form.submit(); 
+		        }
+			}
 		}
 	}
 	
