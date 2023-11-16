@@ -293,40 +293,43 @@
 	</script>
 	
 	<script>
+	
 	var status = false;
+	
 	function save() {
-		if(status == true) {
-			// 재제출 금지
+		if(document.getElementById("content0").value == '' || document.getElementById("content0").value == null) {
+			status = false;
+			alert("금주 업무 실적의 '업무 내용'이 작성되지 않았습니다.");
 		} else {
-			if(document.getElementById("content0").value == '' || document.getElementById("content0").value == null) {
-				alert("금주 업무 실적의 '업무 내용'이 작성되지 않았습니다.");
+			if(document.getElementById("end0").value == '' || document.getElementById("end0").value == null) {
+				status = false;
+				alert("금주 업무 실적의 '완료일'이 작성되지 않았습니다.");
 			} else {
-				if(document.getElementById("end0").value == '' || document.getElementById("end0").value == null) {
-					alert("금주 업무 실적의 '완료일'이 작성되지 않았습니다.");
+				if(document.getElementById("progress").value.indexOf("선택") > -1) {
+					status = false;
+					alert("금주 업무 실적의 '진행율'이 선택되지 않았습니다.");
 				} else {
-					if(document.getElementById("progress").value.indexOf("선택") > -1) {
-						alert("금주 업무 실적의 '진행율'이 선택되지 않았습니다.");
+					if(con.style.backgroundColor == '' || con.style.backgroundColor == null) {
+						status = false;
+						alert("금주 업무 실적의 '상태'가 선택되지 않았습니다.");
 					} else {
-						if(con.style.backgroundColor == '' || con.style.backgroundColor == null) {
-							alert("금주 업무 실적의 '상태'가 선택되지 않았습니다.");
+						//차주
+						if(document.getElementById("ncontent0").value == '' || document.getElementById("ncontent0").value == null) {
+							status = false;
+							alert("차주 업무 계획의 '업무 내용'이 작성되지 않았습니다.");
 						} else {
-							//차주
-							if(document.getElementById("ncontent0").value == '' || document.getElementById("ncontent0").value == null) {
-								alert("차주 업무 계획의 '업무 내용'이 작성되지 않았습니다.");
+							if(document.getElementById("ntarget0").value == '' || document.getElementById("ntarget0").value == null) {
+								status = false;
+								alert("차주 업무 계획의 '완료예정'이 작성되지 않았습니다.");
 							} else {
-								if(document.getElementById("ntarget0").value == '' || document.getElementById("ntarget0").value == null) {
-									alert("차주 업무 계획의 '완료예정'이 작성되지 않았습니다.");
-								} else {
-									
-									// 작업이 진행중임을 표시
-									status = true;
-									
-									var innerHtml = '<td><textarea class="textarea" id="color" name="color" style="display:none">'+con.style.backgroundColor+'</textarea></td>';
-									var innerHtml = '<td><textarea class="textarea" id="chk" name="chk" style="display:none">'+document.getElementById("chk").value+'</textarea></td>';
-									var innerHtml = '<td><textarea class="textarea" id="nchk" name="nchk" style="display:none">'+document.getElementById("nchk").value+'</textarea></td>';
-									$('#Table > tbody > tr:last').append(innerHtml);
-									$('#bbsRk').submit();
-								}
+								
+								status = true;
+								
+								var innerHtml = '<td><textarea class="textarea" id="color" name="color" style="display:none">'+con.style.backgroundColor+'</textarea></td>';
+								var innerHtml = '<td><textarea class="textarea" id="chk" name="chk" style="display:none">'+document.getElementById("chk").value+'</textarea></td>';
+								var innerHtml = '<td><textarea class="textarea" id="nchk" name="nchk" style="display:none">'+document.getElementById("nchk").value+'</textarea></td>';
+								$('#Table > tbody > tr:last').append(innerHtml);
+								$('#bbsRk').submit();
 							}
 						}
 					}

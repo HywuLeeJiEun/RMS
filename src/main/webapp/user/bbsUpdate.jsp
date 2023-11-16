@@ -547,20 +547,23 @@
 	</script>
 	
 	<script>
-	var status = false;
+	// semaphore를 이용한 버튼 중복 클릭 방지
+	var status = false; // (0 -> 미진행 / 1 -> 작업중)
 	
 	function saveData() {
+	
 		if(trCnt == 0) {
 			alert("금주 업무 실적에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
 		} else if (trNCnt == 0) {
 			alert("차주 업무 계획에 내용이 없습니다.\n하나 이상의 내용이 보고되어야 합니다.");
 		} else {
-			
-			if(status = true) {
-				// 재작성 금지
+	
+			if(status == true) {
+				console.log("작업수행중");
+				alert("작업 수행중입니다.");
 			} else {
-			
-				// 작업 진행중임을 표시
+				
+				//작업 진행중임을 표시
 				status = true;
 				
 				//진행율/완료일이 6글자 이상이라면, (5글자 초과)
@@ -585,12 +588,14 @@
 		        //form.mathod = "post";
 		        //form.submit(); 
 		        
-		        //$("#main").bind("submit", manualValidate);
+		        //$("#main").bind("submit", manualValidate);		        
 		        
 		        if(form.checkValidity()) {
 		        	form.action = "/RMS/user/action/mainAction.jsp";
 		            form.mathod = "post";
 		            form.submit(); 
+		        } else {
+		        	status = false;
 		        }
 			}
 		}
