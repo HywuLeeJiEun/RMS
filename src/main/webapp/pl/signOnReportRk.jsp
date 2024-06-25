@@ -367,9 +367,7 @@
 						
 						<!-- 목록 -->
 						<a href="/RMS/pl/bbsRk.jsp?rms_dl=<%= rms_dl %>&pageNumber=<%= pageNumber %>" class="btn btn-primary pull-right" style="margin-bottom:100px; margin-left:20px">목록</a>
-						<% if(alsum == 0) { %>
 						<button type="button" id="save" style="margin-bottom:50px; margin-right:20px" class="btn btn-success pull-right" onclick="saveData()"> 수정 </button>		
-						<% } %>
 						<button type="Submit" id="save_sub" style="margin-bottom:50px; display:none" class="btn btn-primary pull-right"> 저장 </button>
 						</div>					
 				</form>

@@ -117,25 +117,20 @@
 	//만약, WEB&ERP 모두 작성되어 있다면,
 	String makeSumErp = "";
 	String makeSumWeb = "";
-	
-	if(pluser.equals("WEB")) {
-		makeSumErp = sumDAO.getDluse(rms_dl, "ERP");  // ERP가 있는지 확인
+
+	makeSumErp = sumDAO.getDluse(rms_dl, "ERP");  // ERP가 있는지 확인
+	makeSumWeb = sumDAO.getDluse(rms_dl, "WEB");  // WEB이 있는지 확인
 		
-	}
-	if (pluser.equals("ERP")) {
-		makeSumWeb = sumDAO.getDluse(rms_dl, "WEB");  // WEB이 있는지 확인
-	}
-	if(makeSumErp != "" && makeSumWeb != "") {
-		System.out.println("summary 생성");
+	if((makeSumErp != "" && !makeSumErp.isEmpty()) && (makeSumWeb != "" && !makeSumWeb.isEmpty())) {
+		//System.out.println("summary 생성");
 		response.sendRedirect("/RMS/admin/pptx/make_pptAdmin.jsp?rms_dl="+rms_dl); // rms_dl에 대한 summary가 모두 작성된 건으로, 내용을 생성함!
+	} else {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		//script.println("alert('pptx 제작 완료')");
+		script.println("location.href='../summaryRk.jsp'");
+		script.println("</script>");
 	}
-	
-	
-	PrintWriter script = response.getWriter();
-	script.println("<script>");
-	//script.println("alert('pptx 제작 완료')");
-	script.println("location.href='../summaryRk.jsp'");
-	script.println("</script>");
 %>
 
 

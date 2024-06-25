@@ -191,7 +191,8 @@
 			//bbsId.add(Integer.toString(flist.get(i).getBbsID()));
 		}
 		for(int i=0; i<Subname.size(); i++) {
-			plist.remove(Subname.get(i));
+			plist.remove((Subname.get(i)).toLowerCase());
+			//System.out.println("Subname : " + (Subname.get(i)).toLowerCase());
 		}
 		//제출 안한 인원 찾기
 		for(int i=0; i<plist.size(); i++) {
@@ -220,7 +221,6 @@
 
     <!-- nav바 불러오기 -->
     <jsp:include page="../Nav.jsp"></jsp:include>
-	
 	
 	<div class="container area" style="cursor:pointer;" id="jb-title">
 		<table class="table table-striped" style="text-align: center; cellpadding:50px;" >

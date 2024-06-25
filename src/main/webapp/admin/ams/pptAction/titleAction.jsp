@@ -50,6 +50,9 @@
 		//getWeek = (getWeek - (mon-1) * 4) -1;
 		getWeek = (getWeek - mon * 4) +2;
 	}
+	if(getWeek == 0) {
+		getWeek = 1;
+	}
 	//System.out.println("Date : "+dates[1] +" getWeek : "+getWeek);
 
 		

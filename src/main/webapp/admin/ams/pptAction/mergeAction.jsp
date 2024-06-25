@@ -52,6 +52,9 @@
 		getWeek = (getWeek - mon * 4) +2;
 	}
 
+	if(getWeek == 0) {
+		getWeek = 1;
+	}
     
 	
 	//원본파일 경로
