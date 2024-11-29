@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="rmssumm.RmssummDAO"%>
 <%@page import="rmsrept.RmsreptDAO"%>
 <%@page import="rmsuser.RmsuserDAO"%>
@@ -56,8 +58,19 @@
 		/* String bbsNContent = request.getParameter("ncontent");
 		String bbsNTarget = request.getParameter("ntarget"); */
 		String nnote = request.getParameter("nnote");
-		//String sign = "미승인";
 		java.sql.Timestamp summaryDate = rms.getDateNow();
+		String sign = "미승인";
+		
+		// 날짜 비교 후, 승인 기간이 지난 경우 '마감' 처리
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date dldate = dateFormat.parse(rms_dl);
+		Date today = dateFormat.parse(summaryDate.toString());
+		
+		if(today.after(dldate)) {
+			// today가 마감일(dldate)보다 이후인 경우, (마감)
+			sign = "마감";
+		}
 	
 		int num = -1;
 		int nnum = -1;
